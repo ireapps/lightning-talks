@@ -1,0 +1,10 @@
+bcrypt==1.0.2
+cffi==0.8.6
+elasticsearch==1.2.0
+gnureadline==6.3.3
+ipython==2.3.1
+passlib==1.6.2
+py-bcrypt==0.4
+pycparser==2.10
+urllib3==1.9.1
+wsgiref==0.1.2
