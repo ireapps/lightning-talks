@@ -1,10 +1,15 @@
 from datetime import datetime
 import json
+import os
 import re
 import time
 from uuid import uuid4
 
 from passlib.hash import bcrypt
+from elasticsearch import Elasticsearch
+
+DEPLOYMENT_TARGET = os.environ.get('DEPLOYMENT_TARGET', 'development')
+ES_INDEX = 'lightningtalk-%s' % DEPLOYMENT_TARGET
 
 class ModelClass(object):
     id = None
@@ -38,7 +43,6 @@ class ModelClass(object):
     def __repr__(self):
         return self.__unicode__()
 
-
     def to_dict(self):
         payload = dict(self.__dict__)
 
@@ -50,9 +54,12 @@ class ModelClass(object):
     def to_json(self):
         return json.dumps(self.to_dict())
 
-    def commit_to_db(self):
+    def commit_to_db(self, index, doc_type):
         self.updated = datetime.now()
-        pass
+        es = Elasticsearch()
+        result = es.index(index=index, id=self.id, doc_type=doc_type, body=self.to_dict())
+        return result
+
 
 class User(ModelClass):
     name = None
@@ -80,8 +87,7 @@ class User(ModelClass):
         self.password = None
 
         if not test:
-            self.commit_to_db()
-
+            self.commit_to_db(ES_INDEX, 'user')
 
 
 class Session(ModelClass):
