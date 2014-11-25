@@ -17,18 +17,18 @@ def api_session(collection=None, methods=['GET']):
     from flask import request
     _id = request.args.get('_id', None)
     if not _id:
-        return json.dumps(list(utils.connect(collection).find({})))
+        return json.dumps(list(utils.connect('session').find({})))
 
     session = dict(utils.connect('session').find_one({"_id": _id}))
 
     return json.dumps(session)
 
 @app.route('/api/user/')
-def api_user(collection=None, methods=['GET']):
+def api_user(methods=['GET']):
     from flask import request
     _id = request.args.get('_id', None)
     if not _id:
-        return json.dumps(list(utils.connect(collection).find({})))
+        return json.dumps(list(utils.connect('user').find({})))
 
     user = dict(utils.connect('user').find_one({"_id": _id}))
     for x in ['login_hash', 'name', 'updated', 'created', 'password', 'fingerprint']:
@@ -37,25 +37,33 @@ def api_user(collection=None, methods=['GET']):
     return json.dumps(user)
 
 
-@app.route('/api/user/login/')
-def login(methods=['GET']):
+@app.route('/api/user/action/')
+def action(methods=['GET']):
     from flask import request
     email = request.args.get('email', None)
     password = request.args.get('password', None)
 
-    error = json.dumps({"success": False, "text": "Username or password is incorrect."})
+    not_found = json.dumps({"success": False, "text": "Username or password is incorrect."})
 
-    try:
-        user_dict = dict(utils.connect('user').find_one({ "email": email }))
+    user = utils.connect('user').find_one({ "email": email })
+
+    if not user:
+        name = request.args.get('name', None)
+        if not name:
+            return not_found
+
+        u = models.User(email=email, name=name, password=password)
+        u.save()
+        return json.dumps({"success": True, "_id": u._id, "action": "register"})
+
+    else:
+        user_dict = dict(user)
         u = models.User(**user_dict)
 
         if u.auth_user(password):
-            return json.dumps({"success": True, "_id": u._id})
+            return json.dumps({"success": True, "_id": u._id, "action": "login"})
 
-        return error
-
-    except:
-        return error
+    return not_found
 
 
 if __name__ == '__main__':

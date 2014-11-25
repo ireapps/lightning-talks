@@ -35,16 +35,23 @@ python app.py
 
 ## Overview
 ### Routes
-####`/api/user/login/`
-The `/api/user/login/` route expects `email` and `password` URL parameters and will return a user `_id` and a succcess flag.
+####`/api/user/action/`
+The `/api/user/action/` route can execute two actions. If only an `email` and `password` URL parameter are sent, the route will attempt to login the specified user. Success will return a user's `_id`, a `success` flag and an `action` key with the value `login`. Failure will return an error message with `success` false and a message that a matching user cannot be found.
 ```json
 {
     "_id": "97984267-ab75-46c4-b113-016a5555e92b",
-    "success": true
+    "success": true,
+    "action": "login"
 }
 ```
-Error returns `success: false` instead and a `text` key containing a message.
-
+If `email`, `password` and `name` are sent as URL parameters, the route will attempt to register this user. If an existing user has this email address, the user will be logged in. If there is no existing user with this email address, the user will be registered and a message will be sent returning the new user's `_id`, a `success` flag and an `action` key with the value `register`.
+```json
+{
+    "_id": "97984267-ab75-46c4-b113-016a5555e92b",
+    "success": true,
+    "action": "register"
+}
+```
 ####`/api/user/`
 The `/api/user/` route expects `_id`, a valid `uuid4` UUID matching a user in our database. It returns a cached list of `sessions_pitched`, a cached list of `sessions_voted_for`, the `_id` and the `email` address this user logs in with.
 ```json
