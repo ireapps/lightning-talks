@@ -12,6 +12,15 @@ import utils
 
 app = Flask(__name__)
 
+@app.route('/')
+def session_list():
+    sessions = utils.connect('session').find({})
+    if sessions:
+        sessions = sorted(sessions, key=lambda x: x['votes'], reverse=True)
+    else:
+        sessions = []
+    return render_template('session_list.html', sessions=sessions)
+
 @app.route('/api/session/')
 def api_session(collection=None, methods=['GET']):
     from flask import request
@@ -49,7 +58,8 @@ def action(methods=['GET']):
 
     if not user:
         name = request.args.get('name', None)
-        if not name:
+        fingerprint = request.args.get('fingerprint', None)
+        if not name or not fingerprint:
             return not_found
 
         u = models.User(email=email, name=name, password=password)
