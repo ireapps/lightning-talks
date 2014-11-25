@@ -47,7 +47,7 @@ def clear_collection(collection):
     collection.remove({})
 
 @task
-def get_updates():
+def tally():
     models.Session.tally()
     models.User.tally()
 
@@ -78,4 +78,4 @@ def fake_data():
     for vote_dict in load_votes():
         models.Vote(vote_dict).save()
 
-    get_updates()
+    tally()

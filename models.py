@@ -88,8 +88,8 @@ class User(ModelClass):
     def update_records(self):
         votes = utils.connect('vote')
         sessions = utils.connect('session')
-        self.sessions_voted_for = [x['_id'] for x in list(votes.find({"user": self._id}))]
-        self.sessions_pitched = [x for x in list(sessions.find({"user": self._id}))]
+        self.sessions_voted_for = [x['session'] for x in list(votes.find({"user": self._id}))]
+        self.sessions_pitched = [x['_id'] for x in list(sessions.find({"user": self._id}))]
         self.save()
 
     @staticmethod

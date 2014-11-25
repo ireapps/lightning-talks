@@ -12,9 +12,29 @@ import utils
 
 app = Flask(__name__)
 
-@app.route('/api/<string:collection>/')
-def api_collection(collection=None, methods=['GET']):
-    return json.dumps(list(utils.connect(collection).find()))
+@app.route('/api/session/')
+def api_session(collection=None, methods=['GET']):
+    from flask import request
+    _id = request.args.get('_id', None)
+    if not _id:
+        return json.dumps(list(utils.connect(collection).find({})))
+
+    session = dict(utils.connect('session').find_one({"_id": _id}))
+
+    return json.dumps(session)
+
+@app.route('/api/user/')
+def api_user(collection=None, methods=['GET']):
+    from flask import request
+    _id = request.args.get('_id', None)
+    if not _id:
+        return json.dumps(list(utils.connect(collection).find({})))
+
+    user = dict(utils.connect('user').find_one({"_id": _id}))
+    for x in ['login_hash', 'name', 'updated', 'created', 'password', 'fingerprint']:
+        del user[x]
+
+    return json.dumps(user)
 
 
 @app.route('/api/user/login/')
