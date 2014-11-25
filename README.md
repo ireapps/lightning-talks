@@ -28,7 +28,10 @@ python app.py
 ```
 
 ### Production
-TKTK
+#### Crons
+```
+*/1 * * * * ubuntu /bin/bash /home/ubuntu/apps/lightning-talks/repository/run_on_server.sh fab tally > /var/log/lightning-talks.log 2>&1
+```
 
 ## Overview
 ### Routes
