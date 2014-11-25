@@ -10,6 +10,7 @@ $(function(){
     var $submitLogout = $('#submit-logout');
     var $password = $('#password-login');
     var $email = $('#email-login');
+    var $name = $('#name-login');
 
     var set_login_status = function(logged_in, user) {
         console.log(logged_in, user);
@@ -32,18 +33,22 @@ $(function(){
     }
 
     var user_login = function() {
-        var user = {};
-        user['email'] = $email.val();
-        user['password'] = $password.val();
-        user['fingerprint'] = fingerprint;
-        $.ajax(loginHost + '?email=' + $email.val() + '&password=' + $password.val() + '&fingerprint=' + fingerprint, {
+        var url = loginHost;
+        url += '?email=' + $email.val();
+        url += '&password=' + $password.val();
+        url += '&fingerprint=' + fingerprint;
+
+        if ($name) {
+            url += '&name=' + $name.val();
+        }
+
+        $.ajax(url, {
             async: true,
-            cache: false,
+            cache: true,
             crossDomain: false,
             dataType: 'json',
             jsonp: false,
             success: function(data) {
-                console.log(data);
                 if (data['success'] === true) {
                     $.cookie(cookie_namespace + 'user', data['_id']);
                     set_login_status(true, data['_id']);
