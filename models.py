@@ -6,35 +6,10 @@ import time
 from uuid import uuid4
 
 from passlib.hash import bcrypt
-from pymongo import MongoClient
 
-DEPLOYMENT_TARGET = os.environ.get('DEPLOYMENT_TARGET', 'development')
-MONGO_DATABASE = 'lightningtalk-%s' % DEPLOYMENT_TARGET
+import settings
+import utils
 
-def connect(collection):
-    client = MongoClient()
-    db = client[MONGO_DATABASE]
-    return db[collection]
-
-def update_all_sessions():
-    collection = connect('session')
-    sessions = list(collection.find({}))
-
-    for session_dict in sessions:
-        s = Session(session_dict)
-        s.update_records()
-
-    print "Updated %s sessions." % len(sessions)
-
-def update_all_users():
-    collection = connect('user')
-    users = list(collection.find({}))
-
-    for user_dict in users:
-        u = User(user_dict)
-        u.update_records()
-
-    print "Updated %s users." % len(users)
 
 class ModelClass(object):
     _id = None
@@ -76,7 +51,7 @@ class ModelClass(object):
 
     def commit_to_db(self, collection):
         self.updated = time.mktime(datetime.now().timetuple())
-        collection = connect(collection)
+        collection = utils.connect(collection)
         result = collection.save(self.to_dict())
         return result
 
@@ -111,11 +86,22 @@ class User(ModelClass):
             self.commit_to_db('user')
 
     def update_records(self):
-        votes = connect('vote')
-        sessions = connect('session')
+        votes = utils.connect('vote')
+        sessions = utils.connect('session')
         self.sessions_voted_for = [x['_id'] for x in list(votes.find({"user": self._id}))]
         self.sessions_pitched = [x for x in list(sessions.find({"user": self._id}))]
         self.save()
+
+    @staticmethod
+    def tally():
+        collection = utils.connect('user')
+        users = list(collection.find({}))
+
+        for user_dict in users:
+            u = User(user_dict)
+            u.update_records()
+
+        print "Updated %s users." % len(users)
 
 
 class Session(ModelClass):
@@ -133,9 +119,20 @@ class Session(ModelClass):
             self.commit_to_db('session')
 
     def update_records(self):
-        votes = connect('vote')
+        votes = utils.connect('vote')
         self.votes = votes.find({"session": self._id}).count()
         self.save()
+
+    @staticmethod
+    def tally():
+        collection = utils.connect('session')
+        sessions = list(collection.find({}))
+
+        for session_dict in sessions:
+            s = Session(session_dict)
+            s.update_records()
+
+        print "Updated %s sessions." % len(sessions)
 
 class Vote(ModelClass):
     user = None

@@ -3,13 +3,11 @@ import os
 
 from fabric.api import local, require, settings, task
 from fabric.state import env
-from pymongo import MongoClient
 from termcolor import colored
 
-from models import User, Session, Vote, update_all_sessions, update_all_users, connect
-
-DEPLOYMENT_TARGET = os.environ.get('DEPLOYMENT_TARGET', 'development')
-MONGO_DATABASE = 'lightningtalk-%s' % DEPLOYMENT_TARGET
+import models
+import settings
+import utils
 
 env.user = "ubuntu"
 env.forward_agent = True
@@ -45,15 +43,13 @@ def tests():
     local('nosetests')
 
 def clear_collection(collection):
-    client = MongoClient()
-    db = client[MONGO_DATABASE]
-    collection = db[collection]
+    collection = utils.connect(collection)
     collection.remove({})
 
 @task
 def get_updates():
-    update_all_sessions()
-    update_all_users()
+    models.Session.tally()
+    models.User.tally()
 
 def load_users():
     with open('tests/users.json', 'r') as readfile:
@@ -74,12 +70,12 @@ def fake_data():
         clear_collection(collection)
 
     for user_dict in load_users():
-        User(user_dict).save()
+        models.User(user_dict).save()
 
     for session_dict in load_sessions():
-        Session(session_dict).save()
+        models.Session(session_dict).save()
 
     for vote_dict in load_votes():
-        Vote(vote_dict).save()
+        models.Vote(vote_dict).save()
 
     get_updates()
