@@ -22,6 +22,11 @@ pip install -r requirements.txt
 fab fake_data
 ```
 
+**Fourth**: Run the app.
+```sh
+python app.py
+```
+
 ### Production
 TKTK
 
@@ -70,7 +75,12 @@ The `/api/session/` route expects '_id', a valid `uuid4` UUID matching a session
 ```
 
 ## Models
-TKTK
+### User
+Represents a single user. Users can originate a `Session` and can also vote for a `Session`. See [models.py](https://github.com/ireapps/lightning-talks/blob/master/models.py#L59:L66) for more info.
+### Session
+Represents a single session. See [models.py](https://github.com/ireapps/lightning-talks/blob/master/models.py#L107:L112) for more info.
+### Vote
+Represents a single `User`'s vote on a single `Session`. See [models.py](https://github.com/ireapps/lightning-talks/blob/master/models.py#L137:L139) for more info.
 
 ## Tests
 To run tests, do `fab tests`.
