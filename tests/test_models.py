@@ -3,18 +3,15 @@ import unittest
 from passlib.hash import bcrypt
 
 from models import User, Session
+from fabfile import load_users, load_sessions, load_votes
 
 class TestUserModel(unittest.TestCase):
     user_dict = None
     user = None
 
     def setUp(self):
-        self.user_dict = {
-            "name": "jeremy bowers",
-            "email": "jeremybowers@gmail.com",
-            "password": "mytestpassword"
-        }
-
+        users = load_users()
+        self.user_dict = users[0]
         self.user = User(self.user_dict)
         self.user.save(test=True)
 
@@ -30,7 +27,7 @@ class TestUserModel(unittest.TestCase):
         self.assertEqual(self.user.__repr__(), "jeremy bowers")
 
     def test_create_id(self):
-        self.assertIsNotNone(self.user.id)
+        self.assertIsNotNone(self.user._id)
 
     def test_create_login_hash(self):
         self.assertIsNotNone(self.user.login_hash)
@@ -54,65 +51,24 @@ class TestSessionModel(unittest.TestCase):
     session = None
 
     def setUp(self):
-        self.user_dict = {
-            "name": "jeremy bowers",
-            "email": "jeremybowers@gmail.com",
-            "password": "mytestpassword"
-        }
-
+        users = load_users()
+        self.user_dict = users[0]
         self.user = User(self.user_dict)
         self.user.save(test=True)
 
-        self.session_dict = {
-            "title": "Too Many Cooks",
-            "description": """Man: It takes a lot to make a stew
-                Woman: A pinch of salt and laughter, too
-                M: A scoop of kids to add the spice
-                W: A dash of love to make it nice, and you've got
-                Both: Too many Cooks
-                W: Too many Cooks
-                B: Too many Cooks
-                M: Too many Cooks
-                B: Too many Cooks
-                W: Too many Cooks
-                B: Too many Cooks""",
-            "user": self.user.id,
-            "votes": 0,
-            "users_voting_for": []
-        }
-
+        sessions = load_sessions()
+        self.session_dict = sessions[0]
         self.session = Session(self.session_dict)
         self.session.save(test=True)
 
     def test_create_user_with_args(self):
-        self.assertEqual(self.session.title, "Too Many Cooks")
+        self.assertEqual(self.session.title, "Having The Time Of Your Life")
 
     def test_create_user_with_kwargs(self):
         self.session = Session(**self.session_dict)
         self.session.save(test=True)
-        self.assertEqual(self.session.title, "Too Many Cooks")
+        self.assertEqual(self.session.title, "Having The Time Of Your Life")
 
-    def test_cast_a_vote(self):
-        self.session.cast_vote(self.user.id)
-        self.assertEqual(self.session.votes, 1)
-        self.assertEqual(len(self.session.users_voting_for), 1)
-
-    def test_cast_two_votes(self):
-        self.session.cast_vote(self.user.id)
-
-        user_dict = {
-            "name": "heremy powers",
-            "email": "haremypowers@goomail.cram",
-            "password": "atestpasswordofcourse"
-        }
-
-        user = User(self.user_dict)
-        user.save(test=True)
-
-        self.session.cast_vote(user.id)
-
-        self.assertEqual(self.session.votes, 2)
-        self.assertEqual(len(self.session.users_voting_for), 2)
 
 if __name__ == '__main__':
     unittest.main()

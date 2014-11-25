@@ -6,13 +6,38 @@ import time
 from uuid import uuid4
 
 from passlib.hash import bcrypt
-from elasticsearch import Elasticsearch
+from pymongo import MongoClient
 
 DEPLOYMENT_TARGET = os.environ.get('DEPLOYMENT_TARGET', 'development')
-ES_INDEX = 'lightningtalk-%s' % DEPLOYMENT_TARGET
+MONGO_DATABASE = 'lightningtalk-%s' % DEPLOYMENT_TARGET
+
+def connect(collection):
+    client = MongoClient()
+    db = client[MONGO_DATABASE]
+    return db[collection]
+
+def update_all_sessions():
+    collection = connect('session')
+    sessions = list(collection.find({}))
+
+    for session_dict in sessions:
+        s = Session(session_dict)
+        s.update_records()
+
+    print "Updated %s sessions." % len(sessions)
+
+def update_all_users():
+    collection = connect('user')
+    users = list(collection.find({}))
+
+    for user_dict in users:
+        u = User(user_dict)
+        u.update_records()
+
+    print "Updated %s users." % len(users)
 
 class ModelClass(object):
-    id = None
+    _id = None
     created = None
     updated = None
 
@@ -29,10 +54,10 @@ class ModelClass(object):
         for k,v in kwargs.items():
             setattr(self, k, v)
 
-        if not self.id:
-            self.id = str(uuid4())
+        if not self._id:
+            self._id = str(uuid4())
 
-        now = datetime.now()
+        now = time.mktime(datetime.now().timetuple())
         for field in ['created', 'updated']:
             if not getattr(self, field):
                 setattr(self, field, now)
@@ -44,20 +69,15 @@ class ModelClass(object):
         return self.__unicode__()
 
     def to_dict(self):
-        payload = dict(self.__dict__)
-
-        for field in ['created', 'updated']:
-            payload[field] = time.mktime(getattr(self, field).timetuple())
-
-        return payload
+        return dict(self.__dict__)
 
     def to_json(self):
         return json.dumps(self.to_dict())
 
-    def commit_to_db(self, index, doc_type):
-        self.updated = datetime.now()
-        es = Elasticsearch()
-        result = es.index(index=index, id=self.id, doc_type=doc_type, body=self.to_dict())
+    def commit_to_db(self, collection):
+        self.updated = time.mktime(datetime.now().timetuple())
+        collection = connect(collection)
+        result = collection.save(self.to_dict())
         return result
 
 
@@ -68,6 +88,7 @@ class User(ModelClass):
     sessions_pitched = []
     login_hash = None
     password = None
+    fingerprint = None
 
     def __unicode__(self):
         return self.name
@@ -83,30 +104,46 @@ class User(ModelClass):
             if self.password == "password":
                 raise ValueError("Seriously. Seriously?")
 
-        self.login_hash = bcrypt.encrypt(self.password)
-        self.password = None
+            self.login_hash = bcrypt.encrypt(self.password)
+            self.password = None
 
         if not test:
-            self.commit_to_db(ES_INDEX, 'user')
+            self.commit_to_db('user')
+
+    def update_records(self):
+        votes = connect('vote')
+        sessions = connect('session')
+        self.sessions_voted_for = [x['_id'] for x in list(votes.find({"user": self._id}))]
+        self.sessions_pitched = [x for x in list(sessions.find({"user": self._id}))]
+        self.save()
 
 
 class Session(ModelClass):
     title = None
     description = None
     user = None
-    votes = 0
-    users_voting_for = []
     accepted = False
+    votes = 0
 
     def __unicode__(self):
         return self.title
 
-    def cast_vote(self, user):
-        self.votes += 1
-        self.users_voting_for.append(user)
+    def save(self, test=False):
+        if not test:
+            self.commit_to_db('session')
+
+    def update_records(self):
+        votes = connect('vote')
+        self.votes = votes.find({"session": self._id}).count()
         self.save()
-        return self.votes
+
+class Vote(ModelClass):
+    user = None
+    session = None
+
+    def __unicode__(self):
+        return "%s,%s" % (self.user, self.session)
 
     def save(self, test=False):
         if not test:
-            self.commit_to_db()
+            self.commit_to_db('vote')
