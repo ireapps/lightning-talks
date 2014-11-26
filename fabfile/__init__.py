@@ -59,6 +59,26 @@ def make_virtualenv():
 def checkout_project():
     api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/apps/%s/repository' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
 
+@api.task
+def reload_nginx():
+    api.run('sudo service nginx reload')
+
+@api.task
+def reload_uwsgi():
+    api.run('sudo service %s restart' % settings.PROJECT_NAME)
+
+@api.task
+def reload_services():
+    reload_nginx()
+    reload_uwsgi()
+
+@api.task
+def link_confs():
+    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/uwsgi.conf /etc/init/%s.conf' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+    api.run('sudo initctl reload-configuration')
+    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/nginx.conf /etc/nginx/sites-available/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+
+@api.task
 def update_project():
     api.run('cd /home/ubuntu/apps/%s/repository; git fetch' % settings.PROJECT_NAME)
     api.run('cd /home/ubuntu/apps/%s/repository; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
@@ -74,6 +94,8 @@ def setup():
         checkout_project()
         update_project()
         install_requirements()
+        link_confs()
+        reload_services()
 
 """
 SETUP TASKS
