@@ -32,6 +32,12 @@ python app.py
 ```
 */1 * * * * ubuntu /bin/bash /home/ubuntu/apps/lightning-talks/repository/run_on_server.sh fab tally > /var/log/lightning-talks.log 2>&1
 ```
+#### Software
+```
+sudo apt-get install easy_install python2.7-dev
+sudo easy_install pip
+sudo pip install virtualenv virtualenvwrapper
+```
 
 ## Overview
 ### Routes

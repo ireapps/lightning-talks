@@ -1,7 +1,7 @@
 import json
 import os
 
-from fabric.api import local, require, settings, task
+from fabric import api
 from fabric.state import env
 from termcolor import colored
 
@@ -11,42 +11,79 @@ import utils
 
 env.user = "ubuntu"
 env.forward_agent = True
+env.branch = "masterf"
 
 env.hosts = []
+env.settings = None
 
-@task
+@api.task
 def development():
     """
     Work on development branch.
     """
     env.branch = 'development'
 
-@task
+@api.task
 def master():
     """
     Work on stable branch.
     """
     env.branch = 'master'
 
-@task
+@api.task
 def branch(branch_name):
     """
     Work on any specified branch.
     """
     env.branch = branch_name
 
-@task
+@api.task
 def tests():
     """
     Run Python unit tests.
     """
-    local('nosetests')
+    api.local('nosetests')
+
+
+@api.task
+def e(environment):
+    env.settings = environment
+    env.hosts = settings.ENVIRONMENTS[environment]['hosts']
+
+def make_directories():
+    api.run('mkdir -p /home/ubuntu/apps/%s' % settings.PROJECT_NAME)
+
+def make_virtualenv():
+    api.run('mkvirtualenv %s' % (settings.PROJECT_NAME))
+
+def checkout_project():
+    api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/apps/%s/repository' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+
+def update_project():
+    api.run('cd /home/ubuntu/apps/%s/repository; git fetch' % settings.PROJECT_NAME)
+    api.run('cd /home/ubuntu/apps/%s/repository; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
+
+def install_requirements():
+    api.run('workon %s && pip install -r /home/ubuntu/apps/%s/repository/requirements.txt' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+
+@api.task
+def setup():
+    with api.settings(warn_only=True):
+        make_directories()
+        make_virtualenv()
+        checkout_project()
+        update_project()
+        install_requirements()
+
+"""
+SETUP TASKS
+"""
 
 def clear_collection(collection):
     collection = utils.connect(collection)
     collection.remove({})
 
-@task
+@api.task
 def tally():
     models.Session.tally()
     models.User.tally()
@@ -63,7 +100,7 @@ def load_votes():
     with open('tests/votes.json', 'r') as readfile:
         return list(json.loads(readfile.read()))
 
-@task
+@api.task
 def fake_data():
 
     for collection in ['user', 'session', 'vote']:
