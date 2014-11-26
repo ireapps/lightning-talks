@@ -6,8 +6,8 @@
 </div>
 <div class="row">
     {% for session in sessions %}
-    <div class="session">
-        <h3>[{{ session.votes }}] {{ session.title }}</h3>
+    <div class="session unvoted" id="{{ session._id }}">
+        <h3>[<span class="count">{{ session.votes }}</span>] {{ session.title }}</h3>
         <p>{{ session.description }}</p>
     </div>
     {% endfor %}
