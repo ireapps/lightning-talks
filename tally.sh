@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 while [ 1 ]; do
-    . ~/.bash_profile && fab tally
+    fab tally
     sleep 5
 done
