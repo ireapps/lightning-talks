@@ -39,9 +39,11 @@ python app.py
 The `/api/user/action/` route can execute two actions. If only an `email` and `password` URL parameter are sent, the route will attempt to login the specified user. Success will return a user's `_id`, a `success` flag and an `action` key with the value `login`. Failure will return an error message with `success` false and a message that a matching user cannot be found.
 ```json
 {
-    "_id": "97984267-ab75-46c4-b113-016a5555e92b",
-    "success": true,
-    "action": "login"
+    "action": "login",
+    "votes": "ef16edee-2292-49c8-b990-4d52b77529eb|d2650553-9e4f-4dc2-adee-f831419cf3e0|60b27f91-9506-498c-8758-90edfa1ad0b1",
+    "_id": "638d66e1-3304-4d86-8224-5149d4dedbb9",
+    "name": "jeremy bowers",
+    "success": true
 }
 ```
 If `email`, `password` and `name` are sent as URL parameters, the route will attempt to register this user. If an existing user has this email address, the user will be logged in. If there is no existing user with this email address, the user will be registered and a message will be sent returning the new user's `_id`, a `success` flag and an `action` key with the value `register`.
@@ -49,7 +51,8 @@ If `email`, `password` and `name` are sent as URL parameters, the route will att
 {
     "_id": "97984267-ab75-46c4-b113-016a5555e92b",
     "success": true,
-    "action": "register"
+    "action": "register",
+    "name": "jeremy bowers"
 }
 ```
 ####`/api/user/`
