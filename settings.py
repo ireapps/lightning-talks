@@ -7,3 +7,5 @@ if DEPLOYMENT_TARGET in ['production', 'staging']:
     DEBUG = False
 
 MONGO_DATABASE = 'lightningtalk-%s' % DEPLOYMENT_TARGET
+
+VOTING = True

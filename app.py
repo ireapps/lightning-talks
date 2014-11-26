@@ -19,7 +19,7 @@ def session_list():
         sessions = sorted(sessions, key=lambda x: x['votes'], reverse=True)
     else:
         sessions = []
-    return render_template('session_list.html', sessions=sessions)
+    return render_template('session_list.html', sessions=sessions, VOTING=settings.VOTING)
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):

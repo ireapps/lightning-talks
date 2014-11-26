@@ -1,4 +1,6 @@
 $(function(){
+    var VOTING = {{ VOTING|lower }};
+
     var IS_LOGGED_IN = false;
     var USER = null;
     var USER_VOTES = [];
@@ -29,12 +31,16 @@ $(function(){
             $userId.html(user);
             $loggedOut.hide();
             $loggedIn.show();
-            $('div.session.unvoted').css('cursor', 'pointer');
-            votes_show();
+            if (VOTING) {
+                $('div.session.unvoted').css('cursor', 'pointer');
+                votes_show();
+            }
         } else {
             $loggedIn.hide();
             $loggedOut.show();
-            votes_remove();
+            if (VOTING) {
+                votes_remove();
+            }
         }
     }
 
@@ -136,6 +142,8 @@ $(function(){
 
     $submitLogin.on('click', user_login);
     $submitLogout.on('click', user_logout);
-    $session.on('click', session_vote);
+    if (VOTING) {
+        $session.on('click', session_vote);
+    }
     check_cookie();
 });
