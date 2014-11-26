@@ -36,7 +36,7 @@ python app.py
 ## Overview
 ### Routes
 ####`/api/user/action/`
-The `/api/user/action/` route can execute two actions. If only an `email` and `password` URL parameter are sent, the route will attempt to login the specified user. Success will return a user's `_id`, a `success` flag and an `action` key with the value `login`. Failure will return an error message with `success` false and a message that a matching user cannot be found.
+The `/api/user/action/` route can execute two actions. If only an `email` and `password` URL parameter are sent, the route will attempt to login the specified user. Success will return a user's `_id`, a `success` flag and an `action` key with the value `login`. It will also return a cookie-friendly pipe-delimited list of session `_id`'s as `votes`. Failure will return an error message with `success` false and a message that a matching user cannot be found.
 ```json
 {
     "action": "login",
