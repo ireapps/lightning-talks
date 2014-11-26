@@ -2,7 +2,7 @@ $(function(){
     var VOTING = {{ VOTING|lower }};
 
     var IS_LOGGED_IN = false;
-    var USER = null;
+    var USER = [];
     var USER_VOTES = [];
     var loginHost = '/api/';
     var cookie_namespace = 'nicar15lightningtalks-';
@@ -28,7 +28,7 @@ $(function(){
         }
 
         if (logged_in) {
-            $userId.html(user);
+            $userId.html(user[1]);
             $loggedOut.hide();
             $loggedIn.show();
             if (VOTING) {
@@ -59,7 +59,7 @@ $(function(){
     var check_cookie = function() {
         if ($.cookie(cookie_namespace + 'user') !== undefined){
             if ($.cookie(cookie_namespace + 'votes') !== undefined) {
-                set_login_status(true, $.cookie(cookie_namespace + 'user'), $.cookie(cookie_namespace + 'votes').split("|"));
+                set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
             }
         } else {
             set_login_status(false, null, []);
@@ -70,7 +70,7 @@ $(function(){
         if (IS_LOGGED_IN && USER) {
             var url = loginHost + 'vote/action/';
             var session_id = $(this).attr('id');
-            url += '?user=' + USER;
+            url += '?user=' + USER[0];
             url += '&session=' + session_id;
             $.ajax(url, {
                 async: true,
@@ -92,14 +92,10 @@ $(function(){
 
                         // Percolate the changes.
                         set_login_status(true, USER, USER_VOTES);
-                    } else {
-                        console.log('failed');
                     }
                 }
             });
 
-        } else {
-            console.log('NOT LOGGED IN');
         }
     }
 
@@ -121,14 +117,12 @@ $(function(){
             jsonp: false,
             success: function(data) {
                 if (data['success'] === true) {
-                    $.cookie(cookie_namespace + 'user', data['_id']);
+                    $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
 
                     // Votes come back as pipe-delimited from the server.
                     $.cookie(cookie_namespace + 'votes', data['votes']);
 
-                    set_login_status(true, data['_id'], data['votes'].split("|"));
-                } else {
-                    console.log('failed');
+                    set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
                 }
             }
         });
