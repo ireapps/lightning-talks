@@ -56,16 +56,6 @@ $(function(){
         });
     }
 
-    var check_cookie = function() {
-        if ($.cookie(cookie_namespace + 'user') !== undefined){
-            if ($.cookie(cookie_namespace + 'votes') !== undefined) {
-                set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
-            }
-        } else {
-            set_login_status(false, null, []);
-        }
-    }
-
     var session_vote = function() {
         if (IS_LOGGED_IN && USER) {
             var url = loginHost + 'vote/action/';
@@ -104,10 +94,7 @@ $(function(){
         url += '?email=' + $email.val();
         url += '&password=' + $password.val();
         url += '&fingerprint=' + fingerprint;
-
-        if ($name) {
-            url += '&name=' + $name.val();
-        }
+        if ($name) { url += '&name=' + $name.val(); }
 
         $.ajax(url, {
             async: true,
@@ -134,10 +121,20 @@ $(function(){
         set_login_status(false, null, []);
     }
 
+    var init = function() {
+        if ($.cookie(cookie_namespace + 'user') !== undefined){
+            if ($.cookie(cookie_namespace + 'votes') !== undefined) {
+                set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
+            }
+        } else {
+            set_login_status(false, null, []);
+        }
+    }
+
     $submitLogin.on('click', user_login);
     $submitLogout.on('click', user_logout);
     if (VOTING) {
         $session.on('click', session_vote);
     }
-    check_cookie();
+    init();
 });
