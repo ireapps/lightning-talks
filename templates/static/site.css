@@ -1,3 +1,44 @@
+h1 {
+	padding: 0 0 10px;
+	text-align: center;
+	/*border-bottom: 1px solid #ddd;*/
+}
+
+.header, footer {
+	background-color: #ECECEC;
+}
+
+.user-status {
+	padding: 5px 15px;
+	color: #000;
+	font-weight: bold;
+	margin: 0px;
+	text-align: right;
+	width: 800px;
+	margin: 0 auto;
+}
+
+.user-status button {
+	margin: 0 0 0 10px;
+}
+
 div.session.voted {
     background-color: lightgreen;
+}
+
+footer {
+	margin: 20px 0 0 0;
+	padding: 10px 0;
+}
+
+.footer-content {
+	width: 800px;
+	margin: 0 auto;
+}
+
+
+@media (min-width: 1200px){
+	.container {
+		width: 800px;
+	}
 }

@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-    <h1>Lightning Talks</h1>
-</div>
+
 <div class="row">
     {% for session in sessions %}
     <div class="session unvoted" id="{{ session._id }}">
