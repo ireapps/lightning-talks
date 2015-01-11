@@ -116,20 +116,19 @@ $(function(){
     }
 
     var user_logout = function() {
-        $.removeCookie(cookie_namespace + 'user');
-        $.removeCookie(cookie_namespace + 'votes');
-        set_login_status(false, null, []);
+      $.removeCookie(cookie_namespace + 'user');
+      $.removeCookie(cookie_namespace + 'votes');
+      set_login_status(false, null, []);
     }
 
     var init = function() {
-      console.log('here');
-        if ($.cookie(cookie_namespace + 'user') !== undefined){
-            if ($.cookie(cookie_namespace + 'votes') !== undefined) {
-                set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
-            }
-        } else {
-            set_login_status(false, null, []);
-        }
+      if ($.cookie(cookie_namespace + 'user') !== undefined){
+          if ($.cookie(cookie_namespace + 'votes') !== undefined) {
+              set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
+          }
+      } else {
+          set_login_status(false, null, []);
+      }
     }
 
     $submitLogin.on('click', user_login);
