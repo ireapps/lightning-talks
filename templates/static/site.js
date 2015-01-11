@@ -122,6 +122,7 @@ $(function(){
     }
 
     var init = function() {
+      console.log('here');
         if ($.cookie(cookie_namespace + 'user') !== undefined){
             if ($.cookie(cookie_namespace + 'votes') !== undefined) {
                 set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));

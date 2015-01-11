@@ -13,6 +13,10 @@ import utils
 app = Flask(__name__)
 
 @app.route('/')
+def homepage():
+    return render_template('account.html', VOTING=settings.VOTING);
+
+@app.route('/sessions')
 def session_list():
     sessions = utils.connect('session').find({})
     if sessions:
