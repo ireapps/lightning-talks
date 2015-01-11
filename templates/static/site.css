@@ -1,21 +1,32 @@
 h1 {
 	padding: 0 0 10px;
-	text-align: center;
+	/*text-align: center;*/
 	/*border-bottom: 1px solid #ddd;*/
 }
 
-.header, footer {
+.top, footer {
 	background-color: #ECECEC;
 }
 
+.top .desc {
+	width: 800px;
+	margin: 0 auto;
+	padding: 0 0 20px 0;
+}
+
 .user-status {
-	padding: 5px 15px;
 	color: #000;
 	font-weight: bold;
 	margin: 0px;
-	text-align: right;
 	width: 800px;
 	margin: 0 auto;
+}
+
+.user-status .left {
+}
+
+.user-status .logged-status {
+	margin: 10px 0;
 }
 
 .user-status button {
@@ -28,7 +39,7 @@ div.session.voted {
 
 footer {
 	margin: 20px 0 0 0;
-	padding: 10px 0;
+	padding: 20px 0;
 }
 
 .footer-content {

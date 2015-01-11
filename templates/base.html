@@ -16,26 +16,29 @@
     <style type="text/css">{% include "static/site.css" %}</style>
   </head>
   <body>
-    <div class="header">
+    <div class="top">
       <div class="row user-status">
-        <div id="logged-in" style="display:none;">
-            Hello <span id="user-id"></span>!
-            <button id="submit-logout">Log out</button>
+        <div class="left">
+          <h1>NICAR 2015 Lightning Talks</h1>
         </div>
-        <div id="logged-out" style="display:none;">
-            <input id="email-login" type="text" placeholder="email" value=""></input>
-            <input id="password-login" type="password" placeholder="password" value=""></input>
-            <input id="name-login" type="text" placeholder="display name" value=""></input>
-            <button id="submit-login">Log in / Register</button>
+        <div class="logged-status">
+          <div id="logged-in" style="display:none;">
+              Hello <span id="user-id"></span>!
+              <button id="submit-logout">Log out</button>
+          </div>
+          <div id="logged-out" style="display:none;">
+              <input id="email-login" type="text" placeholder="email" value=""></input>
+              <input id="password-login" type="password" placeholder="password" value=""></input>
+              <input id="name-login" type="text" placeholder="display name" value=""></input>
+              <button id="submit-login">Log in / Register</button>
+          </div> 
         </div>
       </div>
     </div>
+    <div class="top">
+      <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
     <div class="container">
-      <div class="row intro">
-          <h1>NICAR 2015 Lightning Talks</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-
       {% block content %}{% endblock %}
     </div>
     <footer>
