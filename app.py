@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import random
 
 from flask import Flask, make_response, render_template
 from pymongo import MongoClient
@@ -12,18 +13,38 @@ import utils
 
 app = Flask(__name__)
 
+# Edit my item?
+# Route to remove my vote.
+# Sort by alpha?
+# Sort by most popular?
+# Sort by random (default)?
+
 @app.route('/')
 def homepage():
-    return render_template('account.html', VOTING=settings.VOTING);
+    if settings.VOTING:
+
+        sessions = utils.connect('session').find({})
+        payload = []
+
+        for s in sessions:
+            if s.get('votes', None):
+                payload.append(s)
+
+        return render_template('session_list.html', sessions=random.shuffle(payload), VOTING=settings.VOTING)
+
+    else:
+        return render_template('create_session.html', VOTING=settings.VOTING);
 
 @app.route('/sessions')
 def session_list():
     sessions = utils.connect('session').find({})
-    if sessions:
-        sessions = sorted(sessions, key=lambda x: x['votes'], reverse=True)
-    else:
-        sessions = []
-    return render_template('session_list.html', sessions=sessions, VOTING=settings.VOTING)
+    payload = []
+
+    for s in sessions:
+        if s.get('votes', None):
+            payload.append(s)
+
+    return render_template('session_list.html', sessions=random.shuffle(payload), VOTING=settings.VOTING)
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):
@@ -59,8 +80,32 @@ def api_vote(methods=['GET']):
         return json.dumps(list(utils.connect('vote').find({})))
 
     vote = dict(utils.connect('vote').find_one({"_id": _id}))
-
     return json.dumps(vote)
+
+@app.route('/api/session/action/')
+def session_action(methods=['GET']):
+    from flask import request
+    _id = request.args.get('user', None)
+    user = None
+
+    session_dict = {}
+    session_dict['title'] = request.args.get('title', None)
+    session_dict['description'] = request.args.get('description', None)
+    session_dict['votes'] = 1
+    session_dict['accepted'] = False
+
+    error = json.dumps({"success": False, "text": "Please send a valid user ID and a session title and description."})
+
+    if not _id:
+        return json.dumps(error)
+
+    if _id:
+        user = dict(utils.connect('user').find_one({"_id": _id}))
+        session_dict['user'] = _id
+        s = models.Session(**session_dict).save()
+        v = models.Vote(user=_id, session=s['_id']).save()
+
+        return json.dumps({"success": True, "action": "create", "session": s['_id'], "vote": v['_id']})
 
 @app.route('/api/session/')
 def api_session(methods=['GET']):
@@ -70,7 +115,6 @@ def api_session(methods=['GET']):
         return json.dumps(list(utils.connect('session').find({})))
 
     session = dict(utils.connect('session').find_one({"_id": _id}))
-
     return json.dumps(session)
 
 @app.route('/api/user/')
@@ -121,7 +165,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port')
     args = parser.parse_args()
-    server_port = 8000
+    server_port = 8002
 
     if args.port:
         server_port = int(args.port)

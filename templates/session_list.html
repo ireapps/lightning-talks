@@ -4,7 +4,7 @@
 
 <div class="row">
     {% for session in sessions %}
-    <div class="session unvoted" id="{{ session._id }}">
+    <div class="session unvoted {{ session.user }}" id="{{ session._id }}">
         <h3>{% if VOTING %}[<span class="count">{{ session.votes }}</span>] {% endif %}{{ session.title }}</h3>
         <p>{{ session.description }}</p>
     </div>
