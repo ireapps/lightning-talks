@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import random
 
 from flask import Flask, make_response, render_template
 from pymongo import MongoClient
@@ -13,7 +14,6 @@ import utils
 app = Flask(__name__)
 
 # Edit my item?
-# Checkbox: Are you going to NICAR this year?
 # Route to remove my vote.
 # Sort by alpha?
 # Sort by most popular?
@@ -30,10 +30,7 @@ def homepage():
             if s.get('votes', None):
                 payload.append(s)
 
-        if len(payload) > 0:
-            payload = sorted(payload, key=lambda x: x['votes'], reverse=True)
-
-        return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
+        return render_template('session_list.html', sessions=random.shuffle(payload), VOTING=settings.VOTING)
 
     else:
         return render_template('create_session.html', VOTING=settings.VOTING);
@@ -47,10 +44,7 @@ def session_list():
         if s.get('votes', None):
             payload.append(s)
 
-    if len(payload) > 0:
-        payload = sorted(payload, key=lambda x: x['votes'], reverse=True)
-
-    return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
+    return render_template('session_list.html', sessions=random.shuffle(payload), VOTING=settings.VOTING)
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):
