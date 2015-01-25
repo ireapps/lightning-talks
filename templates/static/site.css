@@ -1,38 +1,38 @@
 /* Overall Layout ---------------- */
 
 h1 {
-	padding: 0 0 10px;
-	/*text-align: center;*/
-	/*border-bottom: 1px solid #ddd;*/
+    padding: 0 0 10px;
+    /*text-align: center;*/
+    /*border-bottom: 1px solid #ddd;*/
 }
 
 .top, footer {
-	background-color: #ECECEC;
+    background-color: #ECECEC;
 }
 
 .top .desc {
-	width: 800px;
-	margin: 0 auto;
-	padding: 0 0 20px 0;
+    width: 800px;
+    margin: 0 auto;
+    padding: 0 0 20px 0;
 }
 
 .user-status {
-	color: #000;
-	font-weight: bold;
-	margin: 0px;
-	width: 800px;
-	margin: 0 auto;
+    color: #000;
+    font-weight: bold;
+    margin: 0px;
+    width: 800px;
+    margin: 0 auto;
 }
 
 .user-status .left {
 }
 
 .user-status .logged-status {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 .user-status button {
-	margin: 0 0 0 10px;
+    margin: 0 0 0 10px;
 }
 
 div.session.voted {
@@ -40,37 +40,43 @@ div.session.voted {
 }
 
 footer {
-	margin: 20px 0 0 0;
-	padding: 20px 0;
+    margin: 20px 0 0 0;
+    padding: 20px 0;
 }
 
 .footer-content {
-	width: 800px;
-	margin: 0 auto;
+    width: 800px;
+    margin: 0 auto;
 }
 
 
 @media (min-width: 1200px){
-	.container {
-		width: 800px;
-	}
+    .container {
+        width: 800px;
+    }
 }
 
 /* Propose a talk ---------------- */
 
 #propose label {
-	display: block;
+    display: block;
 }
 
 #propose input, #propose textarea {
-	width: 100%;
-	margin: 0 0 10px;
+    width: 100%;
+    margin: 0 0 10px;
 }
 
 #propose textarea {
-	height: 100px;
+    height: 100px;
 }
 
 #propose button {
-	float: right;
+    float: right;
+}
+
+div.mine {
+    border-bottom: 2px solid red;
+    border-left: 2px solid red;
+    padding-left: 5px;
 }

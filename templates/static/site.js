@@ -18,6 +18,10 @@ $(function(){
     var $name = $('#name-login');
     var $session = $('div.session.unvoted');
 
+    var $createSession = $('#submit-create-session');
+    var $loginMessage = $('#please-login');
+    var $proposeForm = $('#propose');
+
     var set_login_status = function(logged_in, user, votes) {
         IS_LOGGED_IN = logged_in;
         USER = user;
@@ -31,15 +35,22 @@ $(function(){
             $userId.html(user[1]);
             $loggedOut.hide();
             $loggedIn.show();
+            show_mine();
             if (VOTING) {
                 $('div.session.unvoted').css('cursor', 'pointer');
                 votes_show();
+            } else {
+                $loginMessage.hide();
+                $proposeForm.show();
             }
         } else {
             $loggedIn.hide();
             $loggedOut.show();
             if (VOTING) {
                 votes_remove();
+            } else {
+                $loginMessage.show();
+                $proposeForm.hide();
             }
         }
     }
@@ -85,7 +96,6 @@ $(function(){
                     }
                 }
             });
-
         }
     }
 
@@ -108,7 +118,6 @@ $(function(){
 
                     // Votes come back as pipe-delimited from the server.
                     $.cookie(cookie_namespace + 'votes', data['votes']);
-
                     set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
                 }
             }
@@ -131,10 +140,48 @@ $(function(){
       }
     }
 
+    var show_mine = function() {
+        $('div.'+USER[0]).addClass('mine');
+    }
+
+    var session_create = function() {
+        if (IS_LOGGED_IN && USER) {
+            var s = {}
+            s['title'] = $proposeForm.find('input').val();
+            s['description'] = $proposeForm.find('textarea').val();
+            s['user'] = USER[0];
+
+            if ($.trim(s.title) == "" || $.trim(s.description) == "") {
+                alert('Please fill out the title and the description fields.')
+            } else {
+                var url = loginHost + 'session/action/';
+                url += '?user=' + s.user;
+                url += '&title=' + s.title;
+                url += '&description=' + s.description;
+                $.ajax(url, {
+                    async: true,
+                    cache: true,
+                    crossDomain: false,
+                    dataType: 'json',
+                    jsonp: false,
+                    success: function(data) {
+                        if (data['success'] === true) {
+                            $proposeForm.find('input').val('');
+                            $proposeForm.find('textarea').val('');
+                            alert('Your session "'+s.title+'" has been submitted.');
+                        }
+                    }
+                });
+
+            }
+        } else {
+            alert('Please log in or create an account.');
+        }
+    }
+
     $submitLogin.on('click', user_login);
     $submitLogout.on('click', user_logout);
-    if (VOTING) {
-        $session.on('click', session_vote);
-    }
+    $createSession.on('click', session_create);
+    $session.on('click', session_vote);
     init();
 });
