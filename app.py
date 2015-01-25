@@ -27,10 +27,11 @@ def homepage():
         payload = []
 
         for s in sessions:
-            if s.get('votes', None):
-                payload.append(s)
+            payload.append(s)
 
-        return render_template('session_list.html', sessions=random.shuffle(payload), VOTING=settings.VOTING)
+        random.shuffle(payload)
+
+        return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
 
     else:
         return render_template('create_session.html', VOTING=settings.VOTING);
@@ -41,10 +42,11 @@ def session_list():
     payload = []
 
     for s in sessions:
-        if s.get('votes', None):
-            payload.append(s)
+        payload.append(s)
 
-    return render_template('session_list.html', sessions=random.shuffle(payload), VOTING=settings.VOTING)
+    random.shuffle(payload)
+
+    return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):
