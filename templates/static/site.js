@@ -35,7 +35,7 @@ $(function(){
             $userId.html(user[1]);
             $loggedOut.hide();
             $loggedIn.show();
-            show_mine();
+            $('div.'+USER[0]).addClass('mine');
             if (VOTING) {
                 $('div.session.unvoted').css('cursor', 'pointer');
                 votes_show();
@@ -46,6 +46,7 @@ $(function(){
         } else {
             $loggedIn.hide();
             $loggedOut.show();
+            $('div').removeClass('mine');
             if (VOTING) {
                 votes_remove();
             } else {
@@ -138,10 +139,6 @@ $(function(){
       } else {
           set_login_status(false, null, []);
       }
-    }
-
-    var show_mine = function() {
-        $('div.'+USER[0]).addClass('mine');
     }
 
     var session_create = function() {

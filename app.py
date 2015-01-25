@@ -109,10 +109,9 @@ def session_action(methods=['GET']):
         user = dict(utils.connect('user').find_one({"_id": _id}))
         session_dict['user'] = _id
         s = models.Session(**session_dict).save()
-        print s
-        # models.Vote(user=u['_id'], session=s['_id']).save()
+        v = models.Vote(user=_id, session=s['_id']).save()
 
-        return json.dumps({"success": True, "action": "create"})
+        return json.dumps({"success": True, "action": "create", "session": s['_id'], "vote": v['_id']})
 
 @app.route('/api/session/')
 def api_session(methods=['GET']):

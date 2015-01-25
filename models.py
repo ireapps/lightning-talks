@@ -37,6 +37,9 @@ class ModelClass(object):
             if not getattr(self, field):
                 setattr(self, field, now)
 
+    def __getitem__(self, key):
+        return getattr(self, key)
+
     def __str__(self):
         return self.__unicode__()
 
@@ -85,6 +88,8 @@ class User(ModelClass):
         if not test:
             self.commit_to_db('user')
 
+        return self
+
     def update_records(self):
         votes = utils.connect('vote')
         sessions = utils.connect('session')
@@ -118,6 +123,8 @@ class Session(ModelClass):
         if not test:
             self.commit_to_db('session')
 
+        return self
+
     def update_records(self):
         votes = utils.connect('vote')
         self.votes = votes.find({"session": self._id}).count()
@@ -144,3 +151,5 @@ class Vote(ModelClass):
     def save(self, test=False):
         if not test:
             self.commit_to_db('vote')
+
+        return self
