@@ -3,8 +3,12 @@
 {% block content %}
 
 <div class="row">
+	Sort by <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>, <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>.
+</div>
+
+<div class="all-sessions row">
     {% for session in sessions %}
-    <div class="session unvoted {{ session.user }}" id="{{ session._id }}">
+    <div class="session unvoted {{ session.user }}" id="{{ session._id }}" data-title="{{ session.title }}" data-votes="{{ session.votes }}">
         <h3>{% if VOTING %}[<span class="count">{{ session.votes }}</span>] {% endif %}{{ session.title }}</h3>
         <p>{{ session.description }}</p>
     </div>
