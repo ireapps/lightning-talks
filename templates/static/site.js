@@ -17,6 +17,7 @@ $(function(){
     var $email = $('#email-login');
     var $name = $('#name-login');
     var $session = $('div.session.unvoted .thumbs');
+    var $votedSession = $('div.session.voted .thumbs');
 
     var $createSession = $('#submit-create-session');
     var $loginMessage = $('#please-login');
@@ -101,6 +102,41 @@ $(function(){
         }
     }
 
+    var session_unvote = function() {
+        if (IS_LOGGED_IN && USER) {
+            var thisSession = $(this).parent('.votes-box').parent('.session');
+            // Jeremy HALP
+
+            // var url = loginHost + 'vote/action/';
+            // var session_id = $(thisSession).attr('id');
+            // url += '?user=' + USER[0];
+            // url += '&session=' + session_id;
+            // $.ajax(url, {
+            //     async: true,
+            //     cache: true,
+            //     crossDomain: false,
+            //     dataType: 'json',
+            //     jsonp: false,
+            //     success: function(data) {
+            //         if (data['success'] === true) {
+
+            //             // Update the array of votes and serialize to pipe-separated for the cookie.
+            //             USER_VOTES.push(session_id);
+            //             $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+
+            //             // Increment the count while we wait for the server to do this automatically.
+            //             var $count_container = $('#' + session_id + ' .votes-box .count .num');
+            //             var old_count = parseInt($count_container.html()) + 1;
+            //             $count_container.html(old_count);
+
+            //             // Percolate the changes.
+            //             set_login_status(true, USER, USER_VOTES);
+            //         }
+            //     }
+            // });
+        }
+    }
+
     var user_login = function() {
         var url = loginHost + 'user/action/';
         url += '?email=' + $email.val();
@@ -181,5 +217,6 @@ $(function(){
     $submitLogout.on('click', user_logout);
     $createSession.on('click', session_create);
     $session.on('click', session_vote);
+    $votedSession.on('click', session_unvote);
     init();
 });
