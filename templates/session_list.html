@@ -6,7 +6,16 @@
     {% for session in sessions %}
     <div class="session unvoted {{ session.user }} cf" id="{{ session._id }}" data-title="{{ session.title }}" data-votes="{{ session.votes }}">
         <div class="votes-box">
-            {% if VOTING %}<div class="count">{{ session.votes }}</div>{% endif %}
+            {% if VOTING %}
+                <div class="count">
+                    <div class="num">{{ session.votes }}</div>
+                    <div class="num-label">votes</div>
+                </div>
+                <div class="thumbs">
+                    <img class="gray" src="{{ url_for('static', filename = 'thumbs-up-40x40-gray.png') }}">
+                    <img class="orange" src="{{ url_for('static', filename = 'thumbs-up-40x40-orange.png') }}">
+                </div>
+            {% endif %}
         </div>
         <div class="content-box">
             <h3>{{ session.title }}</h3>

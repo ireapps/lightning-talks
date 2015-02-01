@@ -16,7 +16,7 @@ $(function(){
     var $password = $('#password-login');
     var $email = $('#email-login');
     var $name = $('#name-login');
-    var $session = $('div.session.unvoted');
+    var $session = $('div.session.unvoted .thumbs');
 
     var $createSession = $('#submit-create-session');
     var $loginMessage = $('#please-login');
@@ -37,7 +37,7 @@ $(function(){
             $loggedIn.show();
             $('div.'+USER[0]).addClass('mine');
             if (VOTING) {
-                $('div.session.unvoted').css('cursor', 'pointer');
+                $('div.session.unvoted .thumbs').css('cursor', 'pointer');
                 votes_show();
             } else {
                 $loginMessage.hide();
@@ -70,8 +70,9 @@ $(function(){
 
     var session_vote = function() {
         if (IS_LOGGED_IN && USER) {
+            var thisSession = $(this).parent('.votes-box').parent('.session');
             var url = loginHost + 'vote/action/';
-            var session_id = $(this).attr('id');
+            var session_id = $(thisSession).attr('id');
             url += '?user=' + USER[0];
             url += '&session=' + session_id;
             $.ajax(url, {
@@ -88,7 +89,7 @@ $(function(){
                         $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
 
                         // Increment the count while we wait for the server to do this automatically.
-                        var $count_container = $('#' + session_id + ' h3 span.count')
+                        var $count_container = $('#' + session_id + ' .votes-box .count .num');
                         var old_count = parseInt($count_container.html()) + 1;
                         $count_container.html(old_count);
 
