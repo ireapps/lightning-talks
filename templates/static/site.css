@@ -34,6 +34,7 @@ h1 {
     margin: 0px;
     width: 800px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .user-status .left {
@@ -44,12 +45,26 @@ h1 {
 }
 
 .user-status button {
-    margin: 0 0 0 10px;
+    margin: 0 0 0 5px;
+    float: right;
 }
 
-input {
+input, .checkbox {
     display: block;
-    margin: 0 0 5px 0;
+    margin: 0 auto 5px;
+}
+
+.checkbox {
+    width: 170px;
+}
+
+.checkbox input[type=checkbox] {
+    margin-left: 0px;
+}
+
+.checkbox label {
+    padding-left: 10px;
+    font-size: 13px;
 }
 
 .session {
