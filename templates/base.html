@@ -27,10 +27,11 @@
               <button id="submit-logout">Log out</button>
           </div>
           <div id="logged-out" style="display:none;">
+              <p>Want to submit or vote for lightning talks at #NICAR15? Create an account:</p>
               <input id="email-login" type="text" placeholder="email" value=""></input>
               <input id="password-login" type="password" placeholder="password" value=""></input>
               <input id="name-login" type="text" placeholder="display name" value=""></input>
-              Going to NICAR? <input id="going-to-nicar" type="checkbox"></input>
+              <input id="going-to-nicar" type="checkbox"></input> <label>Going to NICAR?</label> 
               <button id="submit-login">Go</button>
           </div>
         </div>
@@ -38,6 +39,16 @@
     </div>
     <div class="top">
       <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div class="top sorting">
+      <div class="container">
+
+        Sort by:
+          <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>, 
+          <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or 
+          <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>
+
+      </div>
     </div>
     <div class="container">
       {% block content %}{% endblock %}

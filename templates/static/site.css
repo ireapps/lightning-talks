@@ -16,6 +16,18 @@ h1 {
     padding: 0 0 20px 0;
 }
 
+.top.sorting {
+    background-color: #d5d5d5;
+    color: black;
+    padding: 10px 0;
+}
+
+.top .container {
+    width: 800px;
+    margin: 0 auto;
+    text-align: right;
+}
+
 .user-status {
     color: #000;
     font-weight: bold;
@@ -35,8 +47,41 @@ h1 {
     margin: 0 0 0 10px;
 }
 
+input {
+    display: block;
+    margin: 0 0 5px 0;
+}
+
+.session {
+    margin: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
 div.session.voted {
     background-color: lightgreen;
+}
+
+.content-box {
+    width: 90%;
+    float: left;
+}
+
+.content-box h3 {
+    margin-top: 0px;
+}
+
+.votes-box {
+    width: 10%;
+    float: left;
+}
+
+.votes-box .count {
+    height: 50px;
+    background-color: #DDD;
+    width: 50px;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
 }
 
 footer {
@@ -49,6 +94,15 @@ footer {
     margin: 0 auto;
 }
 
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
 
 @media (min-width: 1200px){
     .container {
