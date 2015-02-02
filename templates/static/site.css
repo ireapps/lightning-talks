@@ -25,7 +25,32 @@ h1 {
 .top .container {
     width: 800px;
     margin: 0 auto;
+    padding: 0px;
+}
+
+.top .container #logged-in {
+    float: left;
+}
+
+.top .container .right {
+    float: right;
     text-align: right;
+}
+
+.login-options {
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+}
+
+.create-account, .login-box {
+    width: 50%;
+    float: left;
+    padding: 10px 0;
+}
+
+.create-account {
+    border-right: 1px solid #ddd;
 }
 
 .user-status {
@@ -91,6 +116,11 @@ div.session.voted .votes-box .count {
 
 .content-box h3 {
     margin-top: 0px;
+}
+
+p.author {
+    font-size: 12px;
+    color: #888;
 }
 
 .votes-box {

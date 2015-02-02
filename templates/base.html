@@ -22,21 +22,31 @@
           <h1>NICAR 2015 Lightning Talks</h1>
         </div>
         <div class="logged-status">
-          <div id="logged-in" style="display:none;">
-              Hello <span id="user-id"></span>!
-              <button id="submit-logout">Log out</button>
-          </div>
           <div id="logged-out" style="display:none;">
-              <p>Want to submit or vote for lightning talks at #NICAR15? Create an account:</p>
-              <input id="email-login" type="text" placeholder="Email" value=""></input>
-              <input id="password-login" type="password" placeholder="Password" value=""></input>
-              <input id="name-login" type="text" placeholder="Name" value=""></input>
-              <div class="checkbox">
-                <input id="going-to-nicar" type="checkbox"></input>
-                <label>Going to NICAR?</label>
-                <button id="submit-login">Go</button>
+            <p>Want to submit or vote for lightning talks at #NICAR15?</p>
+            <div class="login-options cf">
+
+              <div class="create-account">
+                <p>Create an account:</p>
+                <input id="email-login" type="text" placeholder="Email" value=""></input>
+                <input id="password-login" type="password" placeholder="Password" value=""></input>
+                <input id="name-login" type="text" placeholder="Name" value=""></input>
+                <div class="checkbox">
+                  <input id="going-to-nicar" type="checkbox"></input>
+                  <label>Going to NICAR?</label>
+                  <button id="submit-login">Go</button>
+                </div>
               </div>
-              
+              <div class="login-box">
+                <p>Login:</p>
+                <input id="email-login-s" type="text" placeholder="Email" value=""></input>
+                <input id="password-login-s" type="password" placeholder="Password" value=""></input>
+                <div class="checkbox">
+                  <button id="submit-login-s">Go</button>
+                </div>
+              </div>              
+            </div>
+  
           </div>
         </div>
       </div>
@@ -45,13 +55,17 @@
       <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
     <div class="top sorting">
-      <div class="container">
-
-        Sort by:
-          <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>, 
-          <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or 
-          <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>
-
+      <div class="container cf">
+        <div id="logged-in" style="display:none;">
+          Hello <span id="user-id"></span>!
+          <button id="submit-logout">Log out</button>
+        </div>
+        <div class="right">
+          Sort by:
+            <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>, 
+            <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or 
+            <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>
+        </div>
       </div>
     </div>
     <div class="container">

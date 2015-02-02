@@ -12,9 +12,12 @@ $(function(){
     var $loggedOut = $('#logged-out');
     var $userId = $('#user-id');
     var $submitLogin = $('#submit-login');
+    var $submitLoginS = $('#submit-login-s');
     var $submitLogout = $('#submit-logout');
     var $password = $('#password-login');
     var $email = $('#email-login');
+    var $passwordS = $('#password-login-s');
+    var $emailS = $('#email-login-s');
     var $name = $('#name-login');
     var $session = $('div.session .thumbs');
 
@@ -118,10 +121,18 @@ $(function(){
 
     var user_login = function() {
         var url = loginHost + 'user/action/';
-        url += '?email=' + $email.val();
-        url += '&password=' + $password.val();
-        url += '&fingerprint=' + fingerprint;
-        if ($name) { url += '&name=' + $name.val(); }
+
+        var register_or_login = $(this).attr('id');
+        if (register_or_login == "submit-login"){
+            url += '?email=' + $email.val();
+            url += '&password=' + $password.val();
+            url += '&fingerprint=' + fingerprint;
+            if ($name) { url += '&name=' + $name.val(); }
+        } else {
+            url += '?email=' + $emailS.val();
+            url += '&password=' + $passwordS.val();
+            url += '&fingerprint=' + fingerprint;
+        }
 
         $.ajax(url, {
             async: true,
@@ -136,6 +147,8 @@ $(function(){
                     // Votes come back as pipe-delimited from the server.
                     $.cookie(cookie_namespace + 'votes', data['votes']);
                     set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
+                } else {
+                    alert(data.text);
                 }
             }
         });
@@ -193,6 +206,7 @@ $(function(){
     }
 
     $submitLogin.on('click', user_login);
+    $submitLoginS.on('click', user_login);
     $submitLogout.on('click', user_logout);
     $createSession.on('click', session_create);
     $session.on('click', session_vote);
