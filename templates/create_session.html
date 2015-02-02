@@ -2,15 +2,40 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-md-12" id="propose" style="display:none;">
-        <h3>Propose a talk:</h3>
-        <label>Title<input type="text" placeholder="My talk"></input></label>
-        <label>Description<textarea placeholder="My talk's description"></textarea></label>
-        <button id="submit-create-session">Propose</button>
-    </div>
-    <div class="col-md-12" id="please-login">
-        <h1>Please login to propose a session.</h1>
-    </div>
+<div id="propose" style="display:none;">
+
+	<div class="row">
+	    <div class="col-md-12 cf" >
+	        <h2>Propose a talk:</h2>
+	        <p>We're so glad you're interested in pitching a five-minute lightning talk. Pitch as many talks as you'd like.</p>
+	        <label>Title<input type="text" placeholder="My talk"></input></label>
+	        <label>Description<textarea placeholder="My talk's description"></textarea></label>
+	        <b>Please keep in mind that after you submit a session, you won't be able to edit it.</b>
+	        <button id="submit-create-session">Propose</button>
+	    </div>
+	    <div class="col-md-12" id="please-login">
+	        <h1>Please login to propose a session.</h1>
+	    </div>
+	</div>
+
+	<div class="row">
+			<div class="col-md-12 cf">
+	 				<h3>Stuck? Here are a few examples of past lightning talk pitches:</h3>
+
+	        <h4>Showing big datasets on small screens</h4>
+	        <p>When presenting huge data stories, make sure your mobile users aren't left out or forced to load massive datasets. Using WaPo's 2012 mobile election results as an example, I'll talk about creating lightweight data-driven web apps and tailoring the experience for mobile.</p>
+
+	        <h4>Document Armaggeddon! Comparing billions of documents to find copycats, cheaters and thieves</h4>
+	        <p>Ok, so maybe "billions" is a stretch in practice -- but not in theory! This talk will demonstrate how to use a few lines of Python and Amazon's Elastic MapReduce framework to scan through an arbitrarily large set of documents and find those that are similar. We used it to find recycled bills from previous sessions of the California State Legislature, but the applications are endless.</p>
+
+	        <h4>CoffeeScript: What it is and why it's cool</h4>
+	        <p>Nothing goes together better than coffee and code do. CoffeeScript makes writing JavaScript much nicer. This simple demo shows off a little code in both languages and an example coffeescript workflow.</p>
+
+	        <h3>Still stuck?</h3>
+
+	        <p>Spend the next 45 minutes <a href="https://ire.org/conferences/nicar-2014/lightning/">watching the lightning talks from 2014</a>!</p>
+	    </div>
+	</div>
+
 </div>
 {% endblock %}
