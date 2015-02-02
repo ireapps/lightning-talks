@@ -69,7 +69,6 @@ $(function(){
     }
 
     var session_vote = function() {
-        
         if (IS_LOGGED_IN && USER) {
             var thisSession = $(this).parent('.votes-box').parent('.session');
             var voted = $(thisSession).hasClass('voted');
@@ -93,7 +92,6 @@ $(function(){
                             $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
 
                             // Increment the count while we wait for the server to do this automatically.
-                            // SOME TYPE OF BUG HERE.
                             $(thisSession).removeClass('unvoted').addClass('voted');
                             var $count_container = $('#' + session_id + ' .votes-box .count .num');
                             var old_count = parseInt($count_container.html()) + 1;
@@ -105,6 +103,11 @@ $(function(){
                     }
                 });
             } else {
+
+                // AJAX CALL HERE TO REMOVE A VOTE.
+
+
+                // these lines all go in the success function of the ajax call
                 $(thisSession).removeClass('voted').addClass('unvoted');
                 var $count_container = $('#' + session_id + ' .votes-box .count .num');
                 var old_count = parseInt($count_container.html()) - 1;
