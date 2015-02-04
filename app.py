@@ -42,6 +42,9 @@ def session_list():
     payload = []
 
     for s in sessions:
+        s = dict(s)
+        user = utils.connect('user').find_one({"_id": s['user']})
+        s['username'] = user['name']
         payload.append(s)
 
     random.shuffle(payload)
