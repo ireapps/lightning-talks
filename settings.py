@@ -10,7 +10,7 @@ if DEPLOYMENT_TARGET in ['production', 'staging']:
 
 MONGO_DATABASE = 'lightningtalk-%s' % DEPLOYMENT_TARGET
 
-VOTING = False
+VOTING = True
 
 ENVIRONMENTS = {
     "staging": {

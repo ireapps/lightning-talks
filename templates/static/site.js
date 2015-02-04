@@ -107,14 +107,37 @@ $(function(){
                 });
             } else {
 
-                // AJAX CALL HERE TO REMOVE A VOTE.
+                var url = loginHost + 'vote/action/';
+                url += '?user=' + USER[0];
+                url += '&session=' + session_id;
+                $.ajax(url, {
+                    async: true,
+                    cache: true,
+                    crossDomain: false,
+                    dataType: 'json',
+                    jsonp: false,
+                    success: function(data) {
+                        if (data['success'] === true) {
 
+                            var ix = USER_VOTES.indexOf(session_id);
+                            if (ix > -1) {
+                                USER_VOTES.splice(ix, 1)
+                            }
 
-                // these lines all go in the success function of the ajax call
-                $(thisSession).removeClass('voted').addClass('unvoted');
-                var $count_container = $('#' + session_id + ' .votes-box .count .num');
-                var old_count = parseInt($count_container.html()) - 1;
-                $count_container.html(old_count);
+                            // Update the array of votes and serialize to pipe-separated for the cookie.
+                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+
+                            // Increment the count while we wait for the server to do this automatically.
+                            $(thisSession).removeClass('voted').addClass('unvoted');
+                            var $count_container = $('#' + session_id + ' .votes-box .count .num');
+                            var old_count = parseInt($count_container.html()) - 1;
+                            $count_container.html(old_count);
+
+                            // Percolate the changes.
+                            set_login_status(true, USER, USER_VOTES);
+                        }
+                    }
+                });
             }
         }
     }

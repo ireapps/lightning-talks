@@ -70,12 +70,19 @@ def vote_action(methods=['GET']):
     if not s:
         return error
 
-    v = utils.connect('vote').find_one({"user": user, "session": session})
-    if not v:
-        models.Vote(user=u['_id'], session=s['_id']).save()
-        return json.dumps({"success": True, "action": "vote"})
+    votes = [vote for vote in utils.connect('vote').find({"user": user, "session": session})]
 
-    return json.dumps({"success": False, "text": "You've already voted for this session."})
+    print len(votes)
+
+    if len(votes) == 0:
+        models.Vote(user=u['_id'], session=s['_id']).save()
+        return json.dumps({"success": True, "action": "create vote"})
+
+    if len(votes) > 0:
+        utils.connect('vote').remove({"user": user, "session": session})
+        return json.dumps({"success": True, "action": "delete vote"})
+
+    return error
 
 @app.route('/api/vote/')
 def api_vote(methods=['GET']):
