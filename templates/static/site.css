@@ -56,15 +56,14 @@ hr {
 }
 
 .login-options {
-    width: 60%;
-    margin: 0 auto;
+    margin: 40px auto 0;
     border: 1px solid #ddd;
 }
 
 .create-account, .login-box {
     width: 50%;
     float: left;
-    padding: 10px 0;
+    padding: 10px 20px;
 }
 
 .create-account {
@@ -96,7 +95,10 @@ hr {
 
 input, .checkbox {
     display: block;
-    margin: 0 auto 5px;
+    margin: 0 0 7px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #DDD;
 }
 
 .checkbox {

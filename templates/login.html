@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="logged-status">
+  <div id="logged-out">
+    <div class="login-options cf">
+
+      <div class="create-account">
+        <p>Create an account:</p>
+        <input id="email-login" type="text" placeholder="Email" value=""></input>
+        <input id="password-login" type="password" placeholder="Password" value=""></input>
+        <input id="name-login" type="text" placeholder="Name" value=""></input>
+        <div class="checkbox">
+          <input id="going-to-nicar" type="checkbox"></input>
+          <label>Going to NICAR?</label>
+          <button id="submit-login">Go</button>
+        </div>
+      </div>
+      <div class="login-box">
+        <p>Login:</p>
+        <input id="email-login-s" type="text" placeholder="Email" value=""></input>
+        <input id="password-login-s" type="password" placeholder="Password" value=""></input>
+        <div class="checkbox">
+          <button id="submit-login-s">Go</button>
+        </div>
+      </div>              
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
