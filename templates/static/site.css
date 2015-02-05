@@ -177,8 +177,8 @@ div.mine .author {
 }
 
 footer {
-    margin: 20px 0 0 0;
-    padding: 20px 0;
+    margin: 50px 0 0 0;
+    padding: 10px 0 50px;
 }
 
 .footer-content {
@@ -245,18 +245,6 @@ footer {
     background-color: #B96704;
 }
 
-
-
-.examples {
-    margin-top: 20px;
-}
-
-.examples h4 {
-    margin: 20px 0 10px 0;
-    border-top: 1px solid #DDD;
-    padding: 18px 10px 0;
-}
-
-.examples p {
-    padding: 0 10px;
+.footer-content h4 {
+    margin: 25px 0 8px;
 }
