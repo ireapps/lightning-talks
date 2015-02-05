@@ -60,7 +60,7 @@ def nginx():
 
 @api.task
 def wsgi():
-    api.run('touch /hom/ubuntu/%s/app.py' % settings.PROJECT_NAME)
+    api.run('touch /home/ubuntu/%s/app.py' % settings.PROJECT_NAME)
 
 @api.task
 def svcs():
