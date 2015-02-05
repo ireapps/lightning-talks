@@ -83,7 +83,7 @@ def clear_collection(collection):
 @api.task
 def nuke():
     for collection in ['user', 'session', 'vote']:
-        clear_collection(collection)
+        clear_collection(collection, db=env.settings)
 
 @api.task
 def tally():
