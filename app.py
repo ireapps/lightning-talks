@@ -36,7 +36,7 @@ def homepage():
     else:
         return render_template('create_session.html', VOTING=settings.VOTING);
 
-@app.route('/sessions')
+# @app.route('/sessions')
 def session_list():
     sessions = utils.connect('session').find({})
     payload = []
