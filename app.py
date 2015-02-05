@@ -109,7 +109,7 @@ def session_action(methods=['GET']):
     session_dict = {}
     session_dict['title'] = request.args.get('title', None)
     session_dict['description'] = request.args.get('description', None)
-    session_dict['votes'] = 1
+    session_dict['votes'] = 0
     session_dict['accepted'] = False
 
     error = json.dumps({"success": False, "text": "Please send a valid user ID and a session title and description."})
@@ -121,9 +121,8 @@ def session_action(methods=['GET']):
         user = dict(utils.connect('user').find_one({"_id": _id}))
         session_dict['user'] = _id
         s = models.Session(**session_dict).save()
-        v = models.Vote(user=_id, session=s['_id']).save()
 
-        return json.dumps({"success": True, "action": "create", "session": s['_id'], "vote": v['_id']})
+        return json.dumps({"success": True, "action": "create", "session": s['_id']})
 
 @app.route('/api/session/')
 def api_session(methods=['GET']):
