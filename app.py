@@ -13,12 +13,6 @@ import utils
 
 app = Flask(__name__)
 
-# Edit my item?
-# Route to remove my vote.
-# Sort by alpha?
-# Sort by most popular?
-# Sort by random (default)?
-
 @app.route('/')
 def homepage():
     if settings.VOTING:
@@ -39,21 +33,10 @@ def homepage():
     else:
         return render_template('create_session.html', VOTING=settings.VOTING);
 
+
 @app.route('/login')
 def login():
     return render_template('login.html');
-
-# @app.route('/sessions')
-# def session_list():
-#     sessions = utils.connect('session').find({})
-#     payload = []
-#     for s in sessions:
-#         s = dict(s)
-#         user = utils.connect('user').find_one({"_id": s['user']})
-#         s['username'] = user['name']
-#         payload.append(s)
-#     random.shuffle(payload)
-#     return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):

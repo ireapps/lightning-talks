@@ -5,5 +5,5 @@ from pymongo import MongoClient
 
 def connect(collection):
     client = MongoClient()
-    db = client[settings.MONGO_DATABASE]
-    return db[collection]
+    d = client[settings.MONGO_DATABASE]
+    return d[collection]
