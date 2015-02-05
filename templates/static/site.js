@@ -61,6 +61,7 @@ $(function(){
 
     var votes_show = function() {
         $.each(USER_VOTES, function(idx, v){
+            console.log(v);
             $('#' + v).removeClass('unvoted').addClass('voted');
         });
     }
@@ -77,68 +78,51 @@ $(function(){
             var voted = $(thisSession).hasClass('voted');
             var session_id = $(thisSession).attr('id');
 
-            if (!voted){
-                var url = loginHost + 'vote/action/';
-                url += '?user=' + USER[0];
-                url += '&session=' + session_id;
-                $.ajax(url, {
-                    async: true,
-                    cache: true,
-                    crossDomain: false,
-                    dataType: 'json',
-                    jsonp: false,
-                    success: function(data) {
-                        if (data['success'] === true) {
+            console.log(voted);
 
-                            // Update the array of votes and serialize to pipe-separated for the cookie.
-                            USER_VOTES.push(session_id);
-                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+            var url = loginHost + 'vote/action/';
+            url += '?user=' + USER[0];
+            url += '&session=' + session_id;
+            $.ajax(url, {
+                async: true,
+                cache: true,
+                crossDomain: false,
+                dataType: 'json',
+                jsonp: false,
+                success: function(data) {
+                    console.log(data);
+                    if (data['success'] === true) {
 
-                            // Increment the count while we wait for the server to do this automatically.
-                            $(thisSession).removeClass('unvoted').addClass('voted');
-                            var $count_container = $('#' + session_id + ' .votes-box .count .num');
-                            var old_count = parseInt($count_container.html()) + 1;
-                            $count_container.html(old_count);
-
-                            // Percolate the changes.
-                            set_login_status(true, USER, USER_VOTES);
-                        }
-                    }
-                });
-            } else {
-
-                var url = loginHost + 'vote/action/';
-                url += '?user=' + USER[0];
-                url += '&session=' + session_id;
-                $.ajax(url, {
-                    async: true,
-                    cache: true,
-                    crossDomain: false,
-                    dataType: 'json',
-                    jsonp: false,
-                    success: function(data) {
-                        if (data['success'] === true) {
-
+                        if (voted){
                             var ix = USER_VOTES.indexOf(session_id);
                             if (ix > -1) {
                                 USER_VOTES.splice(ix, 1)
                             }
 
                             // Update the array of votes and serialize to pipe-separated for the cookie.
+                            USER_VOTES.push(session_id);
                             $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
 
-                            // Increment the count while we wait for the server to do this automatically.
-                            $(thisSession).removeClass('voted').addClass('unvoted');
+                            $('#' + session_id).removeClass('voted').addClass('unvoted');
                             var $count_container = $('#' + session_id + ' .votes-box .count .num');
+                            console.log($count_container.html());
                             var old_count = parseInt($count_container.html()) - 1;
-                            $count_container.html(old_count);
+                        } else {
+                            USER_VOTES.push(session_id);
+                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
 
-                            // Percolate the changes.
-                            set_login_status(true, USER, USER_VOTES);
+                            $('#' + session_id).removeClass('unvoted').addClass('voted');
+                            var $count_container = $('#' + session_id + ' .votes-box .count .num');
+                            var old_count = parseInt($count_container.html()) + 1;
+                            $count_container.html(old_count);
                         }
+
+                        // Percolate the changes.
+                        set_login_status(true, USER, USER_VOTES);
                     }
-                });
-            }
+                }
+            });
+
         }
     }
 
