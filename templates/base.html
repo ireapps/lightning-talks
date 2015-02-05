@@ -20,8 +20,8 @@
     <div class="top">
       <div class="row user-status">
         <div class="left">
-          <h1>#NICAR15 Lightning Talks</h1>
-          <p>All pitches are due on XXX, XXX, XXXX. Voting begins XXXX and closes XXXXX.</p>
+          <h1>NICAR 2015 Lightning Talks</h1>
+          <p>Pitches due XXX, XXX, XXXX. Voting opens XXX to XXX.</p>
         </div>
         <div class="logged-status">
           <div id="logged-out" style="display:none;">
@@ -75,11 +75,12 @@
     <footer>
       <div class="footer-content">
         <h4>What are lightning talks?</h4>
-        <p>There's only one real rule to lightning talks: they must be under 5 minutes long. Anyone who is attending NICAR 2015 can pitch, and the attendees vote on the talks they want to see. The 10 talks with the most votes will be presented during NICAR.</p>
+        <p>5 minute talks on any subject. Anyone who is attending NICAR 2015 can pitch and the attendees vote on the talks they want to see. The 10 talks with the most votes will be presented during NICAR.</p>
 
+        {% if VOTING == False %}
         <h4>What are some example pitches?</h4>
         <p>Here are there pitches that were selected in recent years.</p>
-
+        
         <ul>
           <li>
             <strong>Showing big datasets on small screens</strong>
@@ -97,6 +98,7 @@
 
         <h4>Still need inspiration?</h4>
         <p>Spend the next 45 minutes <a href="https://ire.org/conferences/nicar-2014/lightning/">watching the lightning talks from 2014</a>!</p>
+        {% endif %}
       </div>
     </footer>
 
