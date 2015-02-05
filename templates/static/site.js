@@ -25,14 +25,44 @@ $(function(){
     var $loginMessage = $('#please-login');
     var $proposeForm = $('#propose');
 
+    var remove = function(arr, item) {
+        console.log('remove_begin');
+        console.log(arr);
+        for(var i = arr.length; i--;) {
+            if(arr[i] === item) {
+                arr.splice(i, 1);
+            }
+        }
+        console.log('remove_end');
+        console.log(arr);
+    }
+
     var set_login_status = function(logged_in, user, votes) {
         IS_LOGGED_IN = logged_in;
         USER = user;
 
-        if (votes.length > 0) {
-            // If there are new votes incoming, merge them.
-            USER_VOTES = USER_VOTES.concat(votes);
-        }
+        console.log('set_login_status_begin');
+        console.log(USER_VOTES);
+
+        $.each(votes, function(idx, v){
+            if (USER_VOTES.indexOf(v) == -1){
+                // Update the array of votes and serialize to pipe-separated for the cookie.
+                USER_VOTES.push(v);
+            } else {
+                console.log('DUPLICATE!')
+                console.log(v);
+            }
+        });
+
+        // if (votes.length > 0) {
+        //     // If there are new votes incoming, merge them.
+        //     USER_VOTES = USER_VOTES.concat(votes);
+        // }
+
+        remove(USER_VOTES, "");
+
+        console.log('set_login_status');
+        console.log(USER_VOTES);
 
         if (logged_in) {
             $userId.html(user[1]);
@@ -90,9 +120,13 @@ $(function(){
                     success: function(data) {
                         if (data['success'] === true) {
 
-                            // Update the array of votes and serialize to pipe-separated for the cookie.
-                            USER_VOTES.push(session_id);
-                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+                            if (USER_VOTES.indexOf(session_id) == -1){
+                                // Update the array of votes and serialize to pipe-separated for the cookie.
+                                USER_VOTES.push(session_id);
+                            }
+
+                            console.log('create_vote_after_push');
+                            console.log(USER_VOTES);
 
                             // Increment the count while we wait for the server to do this automatically.
                             $(thisSession).removeClass('unvoted').addClass('voted');
@@ -102,11 +136,19 @@ $(function(){
 
                             // Percolate the changes.
                             set_login_status(true, USER, USER_VOTES);
+
+                            console.log('create_vote_after_set_login_status');
+                            console.log(USER_VOTES);
+
+                            // Update the array of votes and serialize to pipe-separated for the cookie.
+                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+
+                            console.log('create_vote_after_cookie');
+                            console.log(USER_VOTES);
                         }
                     }
                 });
             } else {
-
                 var url = loginHost + 'vote/action/';
                 url += '?user=' + USER[0];
                 url += '&session=' + session_id;
@@ -119,13 +161,10 @@ $(function(){
                     success: function(data) {
                         if (data['success'] === true) {
 
-                            var ix = USER_VOTES.indexOf(session_id);
-                            if (ix > -1) {
-                                USER_VOTES.splice(ix, 1)
-                            }
+                            remove(USER_VOTES, session_id);
 
-                            // Update the array of votes and serialize to pipe-separated for the cookie.
-                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+                            console.log('remove_vote');
+                            console.log(USER_VOTES);
 
                             // Increment the count while we wait for the server to do this automatically.
                             $(thisSession).removeClass('voted').addClass('unvoted');
@@ -135,6 +174,10 @@ $(function(){
 
                             // Percolate the changes.
                             set_login_status(true, USER, USER_VOTES);
+
+                            // Update the array of votes and serialize to pipe-separated for the cookie.
+                            $.cookie(cookie_namespace + 'votes', USER_VOTES.join("|"));
+
                         }
                     }
                 });

@@ -74,12 +74,18 @@ def vote_action(methods=['GET']):
 
     print len(votes)
 
+    # Create a new vote.
     if len(votes) == 0:
         models.Vote(user=u['_id'], session=s['_id']).save()
+        sesh = models.Session(s)
+        sesh.update_records()
         return json.dumps({"success": True, "action": "create vote"})
 
+    # Delete existing votes.
     if len(votes) > 0:
         utils.connect('vote').remove({"user": user, "session": session})
+        sesh = models.Session(s)
+        sesh.update_records()
         return json.dumps({"success": True, "action": "delete vote"})
 
     return error
