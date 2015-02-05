@@ -21,7 +21,7 @@
       <div class="row user-status">
         <div class="left">
           <h1>#NICAR15 Lightning Talks</h1>
-          <p>Looking for the <a href="http://www.ire.org/conferences/nicar2015/">conference site</a>?</p>
+          <p>All pitches are due on XXX, XXX, XXXX. Voting begins XXXX and closes XXXXX.</p>
         </div>
         <div class="logged-status">
           <div id="logged-out" style="display:none;">
@@ -53,23 +53,20 @@
         </div>
       </div>
     </div>
-    <div class="top status-bar">
-      <div class="inside">
-        All pitches are due on XXX, XXX, XXXX. Voting begins XXXX and closes XXXXX.
-      </div>
-    </div>
     <div class="top sorting">
       <div class="login-container inside cf">
         <div id="logged-in" style="display:none;">
           Hello <span id="user-id"></span>!
           <button id="submit-logout">Log out</button>
         </div>
+        {% if VOTING == True %}
         <div class="right">
           Sort by:
             <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>, 
             <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or 
             <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>
         </div>
+        {% endif %}
       </div>
     </div>
     <div class="container">
@@ -79,8 +76,6 @@
       <div class="footer-content">
         <h4>What are lightning talks?</h4>
         <p>There's only one real rule to lightning talks: they must be under 5 minutes long. Anyone who is attending NICAR 2015 can pitch, and the attendees vote on the talks they want to see. The 10 talks with the most votes will be presented during NICAR.</p>
-
-        <img src="http://ire.org/media/uploads/images/conferences/car-15/car15webfrontart_small.png">
       </div>
     </footer>
 

@@ -1,11 +1,19 @@
 /* Overall Layout ---------------- */
 
+.row {
+    margin: 0 0 0 0;
+}
+
 h1 {
     font-family: 'Oswald', sans-serif;
 }
 
 hr {
     border-top: 1px solid #ddd;
+}
+
+#user-id {
+    font-weight: bold;
 }
 
 .top, footer {
@@ -117,10 +125,10 @@ div.session.unvoted .orange {
     display: none;
 }
 
-div.session.voted .votes-box .count {
+/*div.session.voted .votes-box .count {
     background-color: #FFA767;
 }
-
+*/
 .content-box {
     width: 86%;
     float: left;
@@ -142,7 +150,7 @@ p.author {
 }
 
 .votes-box .count {
-    background-color: #DDD;
+    background-color: #efefef;
     text-align: center;
     font-size: 28px;
     padding: 10px;
@@ -160,6 +168,10 @@ p.author {
 
 .thumbs img {
     width: 40px;
+}
+
+div.mine .author {
+    border: 1px solid red;
 }
 
 footer {
@@ -195,6 +207,7 @@ footer {
 
 #propose {
     padding: 0px;
+    margin-top: 10px;
 }
 
 #propose label {
@@ -203,7 +216,10 @@ footer {
 
 #propose input, #propose textarea {
     width: 100%;
-    margin: 0 0 10px;
+    margin: 4px 0 10px;
+    border: 1px solid #DDD;
+    padding: 10px;
+    font-weight: normal;
 }
 
 #propose textarea {
@@ -211,8 +227,23 @@ footer {
 }
 
 #propose button {
-    float: right;
+    float: left;
+    color: #FFF;
+    background-color: #DA7A08;
+    border: 1px solid #BD7015;
+    font-size: 1.2em;
+    padding: 7px 36px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    text-shadow: 2px 2px #CB6F01;
+    box-shadow: 1px 1px 1px #8E5007;
 }
+
+#propose button:hover {
+    background-color: #B96704;
+}
+
+
 
 .examples {
     margin-top: 20px;
@@ -226,10 +257,4 @@ footer {
 
 .examples p {
     padding: 0 10px;
-}
-
-div.mine {
-    border-bottom: 2px solid red;
-    border-left: 2px solid red;
-    padding-left: 5px;
 }
