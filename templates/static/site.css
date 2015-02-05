@@ -113,8 +113,9 @@ input, .checkbox {
 }
 
 .session {
-    margin: 20px 0;
-    border-bottom: 1px solid #ddd;
+    margin: 20px;
+    border-bottom: 1px solid #EEE;
+    padding: 0 0 10px;
 }
 
 div.session.voted .gray {
@@ -130,12 +131,13 @@ div.session.unvoted .orange {
 }
 */
 .content-box {
-    width: 86%;
+    width: 89%;
     float: left;
 }
 
 .content-box h3 {
     margin-top: 0px;
+    font-size: 20px;
 }
 
 p.author {
@@ -144,21 +146,21 @@ p.author {
 }
 
 .votes-box {
-    width: 10%;
+    width: 8%;
     float: left;
-    margin-right: 4%;
+    margin-right: 3%;
 }
 
 .votes-box .count {
     background-color: #efefef;
     text-align: center;
-    font-size: 28px;
-    padding: 10px;
+    font-size: 24px;
+    padding: 5px;
     box-sizing: border-box;
 }
 
 .num-label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .thumbs {
