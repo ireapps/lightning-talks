@@ -51,7 +51,7 @@ def e(environment):
     env.hosts = settings.ENVIRONMENTS[environment]['hosts']
 
 def make_directories():
-    api.run('mkdir -p /home/ubuntu/apps/%s' % settings.PROJECT_NAME)
+    api.run('mkdir -p /home/ubuntu/%s' % settings.PROJECT_NAME)
     api.run('sudo mkdir /var/log/%s' % settings.PROJECT_NAME)
     api.run('sudo touch /var/log/%s/uwsgi.log && chmod 777 /var/log/%s/uwsgi.log' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
     api.run('sudo touch /tmp/%s.uwsgi.sock && chmod 777 /tmp/%s.uwsgi.sock' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
@@ -59,8 +59,9 @@ def make_directories():
 def make_virtualenv():
     api.run('mkvirtualenv %s' % (settings.PROJECT_NAME))
 
+@api.task
 def checkout_project():
-    api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/apps/%s/repository' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+    api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
 
 @api.task
 def reload_nginx():
@@ -77,19 +78,14 @@ def reload_services():
 
 @api.task
 def link_confs():
-    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/uwsgi.conf /etc/init/%s.conf' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+    api.run('sudo cp /home/ubuntu/%s/confs/uwsgi.conf /etc/init/%s.conf' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
     api.run('sudo initctl reload-configuration')
-    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/nginx.conf /etc/nginx/sites-enabled/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/nginx.conf /etc/nginx/sites-available/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
 
 
 @api.task
 def update_project():
-    api.run('cd /home/ubuntu/apps/%s/repository; git fetch' % settings.PROJECT_NAME)
-    api.run('cd /home/ubuntu/apps/%s/repository; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
-
-def install_requirements():
-    api.run('workon %s && pip install -r /home/ubuntu/apps/%s/repository/requirements.txt' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+    api.run('cd /home/ubuntu/%s; git fetch' % settings.PROJECT_NAME)
+    api.run('cd /home/ubuntu/%s; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
 
 @api.task
 def setup():
