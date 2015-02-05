@@ -55,15 +55,15 @@ def checkout():
     api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
 
 @api.task
-def reload_nginx():
+def nginx():
     api.run('sudo service nginx reload')
 
 @api.task
-def reload_uwsgi():
-    api.run('sudo service %s restart' % settings.PROJECT_NAME)
+def wsgi():
+    api.run('touch /hom/ubuntu/%s/app.py' % settings.PROJECT_NAME)
 
 @api.task
-def reload_services():
+def svcs():
     reload_nginx()
     reload_uwsgi()
 
