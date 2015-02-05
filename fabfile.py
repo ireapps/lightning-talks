@@ -77,8 +77,8 @@ SETUP TASKS
 """
 
 def clear_collection(collection):
-    collection = utils.connect(collection, db=env.settings)
-    collection.remove({})
+    c = utils.connect(collection, db=env.settings)
+    c.remove({})
 
 @api.task
 def nuke():
