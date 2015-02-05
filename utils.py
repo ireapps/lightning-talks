@@ -3,9 +3,7 @@ import settings
 from pymongo import MongoClient
 
 
-def connect(collection, db=None):
-    if not db:
-        db = settings.MONGO_DATABASE
+def connect(collection):
     client = MongoClient()
-    d = client[db]
+    d = client[settings.MONGO_DATABASE]
     return d[collection]
