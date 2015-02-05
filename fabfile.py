@@ -81,6 +81,11 @@ def clear_collection(collection):
     collection.remove({})
 
 @api.task
+def nuke():
+    for collection in ['user', 'session', 'vote']:
+        clear_collection(collection)
+
+@api.task
 def tally():
     models.Session.tally()
     models.User.tally()
