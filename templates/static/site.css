@@ -116,10 +116,10 @@ div.session.voted .gray {
 div.session.unvoted .orange {
     display: none;
 }
-/*
+
 div.session.voted .votes-box .count {
     background-color: #FFA767;
-}*/
+}
 
 .content-box {
     width: 86%;
