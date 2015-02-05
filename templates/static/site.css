@@ -73,7 +73,6 @@ hr {
 
 .user-status {
     color: #000;
-    font-weight: bold;
     margin: 0px;
     width: 100%;
     max-width: 800px;
@@ -82,7 +81,8 @@ hr {
     padding: 0 0 10px;
 }
 
-.user-status .left {
+.user-status h1 {
+    font-weight: bold;
 }
 
 .user-status .logged-status {
