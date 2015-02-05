@@ -77,13 +77,13 @@ SETUP TASKS
 """
 
 def clear_collection(collection):
-    collection = utils.connect(collection)
+    collection = utils.connect(collection, db=env.settings)
     collection.remove({})
 
 @api.task
 def nuke():
     for collection in ['user', 'session', 'vote']:
-        clear_collection(collection, db=env.settings)
+        clear_collection(collection)
 
 @api.task
 def tally():
