@@ -50,17 +50,9 @@ def e(environment):
     env.settings = environment
     env.hosts = settings.ENVIRONMENTS[environment]['hosts']
 
-def make_directories():
-    api.run('mkdir -p /home/ubuntu/apps/%s' % settings.PROJECT_NAME)
-    api.run('sudo mkdir /var/log/%s' % settings.PROJECT_NAME)
-    api.run('sudo touch /var/log/%s/uwsgi.log && chmod 777 /var/log/%s/uwsgi.log' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-    api.run('sudo touch /tmp/%s.uwsgi.sock && chmod 777 /tmp/%s.uwsgi.sock' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-
-def make_virtualenv():
-    api.run('mkvirtualenv %s' % (settings.PROJECT_NAME))
-
-def checkout_project():
-    api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/apps/%s/repository' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+@api.task
+def checkout():
+    api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
 
 @api.task
 def reload_nginx():
@@ -76,31 +68,9 @@ def reload_services():
     reload_uwsgi()
 
 @api.task
-def link_confs():
-    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/uwsgi.conf /etc/init/%s.conf' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-    api.run('sudo initctl reload-configuration')
-    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/nginx.conf /etc/nginx/sites-enabled/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-    api.run('sudo cp /home/ubuntu/apps/%s/repository/confs/nginx.conf /etc/nginx/sites-available/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-
-
-@api.task
-def update_project():
-    api.run('cd /home/ubuntu/apps/%s/repository; git fetch' % settings.PROJECT_NAME)
-    api.run('cd /home/ubuntu/apps/%s/repository; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
-
-def install_requirements():
-    api.run('workon %s && pip install -r /home/ubuntu/apps/%s/repository/requirements.txt' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
-
-@api.task
-def setup():
-    with api.settings(warn_only=True):
-        make_directories()
-        make_virtualenv()
-        checkout_project()
-        update_project()
-        install_requirements()
-        link_confs()
-        reload_services()
+def pull():
+    api.run('cd /home/ubuntu/%s; git fetch' % settings.PROJECT_NAME)
+    api.run('cd /home/ubuntu/%s; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
 
 """
 SETUP TASKS
