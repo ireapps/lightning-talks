@@ -174,4 +174,4 @@ if __name__ == '__main__':
     if args.port:
         server_port = int(args.port)
 
-    app.run(host='0.0.0.0', port=server_port, debug=settings.DEBUG)
+    app.run(host='0.0.0.0', port=server_port)
