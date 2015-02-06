@@ -13,9 +13,10 @@ def connect(collection):
 def bake():
     from flask import g
 
-    with (app.app.test_request_context(path="/index.html")):
-        view = globals()['app'].__dict__['homepage']
-        file_path = "www/index.html"
-        with open(file_path, "w") as writefile:
-            writefile.write(view())
-        print "wrote %s" % file_path
+    for route in ['index', 'login']:
+        with (app.app.test_request_context(path="/%s.html" % route)):
+            view = globals()['app'].__dict__[route]
+            file_path = "www/%s.html" % route
+            with open(file_path, "w") as writefile:
+                writefile.write(view())
+            print "wrote %s" % file_path
