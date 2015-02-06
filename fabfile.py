@@ -118,12 +118,12 @@ def fake_data():
 
     tally()
 
-@api.task()
+@api.task
 def push():
     api.local('git commit -am "Baking; deploying to production."')
     api.local('git push origin master')
 
-@api.task()
+@api.task
 def deploy():
     bake()
     push()
