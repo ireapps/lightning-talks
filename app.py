@@ -36,7 +36,7 @@ def homepage():
 
 @app.route('/login')
 def login():
-    return render_template('login.html');
+    return render_template('login.html', VOTING=settings.VOTING);
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):
