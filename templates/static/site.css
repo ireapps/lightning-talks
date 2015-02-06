@@ -46,29 +46,7 @@ hr {
     padding: 10px 0;
 }
 
-.top .login-container #logged-in {
-    float: left;
-}
 
-.top .login-container .right {
-    float: right;
-    text-align: right;
-}
-
-.login-options {
-    margin: 40px auto 0;
-    border: 1px solid #ddd;
-}
-
-.create-account, .login-box {
-    width: 50%;
-    float: left;
-    padding: 10px 20px;
-}
-
-.create-account {
-    border-right: 1px solid #ddd;
-}
 
 .user-status {
     color: #000;
@@ -93,26 +71,6 @@ hr {
     float: right;
 }
 
-input, .checkbox {
-    display: block;
-    margin: 0 0 7px;
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #DDD;
-}
-
-.checkbox {
-    width: 170px;
-}
-
-.checkbox input[type=checkbox] {
-    margin-left: 0px;
-}
-
-.checkbox label {
-    padding-left: 10px;
-    font-size: 13px;
-}
 
 .session {
     margin: 20px;
@@ -250,3 +208,118 @@ footer {
 .footer-content h4 {
     margin: 25px 0 8px;
 }
+
+/* Login Page ---------------- */
+
+.logged-status p {
+    font-weight: bold;
+    padding: 0 0 3px 0;
+}
+
+.top .login-container #logged-in {
+    float: left;
+}
+
+.top .login-container .right {
+    float: right;
+    text-align: right;
+}
+
+.login-options {
+    margin: 40px auto 0;
+}
+
+.create-account, .login-box {
+    width: 46%;
+    float: left;
+    padding: 20px;
+    background-color: #EEE;
+}
+
+.create-account {
+    margin-right: 4%;
+}
+
+input, .checkbox {
+    display: block;
+    margin: 0 0 7px;
+    width: 100%;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #DDD;
+}
+
+.checkbox {
+    padding: 10px 5px;
+}
+
+.checkbox input[type=checkbox] {
+    margin-left: 0px;
+    float: left;
+    position: relative;
+    width: 10px;
+}
+
+.checkbox label {
+    padding-left: 10px;
+    font-size: 13px;
+    float: left;
+}
+
+#submit-login, #submit-login-s {
+    color: #FFF;
+    background-color: #08A5DA;
+    border: 1px solid #1593BD;
+    font-size: 1.1em;
+    padding: 5px 25px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    text-shadow: 2px 2px #0198CB;
+    box-shadow: 1px 1px 1px #07828E;
+}
+
+#submit-login:hover, #submit-login-s:hover {
+    background-color: #0794C3;
+}
+
+#submit-login-s {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -213,6 +213,9 @@ $(function(){
                     // Votes come back as pipe-delimited from the server.
                     $.cookie(cookie_namespace + 'votes', data['votes']);
                     set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
+
+                    // Redirect to main page after login
+                    window.location.replace('/');
                 } else {
                     alert(data.text);
                 }
