@@ -117,3 +117,15 @@ def fake_data():
         models.Vote(vote_dict).save()
 
     tally()
+
+@api.task()
+def push():
+    api.local('git commit -am "Baking; deploying to production."')
+    api.local('git push origin master')
+
+@api.task()
+def deploy():
+    bake()
+    push()
+    pull()
+    wsgi()
