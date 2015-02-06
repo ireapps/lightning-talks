@@ -11,7 +11,7 @@ import utils
 
 env.user = "ubuntu"
 env.forward_agent = True
-env.branch = "masterf"
+env.branch = "master"
 
 env.hosts = []
 env.settings = None
