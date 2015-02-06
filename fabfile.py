@@ -98,6 +98,10 @@ def load_votes():
         return list(json.loads(readfile.read()))
 
 @api.task
+def bake():
+    utils.bake()
+
+@api.task
 def fake_data():
 
     for collection in ['user', 'session', 'vote']:
