@@ -13,7 +13,7 @@ import utils
 
 app = Flask(__name__)
 
-@app.route('/index.html')
+@app.route('/')
 def index():
     if settings.VOTING:
 
@@ -32,10 +32,6 @@ def index():
 
     else:
         return render_template('create_session.html', VOTING=settings.VOTING);
-
-@app.route('/login.html')
-def login():
-    return render_template('login.html', VOTING=settings.VOTING);
 
 
 @app.route('/api/vote/action/')

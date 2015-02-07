@@ -7,7 +7,6 @@
     <title>NICAR 2015 Lightning Talks</title>
 
     <!-- Bootstrap -->
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
     <style type="text/css">{% include "static/bootstrap.min.css" %}</style>
 
     <!--[if lt IE 9]>
@@ -20,8 +19,9 @@
     <div class="top">
       <div class="row user-status">
         <div class="left">
+          <div class="icon"><img src="{{ url_for('static', filename = 'icon.png') }}"></div>
           <h1>NICAR 2015 Lightning Talks</h1>
-          <p>Pitches due XXX, XXX, XXXX. Voting opens XXX to XXX.</p>
+          <p>Submit a talk by Feb. 15th. Voting begins Feb. 16th and closes Feb. 22nd.</p>
         </div>
       </div>
     </div>
@@ -34,14 +34,40 @@
         {% if VOTING == True %}
         <div class="right">
           Sort by:
-            <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>,
-            <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or
-            <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>
+            <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">Random</a>,
+            <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">Alphabetical</a> or
+            <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">Most Popular</a>
         </div>
         {% endif %}
       </div>
     </div>
-    <div class="container">
+    <div class="lt-container">
+
+      <div class="logged-status">
+        <div id="logged-out">
+          <div class="login-options cf">
+            <div class="create-account">
+              <p>Create an account:</p>
+              <input id="email-login" type="text" placeholder="Email" value=""></input>
+              <input id="password-login" type="password" placeholder="Password" value=""></input>
+              <input id="name-login" type="text" placeholder="Name" value=""></input>
+              <div class="checkbox cf">
+                <input id="going-to-nicar" type="checkbox"></input>
+                <label>Going to NICAR?</label>
+              </div>
+              <button id="submit-login">Create</button>
+            </div>
+            <div class="login-box">
+              <p>Login:</p>
+              <input id="email-login-s" type="text" placeholder="Email" value=""></input>
+              <input id="password-login-s" type="password" placeholder="Password" value=""></input>
+              <button id="submit-login-s">Login</button>
+            </div>              
+          </div>
+
+        </div>
+      </div>
+
       {% block content %}{% endblock %}
     </div>
     <footer>
@@ -70,7 +96,14 @@
 
         <h4>Still need inspiration?</h4>
         <p>Spend the next 45 minutes <a href="https://ire.org/conferences/nicar-2014/lightning/">watching the lightning talks from 2014</a>!</p>
+
+        <h4>Want help? Still need convincing?</h4>
+        <p><a href="https://medium.com/@sisiwei/2015-will-be-the-year-you-pitch-a-nicar-lightning-talk-dd293e5d78ca">Sisi makes the argument for why you should pitch a talk, and what she'll do to help</a>.</p>
+
         {% endif %}
+
+        <p class="credit">The code powering this website is <a href="https://github.com/ireapps/lightning-talks">on Github</a>! Microphone icon created by Julien Deveaux from the Noun Project.</p>
+        
       </div>
     </footer>
 

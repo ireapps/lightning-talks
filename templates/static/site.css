@@ -4,8 +4,24 @@
     margin: 0 0 0 0;
 }
 
-h1 {
-    font-family: 'Oswald', sans-serif;
+.lt-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 0px;
+    margin: 0 auto;
+}
+
+.icon {
+    margin: 20px 0 0 0;
+}
+
+.icon img {
+    vertical-align: middle;
+    background-color: #FFF;
+    border-radius: 40px;
+    padding: 10px;
+    box-shadow: 0px 1px 10px #C39A0D;
+    width: 83px;
 }
 
 hr {
@@ -17,7 +33,7 @@ hr {
 }
 
 .top, footer {
-    background-color: #ECECEC;
+    background-color: #E99800;
 }
 
 .top .desc {
@@ -28,9 +44,13 @@ hr {
 }
 
 .top.sorting {
-    background-color: #d5d5d5;
-    color: black;
-    padding: 10px 0;
+    background-color: #eee;
+    color: #666;
+    padding: 10px 20px;
+}
+
+button#submit-logout {
+    margin-left: 5px;
 }
 
 .inside {
@@ -46,8 +66,6 @@ hr {
     padding: 10px 0;
 }
 
-
-
 .user-status {
     color: #000;
     margin: 0px;
@@ -60,6 +78,12 @@ hr {
 
 .user-status h1 {
     font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 10px #CD7D00;
+}
+
+.user-status p {
+    color: white;
 }
 
 .user-status .logged-status {
@@ -71,11 +95,18 @@ hr {
     float: right;
 }
 
+.all-sessions {
+    margin: 20px 0;
+}
 
 .session {
-    margin: 20px;
+    margin: 20px 0px;
     border-bottom: 1px solid #EEE;
     padding: 0 0 10px;
+}
+
+.session:last-child {
+    border-bottom: none;
 }
 
 div.session.voted .gray {
@@ -86,12 +117,8 @@ div.session.unvoted .orange {
     display: none;
 }
 
-/*div.session.voted .votes-box .count {
-    background-color: #FFA767;
-}
-*/
 .content-box {
-    width: 89%;
+    max-width: 89%;
     float: left;
 }
 
@@ -109,6 +136,7 @@ p.author {
     width: 8%;
     float: left;
     margin-right: 3%;
+    min-width: 60px;
 }
 
 .votes-box .count {
@@ -132,19 +160,31 @@ p.author {
     width: 40px;
 }
 
-div.mine .author {
+/*div.mine .author {
     border: 1px solid red;
-}
+}*/
 
 footer {
+    background-color: #eee;
     margin: 50px 0 0 0;
     padding: 10px 0 50px;
+}
+
+footer a {
+    color: #1593d1;
 }
 
 .footer-content {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    color: #444;
+}
+
+.credit {
+    font-size: 11px;
+    margin-top: 20px;
+    color: #888;
 }
 
 .cf:before,
@@ -155,14 +195,6 @@ footer {
 
 .cf:after {
     clear: both;
-}
-
-@media (min-width: 1200px){
-    .container {
-        width: 100%;
-        max-width: 800px;
-        padding: 0px;
-    }
 }
 
 /* Propose a talk ---------------- */
@@ -191,7 +223,7 @@ footer {
 #propose button {
     float: left;
     color: #FFF;
-    background-color: #DA7A08;
+    background-color: #e48700;
     border: 1px solid #BD7015;
     font-size: 1.2em;
     padding: 7px 36px;
@@ -289,6 +321,48 @@ input {
 }
 
 
+
+@media only screen and (max-width : 991px) {
+    .content-box { width: 87%; }
+}
+
+@media only screen and (max-width : 800px) {
+    .lt-container, .footer-content { padding: 0 15px; }
+}
+
+@media only screen and (max-width : 685px) {
+    .content-box { width: 85%; }
+}
+
+@media only screen and (max-width : 600px) {
+
+    .top .login-container #logged-in {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .top .login-container .right {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+
+}
+
+
+@media only screen and (max-width : 550px) {
+    .content-box { width: 77%; }
+    .create-account, .login-box {
+        width: 100%;
+        margin: 0 0 10px 0;
+        float: none;
+    }
+    .user-status {
+        padding: 0 15px 10px 0;
+    }
+}
 
 
 

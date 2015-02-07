@@ -224,9 +224,11 @@ $(function(){
     }
 
     var user_logout = function() {
-      $.removeCookie(cookie_namespace + 'user');
-      $.removeCookie(cookie_namespace + 'votes');
-      set_login_status(false, null, []);
+        $('.all-sessions').remove();
+        $.removeCookie(cookie_namespace + 'user');
+        $.removeCookie(cookie_namespace + 'votes');
+        set_login_status(false, null, []);
+        location.reload();
     }
 
     var init = function() {
@@ -236,6 +238,10 @@ $(function(){
           }
       } else {
           set_login_status(false, null, []);
+      }
+
+      if (!IS_LOGGED_IN){
+        $('.all-sessions').remove();
       }
     }
 
