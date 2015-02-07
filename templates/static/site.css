@@ -181,6 +181,12 @@ footer a {
     color: #444;
 }
 
+.credit {
+    font-size: 11px;
+    margin-top: 20px;
+    color: #888;
+}
+
 .cf:before,
 .cf:after {
     content: " "; /* 1 */
