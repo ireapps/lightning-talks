@@ -13,7 +13,7 @@ def connect(collection):
 def bake():
     from flask import g
 
-    for route in ['index', 'login']:
+    for route in ['index']:
         with (app.app.test_request_context(path="/%s.html" % route)):
             view = globals()['app'].__dict__[route]
             file_path = "www/%s.html" % route
