@@ -26,7 +26,7 @@ def index():
             s['username'] = user['name']
             payload.append(s)
 
-        # random.shuffle(payload)
+        random.shuffle(payload)
 
         return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
 
