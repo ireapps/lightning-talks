@@ -26,7 +26,7 @@ def index():
             s['username'] = user['name']
             payload.append(s)
 
-        random.shuffle(payload)
+        # random.shuffle(payload)
 
         return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
 
@@ -53,13 +53,11 @@ def vote_action(methods=['GET']):
     if not u:
         return error
 
-    s = utils.connect('session').find_one({"_id": session})
-    if not s:
-        return error
+    # s = utils.connect('session').find_one({"_id": session})
+    # if not s:
+    #     return error
 
     votes = [vote for vote in utils.connect('vote').find({"user": user, "session": session})]
-
-    print len(votes)
 
     # Create a new vote.
     if len(votes) == 0:
