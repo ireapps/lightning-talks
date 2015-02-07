@@ -33,8 +33,7 @@ hr {
 }
 
 .top, footer {
-    /*background-color: #ECECEC;*/
-    background-color: #E99700;
+    background-color: #E99800;
 }
 
 .top .desc {
@@ -45,9 +44,13 @@ hr {
 }
 
 .top.sorting {
-    background-color: #d5d5d5;
-    color: black;
+    background-color: #eee;
+    color: #666;
     padding: 10px 20px;
+}
+
+button#submit-logout {
+    margin-left: 5px;
 }
 
 .inside {
@@ -76,7 +79,7 @@ hr {
 .user-status h1 {
     font-weight: bold;
     color: white;
-    text-shadow: 2px 2px #CD7D00;
+    text-shadow: 2px 2px 10px #CD7D00;
 }
 
 .user-status p {
@@ -162,14 +165,20 @@ p.author {
 }*/
 
 footer {
+    background-color: #eee;
     margin: 50px 0 0 0;
     padding: 10px 0 50px;
+}
+
+footer a {
+    color: #1593d1;
 }
 
 .footer-content {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    color: #444;
 }
 
 .cf:before,
@@ -208,7 +217,7 @@ footer {
 #propose button {
     float: left;
     color: #FFF;
-    background-color: #DA7A08;
+    background-color: #e48700;
     border: 1px solid #BD7015;
     font-size: 1.2em;
     padding: 7px 36px;
