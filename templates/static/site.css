@@ -11,8 +11,17 @@
     margin: 0 auto;
 }
 
-h1 {
-    font-family: 'Oswald', sans-serif;
+.icon {
+    margin: 20px 0 0 0;
+}
+
+.icon img {
+    vertical-align: middle;
+    background-color: #FFF;
+    border-radius: 40px;
+    padding: 10px;
+    box-shadow: 0px 1px 10px #C39A0D;
+    width: 83px;
 }
 
 hr {
@@ -24,7 +33,8 @@ hr {
 }
 
 .top, footer {
-    background-color: #ECECEC;
+    /*background-color: #ECECEC;*/
+    background-color: #E99700;
 }
 
 .top .desc {
@@ -65,6 +75,12 @@ hr {
 
 .user-status h1 {
     font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px #CD7D00;
+}
+
+.user-status p {
+    color: white;
 }
 
 .user-status .logged-status {
@@ -327,6 +343,9 @@ input {
         width: 100%;
         margin: 0 0 10px 0;
         float: none;
+    }
+    .user-status {
+        padding: 0 15px 10px 0;
     }
 }
 
