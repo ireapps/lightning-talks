@@ -34,8 +34,8 @@
         {% if VOTING == True %}
         <div class="right">
           Sort by:
-            <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>, 
-            <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or 
+            <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">random</a>,
+            <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">alpha</a> or
             <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">most popular</a>
         </div>
         {% endif %}
@@ -52,7 +52,7 @@
         {% if VOTING == False %}
         <h4>What are some example pitches?</h4>
         <p>Here are there pitches that were selected in recent years.</p>
-        
+
         <ul>
           <li>
             <strong>Showing big datasets on small screens</strong>
@@ -66,7 +66,7 @@
             <strong>CoffeeScript: What it is and why it's cool</strong>
             <p>Nothing goes together better than coffee and code do. CoffeeScript makes writing JavaScript much nicer. This simple demo shows off a little code in both languages and an example coffeescript workflow.</p>
           </li>
-        </ul>        
+        </ul>
 
         <h4>Still need inspiration?</h4>
         <p>Spend the next 45 minutes <a href="https://ire.org/conferences/nicar-2014/lightning/">watching the lightning talks from 2014</a>!</p>
@@ -74,7 +74,7 @@
       </div>
     </footer>
 
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/tinysort/2.1.1/tinysort.min.js"></script>
+    <script type="text/javascript">{% include "static/tinysort.min.js" %}</script>
     <script type="text/javascript">{% include "static/jquery.min.js" %}</script>
     <script type="text/javascript">{% include "static/jquery.cookie.min.js" %}</script>
     <script type="text/javascript">{% include "static/fingerprint.min.js" %}</script>

@@ -11,7 +11,7 @@ import utils
 
 env.user = "ubuntu"
 env.forward_agent = True
-env.branch = "masterf"
+env.branch = "master"
 
 env.hosts = []
 env.settings = None
@@ -98,6 +98,10 @@ def load_votes():
         return list(json.loads(readfile.read()))
 
 @api.task
+def bake():
+    utils.bake()
+
+@api.task
 def fake_data():
 
     for collection in ['user', 'session', 'vote']:
@@ -113,3 +117,22 @@ def fake_data():
         models.Vote(vote_dict).save()
 
     tally()
+
+@api.task
+def varnish():
+    api.run('sudo service varnish restart')
+
+@api.task
+def push():
+    api.local('git commit -am "Baking; deploying to production."')
+
+    with api.settings(warn_only=True):
+        api.local('git push origin master')
+
+@api.task
+def deploy():
+    bake()
+    push()
+    pull()
+    wsgi()
+    varnish()
