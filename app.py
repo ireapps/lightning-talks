@@ -13,7 +13,7 @@ import utils
 
 app = Flask(__name__)
 
-@app.route('/index.html')
+@app.route('/')
 def index():
     if settings.VOTING:
 

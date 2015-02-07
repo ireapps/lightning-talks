@@ -4,6 +4,13 @@
     margin: 0 0 0 0;
 }
 
+.lt-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 0px;
+    margin: 0 auto;
+}
+
 h1 {
     font-family: 'Oswald', sans-serif;
 }
@@ -30,7 +37,7 @@ hr {
 .top.sorting {
     background-color: #d5d5d5;
     color: black;
-    padding: 10px 0;
+    padding: 10px 20px;
 }
 
 .inside {
@@ -45,8 +52,6 @@ hr {
     color: white;
     padding: 10px 0;
 }
-
-
 
 .user-status {
     color: #000;
@@ -76,7 +81,7 @@ hr {
 }
 
 .session {
-    margin: 20px;
+    margin: 20px 0px;
     border-bottom: 1px solid #EEE;
     padding: 0 0 10px;
 }
@@ -94,7 +99,7 @@ div.session.unvoted .orange {
 }
 
 .content-box {
-    width: 89%;
+    max-width: 89%;
     float: left;
 }
 
@@ -112,6 +117,7 @@ p.author {
     width: 8%;
     float: left;
     margin-right: 3%;
+    min-width: 60px;
 }
 
 .votes-box .count {
@@ -135,9 +141,9 @@ p.author {
     width: 40px;
 }
 
-div.mine .author {
+/*div.mine .author {
     border: 1px solid red;
-}
+}*/
 
 footer {
     margin: 50px 0 0 0;
@@ -158,14 +164,6 @@ footer {
 
 .cf:after {
     clear: both;
-}
-
-@media (min-width: 1200px){
-    .container {
-        width: 100%;
-        max-width: 800px;
-        padding: 0px;
-    }
 }
 
 /* Propose a talk ---------------- */
@@ -292,6 +290,45 @@ input {
 }
 
 
+
+@media only screen and (max-width : 991px) {
+    .content-box { width: 87%; }
+}
+
+@media only screen and (max-width : 800px) {
+    .lt-container, .footer-content { padding: 0 15px; }
+}
+
+@media only screen and (max-width : 685px) {
+    .content-box { width: 85%; }
+}
+
+@media only screen and (max-width : 600px) {
+
+    .top .login-container #logged-in {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .top .login-container .right {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+
+}
+
+
+@media only screen and (max-width : 550px) {
+    .content-box { width: 77%; }
+    .create-account, .login-box {
+        width: 100%;
+        margin: 0 0 10px 0;
+        float: none;
+    }
+}
 
 
 
