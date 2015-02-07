@@ -434,13 +434,6 @@ input {
           <button id="submit-logout">Log out</button>
         </div>
         
-        <div class="right">
-          Sort by:
-            <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">Random</a>,
-            <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">Alphabetical</a> or
-            <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">Most Popular</a>
-        </div>
-        
       </div>
     </div>
     <div class="lt-container">
@@ -472,16 +465,53 @@ input {
 
       
 
-<div class="all-sessions row">
-    
-</div>
+<div id="propose" style="display:none;">
 
+    <div class="row">
+        <div class="cf" >
+            <h2>Propose a Lightning Talk</h2>
+            <p>After submitting, you won't be able to edit your pitch.</p>
+            <label>Title<input type="text" placeholder="My talk"></input></label>
+            <label>Description<textarea placeholder="My talk's description"></textarea></label>
+            <button id="submit-create-session">Submit</button>
+        </div>
+        <div class="" id="please-login">
+            <h1>Please login to propose a session.</h1>
+        </div>
+    </div>
+
+</div>
 
     </div>
     <footer>
       <div class="footer-content">
         <h4>What are lightning talks?</h4>
         <p>5 minute talks on any subject. Anyone who is attending NICAR 2015 can pitch and the attendees vote on the talks they want to see. The 10 talks with the most votes will be presented during NICAR.</p>
+
+        
+        <h4>What are some example pitches?</h4>
+        <p>Here are there pitches that were selected in recent years.</p>
+
+        <ul>
+          <li>
+            <strong>Showing big datasets on small screens</strong>
+            <p>When presenting huge data stories, make sure your mobile users aren't left out or forced to load massive datasets. Using WaPo's 2012 mobile election results as an example, I'll talk about creating lightweight data-driven web apps and tailoring the experience for mobile.</p>
+          </li>
+          <li>
+            <strong>Document Armaggeddon! Comparing billions of documents to find copycats, cheaters and thieves</strong>
+            <p>Ok, so maybe "billions" is a stretch in practice -- but not in theory! This talk will demonstrate how to use a few lines of Python and Amazon's Elastic MapReduce framework to scan through an arbitrarily large set of documents and find those that are similar. We used it to find recycled bills from previous sessions of the California State Legislature, but the applications are endless.</p>
+          </li>
+          <li>
+            <strong>CoffeeScript: What it is and why it's cool</strong>
+            <p>Nothing goes together better than coffee and code do. CoffeeScript makes writing JavaScript much nicer. This simple demo shows off a little code in both languages and an example coffeescript workflow.</p>
+          </li>
+        </ul>
+
+        <h4>Still need inspiration?</h4>
+        <p>Spend the next 45 minutes <a href="https://ire.org/conferences/nicar-2014/lightning/">watching the lightning talks from 2014</a>!</p>
+
+        <h4>Want help? Still need convincing?</h4>
+        <p><a href="https://medium.com/@sisiwei/2015-will-be-the-year-you-pitch-a-nicar-lightning-talk-dd293e5d78ca">Sisi makes the argument for why you should pitch a talk, and what she'll do to help</a>.</p>
 
         
 
@@ -504,7 +534,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
     <script type="text/javascript">(function(e){if(typeof define==="function"&&define.amd){define(["jquery"],e)}else if(typeof exports==="object"){e(require("jquery"))}else{e(jQuery)}})(function(e){function n(e){return u.raw?e:encodeURIComponent(e)}function r(e){return u.raw?e:decodeURIComponent(e)}function i(e){return n(u.json?JSON.stringify(e):String(e))}function s(e){if(e.indexOf('"')===0){e=e.slice(1,-1).replace(/\\"/g,'"').replace(/\\\\/g,"\\")}try{e=decodeURIComponent(e.replace(t," "));return u.json?JSON.parse(e):e}catch(n){}}function o(t,n){var r=u.raw?t:s(t);return e.isFunction(n)?n(r):r}var t=/\+/g;var u=e.cookie=function(t,s,a){if(arguments.length>1&&!e.isFunction(s)){a=e.extend({},u.defaults,a);if(typeof a.expires==="number"){var f=a.expires,l=a.expires=new Date;l.setTime(+l+f*864e5)}return document.cookie=[n(t),"=",i(s),a.expires?"; expires="+a.expires.toUTCString():"",a.path?"; path="+a.path:"",a.domain?"; domain="+a.domain:"",a.secure?"; secure":""].join("")}var c=t?undefined:{};var h=document.cookie?document.cookie.split("; "):[];for(var p=0,d=h.length;p<d;p++){var v=h[p].split("=");var m=r(v.shift());var g=v.join("=");if(t&&t===m){c=o(g,s);break}if(!t&&(g=o(g))!==undefined){c[m]=g}}return c};u.defaults={};e.removeCookie=function(t,n){if(e.cookie(t)===undefined){return false}e.cookie(t,"",e.extend({},n,{expires:-1}));return!e.cookie(t)}})</script>
     <script type="text/javascript">(function(e,t,n){if(typeof module!=="undefined"&&module.exports){module.exports=n()}else if(typeof define==="function"&&define.amd){define(n)}else{t[e]=n()}})("Fingerprint",this,function(){"use strict";var e=function(e){var t,n;t=Array.prototype.forEach;n=Array.prototype.map;this.each=function(e,n,r){if(e===null){return}if(t&&e.forEach===t){e.forEach(n,r)}else if(e.length===+e.length){for(var i=0,s=e.length;i<s;i++){if(n.call(r,e[i],i,e)==={})return}}else{for(var o in e){if(e.hasOwnProperty(o)){if(n.call(r,e[o],o,e)==={})return}}}};this.map=function(e,t,r){var i=[];if(e==null)return i;if(n&&e.map===n)return e.map(t,r);this.each(e,function(e,n,s){i[i.length]=t.call(r,e,n,s)});return i};if(typeof e=="object"){this.hasher=e.hasher;this.screen_resolution=e.screen_resolution;this.canvas=e.canvas;this.ie_activex=e.ie_activex}else if(typeof e=="function"){this.hasher=e}};e.prototype={get:function(){var e=[];e.push(navigator.userAgent);e.push(navigator.language);e.push(screen.colorDepth);if(this.screen_resolution){var t=this.getScreenResolution();if(typeof t!=="undefined"){e.push(this.getScreenResolution().join("x"))}}e.push((new Date).getTimezoneOffset());e.push(this.hasSessionStorage());e.push(this.hasLocalStorage());e.push(!!window.indexedDB);if(document.body){e.push(typeof document.body.addBehavior)}else{e.push(typeof undefined)}e.push(typeof window.openDatabase);e.push(navigator.cpuClass);e.push(navigator.platform);e.push(navigator.doNotTrack);e.push(this.getPluginsString());if(this.canvas&&this.isCanvasSupported()){e.push(this.getCanvasFingerprint())}if(this.hasher){return this.hasher(e.join("###"),31)}else{return this.murmurhash3_32_gc(e.join("###"),31)}},murmurhash3_32_gc:function(e,t){var n,r,i,s,o,u,a,f;n=e.length&3;r=e.length-n;i=t;o=3432918353;u=461845907;f=0;while(f<r){a=e.charCodeAt(f)&255|(e.charCodeAt(++f)&255)<<8|(e.charCodeAt(++f)&255)<<16|(e.charCodeAt(++f)&255)<<24;++f;a=(a&65535)*o+(((a>>>16)*o&65535)<<16)&4294967295;a=a<<15|a>>>17;a=(a&65535)*u+(((a>>>16)*u&65535)<<16)&4294967295;i^=a;i=i<<13|i>>>19;s=(i&65535)*5+(((i>>>16)*5&65535)<<16)&4294967295;i=(s&65535)+27492+(((s>>>16)+58964&65535)<<16)}a=0;switch(n){case 3:a^=(e.charCodeAt(f+2)&255)<<16;case 2:a^=(e.charCodeAt(f+1)&255)<<8;case 1:a^=e.charCodeAt(f)&255;a=(a&65535)*o+(((a>>>16)*o&65535)<<16)&4294967295;a=a<<15|a>>>17;a=(a&65535)*u+(((a>>>16)*u&65535)<<16)&4294967295;i^=a}i^=e.length;i^=i>>>16;i=(i&65535)*2246822507+(((i>>>16)*2246822507&65535)<<16)&4294967295;i^=i>>>13;i=(i&65535)*3266489909+(((i>>>16)*3266489909&65535)<<16)&4294967295;i^=i>>>16;return i>>>0},hasLocalStorage:function(){try{return!!window.localStorage}catch(e){return true}},hasSessionStorage:function(){try{return!!window.sessionStorage}catch(e){return true}},isCanvasSupported:function(){var e=document.createElement("canvas");return!!(e.getContext&&e.getContext("2d"))},isIE:function(){if(navigator.appName==="Microsoft Internet Explorer"){return true}else if(navigator.appName==="Netscape"&&/Trident/.test(navigator.userAgent)){return true}return false},getPluginsString:function(){if(this.isIE()&&this.ie_activex){return this.getIEPluginsString()}else{return this.getRegularPluginsString()}},getRegularPluginsString:function(){return this.map(navigator.plugins,function(e){var t=this.map(e,function(e){return[e.type,e.suffixes].join("~")}).join(",");return[e.name,e.description,t].join("::")},this).join(";")},getIEPluginsString:function(){if(window.ActiveXObject){var e=["ShockwaveFlash.ShockwaveFlash","AcroPDF.PDF","PDF.PdfCtrl","QuickTime.QuickTime","rmocx.RealPlayer G2 Control","rmocx.RealPlayer G2 Control.1","RealPlayer.RealPlayer(tm) ActiveX Control (32-bit)","RealVideo.RealVideo(tm) ActiveX Control (32-bit)","RealPlayer","SWCtl.SWCtl","WMPlayer.OCX","AgControl.AgControl","Skype.Detection"];return this.map(e,function(e){try{new ActiveXObject(e);return e}catch(t){return null}}).join(";")}else{return""}},getScreenResolution:function(){return[screen.height,screen.width]},getCanvasFingerprint:function(){var e=document.createElement("canvas");var t=e.getContext("2d");var n="http://valve.github.io";t.textBaseline="top";t.font="14px 'Arial'";t.textBaseline="alphabetic";t.fillStyle="#f60";t.fillRect(125,1,62,20);t.fillStyle="#069";t.fillText(n,2,15);t.fillStyle="rgba(102, 204, 0, 0.7)";t.fillText(n,4,17);return e.toDataURL()}};return e})</script>
     <script type="text/javascript">$(function(){
-    var VOTING = true;
+    var VOTING = false;
 
     var IS_LOGGED_IN = false;
     var USER = [];
