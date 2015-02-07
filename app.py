@@ -49,9 +49,9 @@ def vote_action(methods=['GET']):
     if not u:
         return error
 
-    # s = utils.connect('session').find_one({"_id": session})
-    # if not s:
-    #     return error
+    s = utils.connect('session').find_one({"_id": session})
+    if not s:
+        return error
 
     votes = [vote for vote in utils.connect('vote').find({"user": user, "session": session})]
 
@@ -168,4 +168,4 @@ if __name__ == '__main__':
     if args.port:
         server_port = int(args.port)
 
-    app.run(host='0.0.0.0', port=server_port)
+    app.run(host='0.0.0.0', port=server_port, debug=True)
