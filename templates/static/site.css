@@ -71,11 +71,18 @@ hr {
     float: right;
 }
 
+.all-sessions {
+    margin: 20px 0;
+}
 
 .session {
     margin: 20px;
     border-bottom: 1px solid #EEE;
     padding: 0 0 10px;
+}
+
+.session:last-child {
+    border-bottom: none;
 }
 
 div.session.voted .gray {
@@ -86,10 +93,6 @@ div.session.unvoted .orange {
     display: none;
 }
 
-/*div.session.voted .votes-box .count {
-    background-color: #FFA767;
-}
-*/
 .content-box {
     width: 89%;
     float: left;
