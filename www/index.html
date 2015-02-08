@@ -484,11 +484,11 @@ input {
     <p class="instructions time">It's time to vote!</p>
     <p class="instructions">Which talks do you want to see at NICAR 2015? Vote for as many talks as you'd like!</p>
     
-    <div class="session unvoted 97984267-ab75-46c4-b113-016a5555e92b cf" id="ef16edee-2292-49c8-b990-4d52b77529eb" data-title="Where Did I Put That Thing?" data-votes="4">
+    <div class="session unvoted 97984267-ab75-46c4-b113-016a5555e92b cf" id="d2650553-9e4f-4dc2-adee-f831419cf3e0" data-title="This Cheese Is Full Of Nails" data-votes="2">
         <div class="votes-box">
             
                 <div class="count">
-                    <div class="num">4</div>
+                    <div class="num">2</div>
                     <div class="num-label">votes</div>
                 </div>
                 <div class="thumbs">
@@ -498,7 +498,7 @@ input {
             
         </div>
         <div class="content-box">
-            <h3>Where Did I Put That Thing?</h3>
+            <h3>This Cheese Is Full Of Nails</h3>
             <p class="author">Proposed by: jeremy bowers</p>
             <p>This is a test description that is rather long.
             This is a test description that is rather long.
@@ -535,11 +535,11 @@ input {
         </div>
     </div>
     
-    <div class="session unvoted 97984267-ab75-46c4-b113-016a5555e92b cf" id="d2650553-9e4f-4dc2-adee-f831419cf3e0" data-title="This Cheese Is Full Of Nails" data-votes="2">
+    <div class="session unvoted 97984267-ab75-46c4-b113-016a5555e92b cf" id="ef16edee-2292-49c8-b990-4d52b77529eb" data-title="Where Did I Put That Thing?" data-votes="4">
         <div class="votes-box">
             
                 <div class="count">
-                    <div class="num">2</div>
+                    <div class="num">4</div>
                     <div class="num-label">votes</div>
                 </div>
                 <div class="thumbs">
@@ -549,7 +549,7 @@ input {
             
         </div>
         <div class="content-box">
-            <h3>This Cheese Is Full Of Nails</h3>
+            <h3>Where Did I Put That Thing?</h3>
             <p class="author">Proposed by: jeremy bowers</p>
             <p>This is a test description that is rather long.
             This is a test description that is rather long.
@@ -796,29 +796,31 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
             url += '&password=' + $passwordS.val();
             url += '&fingerprint=' + fingerprint;
         }
+        if ($('#going-to-nicar').is(":checked")){
 
-        $.ajax(url, {
-            async: true,
-            cache: true,
-            crossDomain: false,
-            dataType: 'json',
-            jsonp: false,
-            success: function(data) {
-                if (data['success'] === true) {
-                    console.log(data);
-                    $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
+            $.ajax(url, {
+                async: true,
+                cache: true,
+                crossDomain: false,
+                dataType: 'json',
+                jsonp: false,
+                success: function(data) {
+                    if (data['success'] === true) {
+                        $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
 
-                    // Votes come back as pipe-delimited from the server.
-                    $.cookie(cookie_namespace + 'votes', data['votes']);
-                    set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
+                        // Votes come back as pipe-delimited from the server.
+                        $.cookie(cookie_namespace + 'votes', data['votes']);
+                        set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
 
-                    // Redirect to main page after login
-                    window.location.replace('/');
-                } else {
-                    alert(data.text);
+                    } else {
+                        alert(data.text);
+                    }
                 }
-            }
-        });
+            });
+
+        } else {
+            alert("Please do not pitch or vote unless you are going to NICAR this year!");
+        }
     }
 
     var user_logout = function() {
