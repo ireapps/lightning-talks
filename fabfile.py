@@ -134,4 +134,4 @@ def deploy():
     push()
     pull()
     wsgi()
-    varnish()
+    # varnish()
