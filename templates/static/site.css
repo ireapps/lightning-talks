@@ -1,4 +1,7 @@
 /* Overall Layout ---------------- */
+a {
+    border-bottom: 1px dotted #337AB7;
+}
 
 .row {
     margin: 0 0 0 0;
