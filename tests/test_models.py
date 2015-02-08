@@ -7,7 +7,7 @@ import models
 import settings
 import utils
 
-class Testmodels.UserModel(unittest.TestCase):
+class TestUserModel(unittest.TestCase):
     user_dict = None
     user = None
 
@@ -46,7 +46,7 @@ class Testmodels.UserModel(unittest.TestCase):
     def tearDown(self):
         pass
 
-class Testmodels.SessionModel(unittest.TestCase):
+class TestSessionModel(unittest.TestCase):
     user_dict = None
     user = None
     session_dict = None
