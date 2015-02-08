@@ -174,9 +174,8 @@ $(function(){
             jsonp: false,
             success: function(data) {
                 if (data['success'] === true) {
+                    console.log(data);
                     $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
-
-                    console.log(data['votes']);
 
                     // Votes come back as pipe-delimited from the server.
                     $.cookie(cookie_namespace + 'votes', data['votes']);
