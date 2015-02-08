@@ -192,7 +192,7 @@ $(function(){
     }
 
     var user_logout = function() {
-        $('.all-sessions').remove();
+        $('.instructions').remove();
         $('#sort-options').remove();
         $.removeCookie(cookie_namespace + 'user');
         $.removeCookie(cookie_namespace + 'votes');
@@ -210,7 +210,7 @@ $(function(){
       }
 
       if (!IS_LOGGED_IN){
-        $('.all-sessions').remove();
+        $('.instructions').remove();
         $('#sort-options').remove();
       }
     }
