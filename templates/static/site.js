@@ -174,15 +174,13 @@ $(function(){
             jsonp: false,
             success: function(data) {
                 if (data['success'] === true) {
-                    console.log(data);
+
                     $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
 
                     // Votes come back as pipe-delimited from the server.
                     $.cookie(cookie_namespace + 'votes', data['votes']);
-                    set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
 
-                    // Redirect to main page after login
-                    window.location.replace('/');
+                    set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
                 } else {
                     alert(data.text);
                 }
