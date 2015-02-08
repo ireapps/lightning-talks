@@ -102,14 +102,19 @@ button#submit-logout {
     margin: 20px 0;
 }
 
-.session {
-    margin: 20px 0px;
-    border-bottom: 1px solid #EEE;
-    padding: 0 0 10px;
+.all-sessions .instructions {
+    text-align: center;
 }
 
-.session:last-child {
-    border-bottom: none;
+.all-sessions .instructions.time {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.session {
+    margin: 20px 0px;
+    padding: 20px 0 0;
+    border-top: 1px solid #EEE;
 }
 
 div.session.voted .gray {
