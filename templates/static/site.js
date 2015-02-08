@@ -200,27 +200,33 @@ $(function(){
             url += '&fingerprint=' + fingerprint;
         }
 
-        $.ajax(url, {
-            async: true,
-            cache: true,
-            crossDomain: false,
-            dataType: 'json',
-            jsonp: false,
-            success: function(data) {
-                if (data['success'] === true) {
-                    $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
+        if ($('#going-to-nicar').is(":checked")){
 
-                    // Votes come back as pipe-delimited from the server.
-                    $.cookie(cookie_namespace + 'votes', data['votes']);
-                    set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
+            $.ajax(url, {
+                async: true,
+                cache: true,
+                crossDomain: false,
+                dataType: 'json',
+                jsonp: false,
+                success: function(data) {
+                    if (data['success'] === true) {
+                        $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
 
-                    // Redirect to main page after login
-                    window.location.replace('/');
-                } else {
-                    alert(data.text);
+                        // Votes come back as pipe-delimited from the server.
+                        $.cookie(cookie_namespace + 'votes', data['votes']);
+                        set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
+
+                        // Redirect to main page after login
+                        window.location.replace('/');
+                    } else {
+                        alert(data.text);
+                    }
                 }
-            }
-        });
+            });
+
+        } else {
+            alert("Please do not pitch or vote unless you are going to NICAR this year!");
+        }
     }
 
     var user_logout = function() {
