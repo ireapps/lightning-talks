@@ -515,6 +515,9 @@ input {
 
         
 
+        <h4>Looking for the main NICAR 2015 conference site?</h4>
+        <p><a href="http://ire.org/conferences/nicar2015/">http://ire.org/conferences/nicar2015/</a></p>
+
         <p class="credit">The code powering this website is <a href="https://github.com/ireapps/lightning-talks">on Github</a>! Microphone icon created by Julien Deveaux from the Noun Project.</p>
 
       </div>
@@ -760,6 +763,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
     var user_logout = function() {
         $('.all-sessions').remove();
+        $('#sort-options').remove();
         $.removeCookie(cookie_namespace + 'user');
         $.removeCookie(cookie_namespace + 'votes');
         set_login_status(false, null, []);
@@ -777,6 +781,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
       if (!IS_LOGGED_IN){
         $('.all-sessions').remove();
+        $('#sort-options').remove();
       }
     }
 
