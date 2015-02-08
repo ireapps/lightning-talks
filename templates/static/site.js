@@ -165,27 +165,31 @@ $(function(){
             url += '&password=' + $passwordS.val();
             url += '&fingerprint=' + fingerprint;
         }
+        if ($('#going-to-nicar').is(":checked")){
 
-        $.ajax(url, {
-            async: true,
-            cache: true,
-            crossDomain: false,
-            dataType: 'json',
-            jsonp: false,
-            success: function(data) {
-                if (data['success'] === true) {
+            $.ajax(url, {
+                async: true,
+                cache: true,
+                crossDomain: false,
+                dataType: 'json',
+                jsonp: false,
+                success: function(data) {
+                    if (data['success'] === true) {
+                        $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
 
-                    $.cookie(cookie_namespace + 'user', data['_id'] + '|' + data['name']);
+                        // Votes come back as pipe-delimited from the server.
+                        $.cookie(cookie_namespace + 'votes', data['votes']);
+                        set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
 
-                    // Votes come back as pipe-delimited from the server.
-                    $.cookie(cookie_namespace + 'votes', data['votes']);
-
-                    set_login_status(true, [data['_id'],data['name']], data['votes'].split("|"));
-                } else {
-                    alert(data.text);
+                    } else {
+                        alert(data.text);
+                    }
                 }
-            }
-        });
+            });
+
+        } else {
+            alert("Please do not pitch or vote unless you are going to NICAR this year!");
+        }
     }
 
     var user_logout = function() {
