@@ -4,7 +4,7 @@ PROJECT_NAME = "lightning-talks"
 
 MONGO_DATABASE = 'lightningtalk-dev'
 
-VOTING = True
+VOTING = False
 
 ENVIRONMENTS = {
     "prd": {
