@@ -11,14 +11,14 @@ $(function(){
     var $loggedIn = $('#logged-in');
     var $loggedOut = $('#logged-out');
     var $userId = $('#user-id');
-    var $submitLogin = $('#submit-login');
-    var $submitLoginS = $('#submit-login-s');
+    var $submitNew = $('#submit-new');
+    var $submitExisting = $('#submit-existing');
     var $submitLogout = $('#submit-logout');
-    var $password = $('#password-login');
-    var $email = $('#email-login');
-    var $passwordS = $('#password-login-s');
-    var $emailS = $('#email-login-s');
-    var $name = $('#name-login');
+    var $password = $('#password-new');
+    var $email = $('#email-new');
+    var passwordExisting = $('#password-existing');
+    var $emailExisting = $('#email-existing');
+    var $name = $('#name-new');
     var $session = $('div.session .thumbs');
 
     var $createSession = $('#submit-create-session');
@@ -31,13 +31,7 @@ $(function(){
         IS_LOGGED_IN = logged_in;
         USER = user;
 
-        $.each(votes, function(idx, v){
-            if (USER_VOTES.indexOf(v) == -1){
-
-                // Update the array of votes and serialize to pipe-separated for the cookie.
-                USER_VOTES.push(v);
-            }
-        });
+        $.each(votes, function(idx, v){ if (USER_VOTES.indexOf(v) == -1){ USER_VOTES.push(v); } });
 
         remove(USER_VOTES, "");
 
@@ -154,15 +148,14 @@ $(function(){
     var user_login = function(register) {
         var url = loginHost + 'user/action/';
 
-        var register_or_login = $(this).attr('id');
-        if (register_or_login == "submit-login"){
+        if (register){
             url += '?email=' + $email.val();
             url += '&password=' + $password.val();
             url += '&fingerprint=' + fingerprint;
-            if ($name) { url += '&name=' + $name.val(); }
+            url += '&name=' + $name.val();
         } else {
-            url += '?email=' + $emailS.val();
-            url += '&password=' + $passwordS.val();
+            url += '?email=' + $emailExisting.val();
+            url += '&password=' + passwordExisting.val();
             url += '&fingerprint=' + fingerprint;
         }
 
@@ -204,21 +197,6 @@ $(function(){
         location.reload();
     }
 
-    var init = function() {
-      if ($.cookie(cookie_namespace + 'user') !== undefined){
-          if ($.cookie(cookie_namespace + 'votes') !== undefined) {
-              set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
-          }
-      } else {
-          set_login_status(false, null, []);
-      }
-
-      if (!IS_LOGGED_IN){
-        $('.instructions').remove();
-        $('#sort-options').remove();
-      }
-    }
-
     var session_create = function() {
         if (IS_LOGGED_IN && USER) {
             var s = {}
@@ -254,8 +232,26 @@ $(function(){
         }
     }
 
-    $submitLogin.on('click', user_login(true));
-    $submitLoginS.on('click', user_login(false));
+    var init = function() {
+      if ($.cookie(cookie_namespace + 'user') !== undefined){
+          if ($.cookie(cookie_namespace + 'votes') !== undefined) {
+              set_login_status(true, $.cookie(cookie_namespace + 'user').split("|"), $.cookie(cookie_namespace + 'votes').split("|"));
+          }
+      } else {
+          set_login_status(false, null, []);
+      }
+
+      if (!IS_LOGGED_IN){
+        $('.instructions').remove();
+        $('#sort-options').remove();
+      }
+    }
+
+    var register_user = function() { user_login(true); }
+    var login_user = function() { user_login(false); }
+
+    $submitNew.on('click', register_user);
+    $submitExisting.on('click', login_user);
     $submitLogout.on('click', user_logout);
     $createSession.on('click', session_create);
     $session.on('click', session_vote);
