@@ -151,7 +151,7 @@ $(function(){
         }
     }
 
-    var user_login = function() {
+    var user_login = function(register) {
         var url = loginHost + 'user/action/';
 
         var register_or_login = $(this).attr('id');
@@ -165,7 +165,10 @@ $(function(){
             url += '&password=' + $passwordS.val();
             url += '&fingerprint=' + fingerprint;
         }
-        if ($('#going-to-nicar').is(":checked")){
+
+        var checked = $('#going-to-nicar').is(":checked");
+
+        if (!register || register && checked){
 
             $.ajax(url, {
                 async: true,
@@ -251,8 +254,8 @@ $(function(){
         }
     }
 
-    $submitLogin.on('click', user_login);
-    $submitLoginS.on('click', user_login);
+    $submitLogin.on('click', user_login(true));
+    $submitLoginS.on('click', user_login(false));
     $submitLogout.on('click', user_logout);
     $createSession.on('click', session_create);
     $session.on('click', session_vote);
