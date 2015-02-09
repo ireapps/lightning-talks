@@ -2,7 +2,7 @@ import os
 
 PROJECT_NAME = "lightning-talks"
 
-MONGO_DATABASE = 'lightningtalk-dev'
+MONGO_DATABASE = 'lightningtalk'
 
 VOTING = False
 
