@@ -3,22 +3,17 @@ A system for accepting votes for lightning talks.
 
 ##Table of Contents
 [Bootstrapping](#bootstrapping)
-
 * [Development](#development)
 * [Production](#production)
-
     * [Installs](#installs)
     * [Varnish](#varnish)
     * [Nginx](#nginx)
     * [Daemons](#daemons)
-
 [Software](#software)
-
 * [Overview](#overview)
 * [Assumptions](#assumptions)
 * [Models](#models)
 * [Routes](#routes)
-
 [Tests](#tests)
 
 ##Bootstrapping
