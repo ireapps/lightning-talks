@@ -194,7 +194,6 @@ $(function(){
         $.removeCookie(cookie_namespace + 'user');
         $.removeCookie(cookie_namespace + 'votes');
         set_login_status(false, null, []);
-        location.reload();
     }
 
     var session_create = function() {

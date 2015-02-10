@@ -34,6 +34,20 @@ def index():
         return render_template('create_session.html', VOTING=settings.VOTING);
 
 
+@app.route('/api/dashboard/')
+def dashboard(methods=['GET']):
+        sessions = utils.connect('session').find({})
+        payload = []
+
+        for s in sessions:
+            s = dict(s)
+            user = utils.connect('user').find_one({"_id": s['user']})
+            s['username'] = user['name']
+            s['email'] = user['email']
+            payload.append(s)
+
+        return render_template('dashboard.html', sessions=payload, VOTING=True)
+
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):
     from flask import request

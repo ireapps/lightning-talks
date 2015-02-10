@@ -1,0 +1,3 @@
+<ul>{% for session in sessions %}
+    <li><h3>{{ session.title }}</h3>{{ session.description }}<br/><br/>{{ session.username }}, {{ session.email }}</li>
+{% endfor %}</ul>
