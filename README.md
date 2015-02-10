@@ -163,7 +163,7 @@ Represents a single `User`'s vote on a single `Session`. A `User` can both creat
 ### Routes
 The core logic of the site is handled via a series of Flask routes that recieve URL parameters and return JSON. There are several AJAX requests in [site.js](https://github.com/ireapps/lightning-talks/blob/master/templates/static/site.js) where you can see this in action.
 
-####`/api/user/action/`
+####Route `/api/user/action/`
 This route handles two behaviors.
 * **Register a new user**: If `email`, `password` and `name` are sent as URL parameters, the route will attempt to register this user. If an existing user has this email address, the user will be logged in. If there is no existing user with this email address, the user will be registered and a message will be sent returning the new user's `_id`, a `success` flag and an `action` key with the value `register`.
 ```json
@@ -185,7 +185,7 @@ This route handles two behaviors.
 }
 ```
 
-###`/api/session/action`
+###Route `/api/session/action`
 This route expects a `user` parameter that contains a valid `_id` for an existing `User`. It also expects a session `title` and `description`, though these are not absolutely required, only rather quite nice to have. Using this information, the app will create a new `Session` object with these fields and return the newly created `Session`'s `_id` and a `success` key. If a valid `User` could not be found, it will return an error.
 ```json
 {
@@ -195,7 +195,7 @@ This route expects a `user` parameter that contains a valid `_id` for an existin
 }
 ```
 
-###`/api/vote/action`
+###Route `/api/vote/action`
 This route expects a `user` parameter and a `session` parameter where each resolves to an `_id` field of a valid `User` and `Session` respectively. The app will query the database to establish that both the `User` and the `Session` exist. If both exist, it will see if any existing `Vote` objects exist for this `User` and `Session` combination.
 
 * If there is no existing `Vote` for this `User` on this `Session`, the app will create a vote and update the `Session`'s vote total.
