@@ -189,9 +189,9 @@ This route handles two behaviors.
 This route expects a `user` parameter that contains a valid `_id` for an existing `User`. It also expects a session `title` and `description`, though these are not absolutely required, only rather quite nice to have. Using this information, the app will create a new `Session` object with these fields and return the newly created `Session`'s `_id` and a `success` key. If a valid `User` could not be found, it will return an error.
 ```json
 {
-    action: "create",
-    session: "34c0ef1b-8d9d-41ff-8819-e079ba0e6157",
-    success: true
+    "action": "create",
+    "session": "34c0ef1b-8d9d-41ff-8819-e079ba0e6157",
+    "success": true
 }
 ```
 
