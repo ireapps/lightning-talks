@@ -2,19 +2,19 @@
 A system for accepting votes for lightning talks.
 
 ##Table of Contents
-[Bootstrapping](#bootstrapping)
-* [Development](#development)
-* [Production](#production)
-    * [Installs](#installs)
-    * [Varnish](#varnish)
-    * [Nginx](#nginx)
-    * [Daemons](#daemons)
-[Software](#software)
-* [Overview](#overview)
-* [Assumptions](#assumptions)
-* [Models](#models)
-* [Routes](#routes)
-[Tests](#tests)
+* [Bootstrapping](#bootstrapping)
+    * [Development](#development)
+    * [Production](#production)
+        * [Installs](#installs)
+        * [Varnish](#varnish)
+        * [Nginx](#nginx)
+        * [Daemons](#daemons)
+* [Software](#software)
+    * [Overview](#overview)
+    * [Assumptions](#assumptions)
+    * [Models](#models)
+    * [Routes](#routes)
+* [Tests](#tests)
 
 ##Bootstrapping
 Here's how to get the thing running, either on your own local computer for development or on a server for a production deployment.
