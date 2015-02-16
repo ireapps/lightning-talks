@@ -20,7 +20,11 @@
             {% endif %}
         </div>
         <div class="content-box">
-            <h3>{{ session.title }} <small><a href="https://lightningtalks.ire.org/#{{ session._id }}">link</a></small></h3>
+            <h3>{{ session.title }}
+                <!-- Hi! There used to be anchors here. But we're deciding if this is the best              -->
+                <!-- thing to do. Might re-enable them at some point.                                       -->
+                <!-- <small><a href="https://lightningtalks.ire.org/#{{ session._id }}">link</a></small>    -->
+            </h3>
             <p class="author">Proposed by: {{ session.username }}</p>
             <p>{{ session.description }}</p>
         </div>
