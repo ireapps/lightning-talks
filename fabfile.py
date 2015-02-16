@@ -130,7 +130,7 @@ def push():
 
 @api.task
 def deploy():
-    bake()
+    # bake()
     push()
     pull()
     wsgi()
