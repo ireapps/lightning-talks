@@ -6,7 +6,7 @@
     <p class="instructions time">It's time to vote!</p>
     <p class="instructions">Which talks do you want to see at NICAR 2015? Vote for as many talks as you'd like!</p>
     {% for session in sessions %}
-    <div class="session unvoted {{ session.user }} cf" id="{{ session._id }}" data-title="{{ session.title }}" data-votes="{{ session.votes }}">
+    <div class="session unvoted cf" id="{{ session._id }}" data-title="{{ session.title }}" data-votes="{{ session.votes }}">
         <div class="votes-box">
             {% if VOTING %}
                 <div class="count">

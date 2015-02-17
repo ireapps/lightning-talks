@@ -39,7 +39,6 @@ $(function(){
             $userId.html(user[1]);
             $loggedOut.hide();
             $loggedIn.show();
-            $('div.'+USER[0]).addClass('mine');
             if (VOTING) {
                 $('div.session.unvoted .thumbs').css('cursor', 'pointer');
                 votes_show();
@@ -50,7 +49,6 @@ $(function(){
         } else {
             $loggedIn.hide();
             $loggedOut.show();
-            $('div').removeClass('mine');
             if (VOTING) {
                 votes_remove();
             } else {
