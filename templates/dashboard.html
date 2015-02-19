@@ -1,3 +1,21 @@
-<ul>{% for session in sessions %}
-    <li id="{{ session._id }}"><h3>{{ session.title }}</h3>{{ session.description }}<br/><br/>{{ session.username }}, {{ session.email }}</li>
-{% endfor %}</ul>
+{% for session in sessions %}
+    <h3>{{ session.title }} ({{ session.votes }})</h3>
+    <table>
+        <tr>
+            <th>Vote created</th>
+            <th>User name</th>
+            <th>User email</th>
+            <th>User created</th>
+            <th>User fingerprint</th>
+        </tr>
+        {% for vote in session.all_votes %}
+        <tr>
+            <td>{{ vote.created }}</td>
+            <td>{{ vote.user.name }}</td>
+            <td>{{ vote.user.email }}</td>
+            <td>{{ vote.user.created }}</td>
+            <td>{{ vote.user.fingerprint }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endfor %}

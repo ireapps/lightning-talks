@@ -41,10 +41,22 @@ def dashboard(methods=['GET']):
 
         for s in sessions:
             s = dict(s)
-            user = utils.connect('user').find_one({"_id": s['user']})
-            s['username'] = user['name']
-            s['email'] = user['email']
             payload.append(s)
+
+        payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:25]
+
+        for s in payload:
+            s['all_votes'] = []
+            print utils.connect('vote').find({}).count()
+            votes = utils.connect('vote').find({"session": s["_id"]})
+            for v in votes:
+                print v
+                vote = dict(v)
+                user = dict(utils.connect('user').find_one({"_id": vote['user']}))
+                for x in ['login_hash', 'updated', 'password']:
+                    del user[x]
+                vote['user'] = user
+                s['all_votes'].append(vote)
 
         return render_template('dashboard.html', sessions=payload, VOTING=True)
 
