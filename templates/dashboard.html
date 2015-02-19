@@ -1,12 +1,20 @@
+<html>
+<head>
+    <style>
+        table td { border: 1px solid #aaa; padding: 10px; margin: 0; }
+    </style>
+</head>
+<body>
 {% for session in sessions %}
     <h3>{{ session.title }} ({{ session.votes }})</h3>
-    <table>
+    <table cellpadding="0" cellspacing="0">
         <tr>
             <th>Vote created</th>
-            <th>User name</th>
-            <th>User email</th>
-            <th>User created</th>
-            <th>User fingerprint</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created</th>
+            <th>Fingerprint</th>
+            <th># votes</th>
         </tr>
         {% for vote in session.all_votes %}
         <tr>
@@ -15,7 +23,10 @@
             <td>{{ vote.user.email }}</td>
             <td>{{ vote.user.created }}</td>
             <td>{{ vote.user.fingerprint }}</td>
+            <td>{{ vote.user.sessions_voted_for|length }}</td>
         </tr>
         {% endfor %}
     </table>
 {% endfor %}
+</body>
+</html>
