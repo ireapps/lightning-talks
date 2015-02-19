@@ -85,7 +85,7 @@ def clear_collection(collection):
 def tally():
     models.Session.tally()
     models.User.tally()
-    with open('log.log', 'w') as writefile:
+    with open('/tmp/log.log', 'w') as writefile:
         writefile.write("%s" % datetime.datetime.now())
 
 def load_users():
