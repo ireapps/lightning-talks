@@ -138,3 +138,16 @@ def deploy():
     pull()
     wsgi()
     # varnish()
+
+@api.task
+def remove_fakes():
+    votes = utils.connect('vote').find({})
+
+    count = 0
+    for vote in votes:
+        user = utils.connect('user').find_one({"_id": vote['user']})
+        if user['fingerprint'] == "2505346121":
+            utils.connect('vote').remove({"user": user['_id'], "session": vote['session']})
+            utils.connect('user').remove({"_id": user['_id']})
+            count += 1
+            print "Removed user %s, vote %s, #%s" % (user['name'], vote['_id'], count)

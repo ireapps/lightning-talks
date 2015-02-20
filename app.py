@@ -47,10 +47,8 @@ def dashboard(methods=['GET']):
 
         for s in payload:
             s['all_votes'] = []
-            print utils.connect('vote').find({}).count()
             votes = utils.connect('vote').find({"session": s["_id"]})
             for v in votes:
-                print v
                 vote = dict(v)
                 user = dict(utils.connect('user').find_one({"_id": vote['user']}))
                 for x in ['login_hash', 'updated', 'password']:
