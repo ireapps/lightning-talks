@@ -137,7 +137,7 @@ def deploy():
     push()
     pull()
     wsgi()
-    varnish()
+    # varnish()
 
 @api.task
 def remove_fakes():
