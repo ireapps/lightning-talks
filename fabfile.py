@@ -133,11 +133,11 @@ def push():
 
 @api.task
 def deploy():
-    # bake()
+    bake()
     push()
     pull()
     wsgi()
-    # varnish()
+    varnish()
 
 @api.task
 def remove_fakes():

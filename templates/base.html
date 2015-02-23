@@ -27,23 +27,21 @@
     </div>
     <div class="top sorting">
       <div class="login-container inside cf">
-        <div id="logged-in" style="display:none;">
+<!--         <div id="logged-in" style="display:none;">
           Hello <span id="user-id"></span>!
           <button id="submit-logout">Log out</button>
-        </div>
-        {% if VOTING == True %}
+        </div> -->
         <div id="sort-options" class="right">
           Sort by:
             <a href="" onclick="tinysort('.all-sessions>.session',{order:'rand'}); return false;">Random</a>,
             <a href="" onclick="tinysort('.all-sessions>.session',{data:'title'}); return false;">Alphabetical</a> or
             <a href="" onclick="tinysort('.all-sessions>.session',{data:'votes', order:'desc'}); return false;">Most Popular</a>
         </div>
-        {% endif %}
       </div>
     </div>
     <div class="lt-container">
 
-      <div class="logged-status">
+<!--    <div class="logged-status">
         <div id="logged-out">
           <div class="login-options cf">
             <div class="create-account">
@@ -66,7 +64,7 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
 
       {% block content %}{% endblock %}
     </div>
@@ -75,8 +73,8 @@
         <h4 id="what-is">What are lightning talks?</h4>
         <p>5 minute talks on any subject. Anyone who is attending NICAR 2015 can pitch and the attendees vote on the talks they want to see. The 10 talks with the most votes will be presented during NICAR.</p>
 
-        {% if VOTING == False %}
-        <h4 id="example-pitches">What are some example pitches?</h4>
+        {# if VOTING == False #}
+<!--         <h4 id="example-pitches">What are some example pitches?</h4>
         <p>Here are three pitches that were selected in recent years.</p>
 
         <ul>
@@ -101,9 +99,9 @@
         <p><a href="https://medium.com/@sisiwei/2015-will-be-the-year-you-pitch-a-nicar-lightning-talk-dd293e5d78ca">Sisi makes the argument for why you should pitch a talk, and what she'll do to help</a>.</p>
 
         <h4>Can I pitch a talk if I gave one last year?</h4>
-        <p>Yes you can! However, going forward we ask that no one speak more than <strong>twice every three years</strong>. It's a new rule and we're only counting talks starting last year, so pitch away or save your pitches for next year!</p>
+        <p>Yes you can! However, going forward we ask that no one speak more than <strong>twice every three years</strong>. It's a new rule and we're only counting talks starting last year, so pitch away or save your pitches for next year!</p> -->
 
-        {% endif %}
+        {# endif #}
 
         <h4>Looking for the main NICAR 2015 conference site?</h4>
         <p><a href="http://ire.org/conferences/nicar2015/">http://ire.org/conferences/nicar2015/</a></p>
@@ -114,10 +112,10 @@
     </footer>
 
     <script type="text/javascript">{% include "static/tinysort.min.js" %}</script>
-    <script type="text/javascript">{% include "static/jquery.min.js" %}</script>
-    <script type="text/javascript">{% include "static/jquery.cookie.min.js" %}</script>
-    <script type="text/javascript">{% include "static/fingerprint.min.js" %}</script>
-    <script type="text/javascript">{% include "static/site.js" %}</script>
+    <!-- <script type="text/javascript">{% include "static/jquery.min.js" %}</script>         -->
+    <!-- <script type="text/javascript">{% include "static/jquery.cookie.min.js" %}</script>  -->
+    <!-- <script type="text/javascript">{% include "static/fingerprint.min.js" %}</script>    -->
+    <!-- <script type="text/javascript">{% include "static/site.js" %}</script>               -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

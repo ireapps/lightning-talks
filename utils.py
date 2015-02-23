@@ -17,6 +17,7 @@ def bake():
         with (app.app.test_request_context(path="/%s.html" % route)):
             view = globals()['app'].__dict__[route]
             file_path = "www/%s.html" % route
+            html = view().encode('utf-8')
             with open(file_path, "w") as writefile:
-                writefile.write(view())
+                writefile.write(html)
             print "wrote %s" % file_path
