@@ -140,6 +140,20 @@ def deploy():
     # varnish()
 
 @api.task
+def check_voters():
+    unique = []
+    duplicates = []
+    for u in utils.connect('user').find({}):
+        if u['fingerprint'] in unique:
+            duplicates.append(u['fingerprint'])
+        else:
+            unique.append(u['fingerprint'])
+
+    for d in duplicates:
+        print d
+        print [(u['name'], u['email'], u['created'], len(u['sessions_voted_for'])) for u in utils.connect('user').find({"fingerprint": d}) if len(u['sessions_voted_for']) > 0]
+
+@api.task
 def remove_fakes():
     votes = utils.connect('vote').find({})
 
