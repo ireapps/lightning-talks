@@ -3,9 +3,23 @@
 {% block content %}
 
 <div class="all-sessions row">
-<!--     <p class="instructions time">It's time to vote!</p>
-    <p class="instructions">Which talks do you want to see at NICAR 2015? Vote for as many talks as you'd like!</p> -->
-    <p class="instructions"><strong>Note:</strong> It pains me to say that we've detected voting fraud. We'll be deleting fake votes and accounts periodically, but we'll conduct a full audit after voting closes Sunday night. Please be aware that the top 10 lightning talks may differ than what you see here after we're done. ~ Sisi</p>
+    <!-- <p class="instructions time">It's time to vote!</p> -->
+    <p class="instructions">Thanks for voting, and congratulations to our 2015 speakers!</p>
+    <p class="instructions time">2015 Lineup:</p>
+    <ol>
+        <li><strong>The end of maps, in 7 charts</strong><span> — Darla Cameron</span></li>
+        <li><strong>Beautiful Satellite Images in 5 Minutes</strong><span> — Jeff Larson</span></li>
+        <li><strong>10 Things I Hate About You</strong><span> — Lily Mihalik and Anthony Pesce</span></li>
+        <li><strong>Stop trying to multitask. You’re terrible at it.</strong><span> — Chris Canipe</span></li>
+        <li><strong>5 data visualizations - each in 5 lines or less of R code</strong><span> — Sharon Machlis</span></li>
+        <li><strong>Seven awesome features you will want in your next charting tool</strong><span> — Gregor Aisch</span></li>
+        <li><strong>The Five Stages of Terrible Data: Denial, Anger, Bargaining, Depression, Acceptance</strong><span> — Steven Rich</span></li>
+        <li><strong>Wrestling with data (without coding)</strong><span> — Sharon Machlis</span></li>
+        <li><strong>What do blind people see? A thought-talk about our obsession with visuals and how it translates for the blind</strong><span> — Suyeon Son</span></li>
+        <li><strong>Decision, decisions! Lessons for deeply-interactive storytelling</strong><span> — Nadja Popovich</span></li>
+    </ol>
+
+
     {% for session in sessions %}
     <div class="session unvoted cf" id="{{ session._id }}" data-title="{{ session.title }}" data-votes="{{ session.votes }}">
         <div class="votes-box">

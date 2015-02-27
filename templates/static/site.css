@@ -328,7 +328,14 @@ input {
     margin-top: 10px;
 }
 
+ol {
+    width: 72%;
+    margin: 0 auto;
+}
 
+li span {
+    color: #A7A7A7;
+}
 
 @media only screen and (max-width : 991px) {
     .content-box { width: 87%; }
@@ -369,6 +376,9 @@ input {
     }
     .user-status {
         padding: 0 15px 10px 0;
+    }
+    ol {
+        width: 100%;
     }
 }
 
