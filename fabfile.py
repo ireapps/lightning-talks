@@ -6,6 +6,7 @@ from fabric import api
 from fabric.state import env
 from termcolor import colored
 
+import app
 import models
 import settings
 import utils
@@ -83,10 +84,7 @@ def clear_collection(collection):
 
 @api.task
 def tally():
-    models.Session.tally()
-    models.User.tally()
-    with open('/tmp/log.log', 'w') as writefile:
-        writefile.write("%s" % datetime.datetime.now())
+    app.tally()
 
 def load_users():
     with open('tests/users.json', 'r') as readfile:
