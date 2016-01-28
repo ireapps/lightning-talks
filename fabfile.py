@@ -135,7 +135,6 @@ def deploy():
     push()
     pull()
     wsgi()
-    # varnish()
 
 @api.task
 def check_voters():
