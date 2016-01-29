@@ -11,7 +11,6 @@ import models
 import settings
 import utils
 
-env.user = "ubuntu"
 env.forward_agent = True
 env.branch = "master"
 
@@ -54,7 +53,7 @@ def e(environment):
 
 @api.task
 def checkout():
-    api.run('git clone git@github.com:ireapps/%s.git /home/ubuntu/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+    api.run('git clone git@github.com:ireapps/%s.git /opt/apps/%s/repository' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
 
 @api.task
 def nginx():
@@ -62,7 +61,7 @@ def nginx():
 
 @api.task
 def wsgi():
-    api.run('touch /home/ubuntu/%s/app.py' % settings.PROJECT_NAME)
+    api.run('touch /opt/apps/%s/repository/app.py' % settings.PROJECT_NAME)
 
 @api.task
 def svcs():
@@ -71,8 +70,8 @@ def svcs():
 
 @api.task
 def pull():
-    api.run('cd /home/ubuntu/%s; git fetch' % settings.PROJECT_NAME)
-    api.run('cd /home/ubuntu/%s; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
+    api.run('cd /opt/apps/%s/repository; git fetch' % settings.PROJECT_NAME)
+    api.run('cd /opt/apps/%s/repository; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
 
 """
 SETUP TASKS
@@ -131,8 +130,8 @@ def push():
 
 @api.task
 def deploy():
-    bake()
-    push()
+    # bake()
+    # push()
     pull()
     wsgi()
 

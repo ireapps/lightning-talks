@@ -4,10 +4,10 @@ PROJECT_NAME = "lightning-talks"
 
 MONGO_DATABASE = 'lightningtalk'
 
-VOTING = True
+VOTING = False
 
 ENVIRONMENTS = {
     "prd": {
-        "hosts": ['104.236.202.196']
+        "hosts": ['184.72.148.119']
     }
 }
