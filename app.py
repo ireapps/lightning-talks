@@ -40,6 +40,9 @@ def index():
     else:
         return render_template('create_session.html', VOTING=settings.VOTING);
 
+@app.route('/<path:path>')
+def static_proxy(path):
+  return app.send_static_file(path)
 
 # @app.route('/api/dashboard/')
 # def dashboard(methods=['GET']):
