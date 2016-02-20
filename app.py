@@ -51,6 +51,7 @@ def dashboard(methods=['GET']):
 
     for s in sessions:
         s = dict(s)
+        s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
         payload.append(s)
 
     payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:25]
