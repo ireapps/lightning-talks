@@ -8,6 +8,6 @@ VOTING = False
 
 ENVIRONMENTS = {
     "prd": {
-        "hosts": ['184.72.148.119']
+        "hosts": ['54.221.201.254']
     }
 }
