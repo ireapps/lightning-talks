@@ -1,35 +1,62 @@
+<!DOCTYPE html>
 <html>
-<head>
-    <style>
-        table td { border: 1px solid #aaa; padding: 10px; margin: 0; }
-    </style>
-</head>
-<body>
-{% for session in sessions %}
-    <h3>{{ session.title }} ({{ session.votes }})</h3>
-    <p>{{ session.user_obj.name }}: {{ session.user_obj.email }}</p>
-    {% if session.all_votes %}
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th>Vote created</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Created</th>
-            <th>Fingerprint</th>
-            <th># votes</th>
-        </tr>
-        {% for vote in session.all_votes %}
-        <tr>
-            <td>{{ vote.created }}</td>
-            <td>{{ vote.user.name }}</td>
-            <td>{{ vote.user.email }}</td>
-            <td>{{ vote.user.created }}</td>
-            <td>{{ vote.user.fingerprint }}</td>
-            <td>{{ vote.user.sessions_voted_for|length }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-{% endfor %}
-</body>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    {% for session in sessions %}
+                        <h5><span class="orange-text text-darken-2">{{ session.votes }}</span> {{ session.title }}</h5>
+                        <p>
+                            <span class="pink-text">{{ session.user_obj.name }}</span><br/>
+                            <span class="indigo-text">{{ session.user_obj.email }}</span><br/>
+                            <span class="teal-text">{{ session._id }}</span>
+                        </p>
+                        {% if session.all_votes %}
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th>Vote time</th>
+                                <th>User time</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Fingerprint</th>
+                                <th># votes</th>
+                            </tr>
+                            {% for vote in session.all_votes %}
+                            <tr>
+                                <td>{{ vote.created }}</td>
+                                <td>{{ vote.user.created }}</td>
+                                <td>
+                                    {{ vote.user.name }}<br/>
+                                    <span style="font-size:11px;">{{ vote.user._id }}</span>
+                                </td>
+                                <td>{{ vote.user.email }}</td>
+                                <td>{{ vote.user.fingerprint }}</td>
+                                <td>{{ vote.user.sessions_voted_for|length }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+    </body>
 </html>
