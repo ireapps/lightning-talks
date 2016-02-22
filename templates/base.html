@@ -76,7 +76,7 @@
         <h4>How does this all work?</h4>
         <p>From now until Feb. 21st, come up with a pitch (or two) and submit it here. Then, on the morning of Feb. 22nd, the pitching period ends and the voting period begins. You'll be able to vote for as many talks as you'd like, and the 10 talks with the most votes will be a part of the lightning talks session at NICAR this year. Voting ends on Feb. 28th and we'll post the official lightning talks schedule within a day or two. Then, all that's left is to come to the lightning talks session on Friday, March 11 at 4:45 p.m. and enjoy!</p>
 
-        {# if VOTING == False #}
+        {% if not VOTING %}
         <h4 id="example-pitches">What are some example pitches?</h4>
         <p>Here are three pitches that were selected in recent years.</p>
 
@@ -105,7 +105,7 @@
         <h4>Can I pitch a talk if I gave one last year?</h4>
         <p>Yes you can! On the other hand, if you've spoken in both 2014 and 2015, please take a well-deserved year off and encourage new speakers to pitch a talk.</p>
 
-        {# endif #}
+        {% endif %}
 
         <h4>Looking for the main NICAR 2016 conference site?</h4>
         <p><a href="https://ire.org/conferences/nicar2016/">https://ire.org/conferences/nicar2016/</a></p>
