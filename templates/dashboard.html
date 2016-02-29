@@ -16,12 +16,10 @@
             <div class="row">
                 <div class="col s12">
                     {% for session in sessions %}
-                        <h5><span class="orange-text text-darken-2">{{ session.votes }}</span> {{ session.title }}</h5>
+                        <h5><span class="green-text">{{ session.votes }}</span> {{ session.title }}</h5>
                         <p>
                             <span class="pink-text">{{ session.user_obj.name }}</span><br/>
-                            <span class="indigo-text">{{ session.user_obj.email }}</span><br/>
-
-                            <textarea class="materialize-textarea">db.sessions.update({"_id": "{{ session._id }}}, {$set: {"?": "?"}});</textarea>
+                            <span class="indigo-text">{{ session.user_obj.email }}</span>
                         </p>
                         {% if session.all_votes %}
                         <table cellpadding="0" cellspacing="0">
