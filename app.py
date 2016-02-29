@@ -46,7 +46,7 @@ def static_proxy(path):
 
 @app.route('/api/dashboard/')
 def dashboard(methods=['GET']):
-    sessions = utils.connect('session').find({})
+    sessions = utils.connect('session').find({})[25]
     payload = []
 
     for s in sessions:
@@ -65,6 +65,8 @@ def dashboard(methods=['GET']):
             for x in ['login_hash', 'updated', 'password']:
                 del user[x]
             vote['user'] = user
+            vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
+            vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
             s['all_votes'].append(vote)
 
     return render_template('dashboard.html', sessions=payload, VOTING=True)

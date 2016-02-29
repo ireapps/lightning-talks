@@ -35,8 +35,8 @@
                             </tr>
                             {% for vote in session.all_votes %}
                             <tr>
-                                <td>{{ vote.created }}</td>
-                                <td>{{ vote.user.created }}</td>
+                                <td>{{ vote.vote_time }}</td>
+                                <td>{{ vote.user_time }}</td>
                                 <td>
                                     {{ vote.user.name }}<br/>
                                     <span style="font-size:11px;">{{ vote.user._id }}</span>
