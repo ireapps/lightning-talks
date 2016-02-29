@@ -46,7 +46,7 @@ def static_proxy(path):
 
 @app.route('/api/dashboard/')
 def dashboard(methods=['GET']):
-    sessions = utils.connect('session').find({})[25]
+    sessions = utils.connect('session').find({})
     payload = []
 
     for s in sessions:
@@ -54,7 +54,7 @@ def dashboard(methods=['GET']):
         s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
         payload.append(s)
 
-    payload = sorted(payload, key=lambda x: x['votes'], reverse=True)
+    payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:25]
 
     for s in payload:
         s['all_votes'] = []
