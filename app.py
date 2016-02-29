@@ -38,7 +38,7 @@ def index():
         return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
 
     else:
-        return render_template('create_session.html', VOTING=settings.VOTING);
+        return render_template('session_list.html', VOTING=settings.VOTING);
 
 @app.route('/<path:path>')
 def static_proxy(path):
