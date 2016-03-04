@@ -22,23 +22,33 @@ def tally():
 
 @app.route('/')
 def index():
-    if settings.VOTING:
+    sessions = utils.connect('session').find({})
+    payload = []
 
-        sessions = utils.connect('session').find({})
-        payload = []
+    for s in sessions:
+        s = dict(s)
+        s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
+        payload.append(s)
 
-        for s in sessions:
-            s = dict(s)
-            user = utils.connect('user').find_one({"_id": s['user']})
-            s['username'] = user['name']
-            payload.append(s)
+    payload = sorted(payload, key=lambda x: x['votes'], reverse=True)
+    return render_template('session_list.html', sessions=payload)
+    # if settings.VOTING:
 
-        random.shuffle(payload)
+    #     sessions = utils.connect('session').find({})
+    #     payload = []
 
-        return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
+    #     for s in sessions:
+    #         s = dict(s)
+    #         user = utils.connect('user').find_one({"_id": s['user']})
+    #         s['username'] = user['name']
+    #         payload.append(s)
 
-    else:
-        return render_template('session_list.html', VOTING=settings.VOTING);
+    #     random.shuffle(payload)
+
+    #     return render_template('session_list.html', sessions=payload, VOTING=settings.VOTING)
+
+    # else:
+    #     return render_template('session_list.html', VOTING=settings.VOTING);
 
 @app.route('/<path:path>')
 def static_proxy(path):
