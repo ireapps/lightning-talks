@@ -3,22 +3,23 @@
 {% block content %}
 
 <div class="all-sessions row">
-    <p class="instructions time">Voting is over! We're tabulating results now.</p>
-<!--     <p class="instructions">Thanks for voting, and congratulations to our 2015 speakers!</p>
-    <p class="instructions time">2015 Lineup:</p>
-    <ol>
-        <li><strong>The end of maps, in 7 charts</strong><span> — Darla Cameron</span></li>
-        <li><strong>Beautiful Satellite Images in 5 Minutes</strong><span> — Jeff Larson</span></li>
-        <li><strong>10 Things I Hate About You</strong><span> — Lily Mihalik and Anthony Pesce</span></li>
-        <li><strong>Stop trying to multitask. You’re terrible at it.</strong><span> — Chris Canipe</span></li>
-        <li><strong>5 data visualizations - each in 5 lines or less of R code</strong><span> — Sharon Machlis</span></li>
-        <li><strong>Seven awesome features you will want in your next charting tool</strong><span> — Gregor Aisch</span></li>
-        <li><strong>The Five Stages of Terrible Data: Denial, Anger, Bargaining, Depression, Acceptance</strong><span> — Steven Rich</span></li>
-        <li><strong>Wrestling with data (without coding)</strong><span> — MaryJo Webster</span></li>
-        <li><strong>What do blind people see? A thought-talk about our obsession with visuals and how it translates for the blind</strong><span> — Suyeon Son</span></li>
-        <li><strong>Stop letting the ~cool~ factor detract from your journalism</strong><span> — Ashlyn Still</span></li>
-    </ol> -->
+    <!-- <p class="instructions time">Voting is over! We're tabulating results now.</p> -->
+    <p class="instructions time">2016 Lineup:</p>
 
+    <ol>
+        <li><strong>I Improved My Math Fluency, And So Can You</strong><span>Ryann Grochowski Jones</span></li>
+        <li><strong>Solve Every Statistics Problem with One Weird Trick</strong><span>Jonathan Stray</span></li>
+        <li><strong>Let lookup save you from the boring, repetitive work you've forgotten you're even doing</strong><span>Chris Groskopf</span></li>
+        <li><strong>Automation in the newsroom</strong><span>Ariana Giorgi</span></li>
+        <li><strong>Regular Regular Expression Exercises for Regular People</strong><span>Dan Nguyen</span></li>
+        <li><strong>Map tiles are dead; Long live (vector) tiles!</strong><span>Ken Schwencke</span></li>
+        <li><strong>How to read 52 books in 52 weeks</strong><span>Nicole Zhu</span></li>
+        <li><strong>What I learned working on Failure Factories</strong><span>Adam Playford</span></li>
+        <li><strong>Let's Talk About the Future of Interactive News Content</strong><span>Gregor Aisch</span></li>
+        <li><strong>Cats and Stats</strong><span>Jennifer LaFleur</span></li>
+    </ol>
+
+    <p class="instructions">Thanks for pitching and voting, and congratulations to our 2016 speakers!</p>
 
     {% for session in sessions %}
     <div class="session unvoted cf" id="{{ session._id }}" data-title="{{ session.title }}" data-votes="{{ session.votes }}">
@@ -36,9 +37,6 @@
         </div>
         <div class="content-box">
             <h3>{{ session.title }}
-                <!-- Hi! There used to be anchors here. But we're deciding if this is the best              -->
-                <!-- thing to do. Might re-enable them at some point.                                       -->
-                <!-- <small><a href="https://lightningtalks.ire.org/#{{ session._id }}">link</a></small>    -->
             </h3>
             <p class="author">Proposed by: {{ session.username }}</p>
             <p>{{ session.description }}</p>
