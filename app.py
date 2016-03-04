@@ -58,16 +58,16 @@ def dashboard(methods=['GET']):
 
     for s in payload:
         s['all_votes'] = []
-        votes = utils.connect('vote').find({"session": s["_id"]})
-        for v in votes:
-            vote = dict(v)
-            user = dict(utils.connect('user').find_one({"_id": vote['user']}))
-            for x in ['login_hash', 'updated', 'password']:
-                del user[x]
-            vote['user'] = user
-            vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
-            vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
-            s['all_votes'].append(vote)
+        # votes = utils.connect('vote').find({"session": s["_id"]})
+        # for v in votes:
+        #     vote = dict(v)
+        #     user = dict(utils.connect('user').find_one({"_id": vote['user']}))
+        #     for x in ['login_hash', 'updated', 'password']:
+        #         del user[x]
+        #     vote['user'] = user
+        #     vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
+        #     vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
+        #     s['all_votes'].append(vote)
 
     return render_template('dashboard.html', sessions=payload, VOTING=True)
 

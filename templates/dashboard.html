@@ -16,10 +16,11 @@
             <div class="row">
                 <div class="col s12">
                     {% for session in sessions %}
-                        <h5><span class="green-text">{{ session.votes }}</span> {{ session.title }}</h5>
+                        <h5> {{ loop.index }}. {{ session.title }} <span class="green-text">({{ session.votes }})</span></h5>
                         <p>
                             <span class="pink-text">{{ session.user_obj.name }}</span><br/>
-                            <span class="indigo-text">{{ session.user_obj.email }}</span>
+                            <span class="indigo-text">{{ session.user_obj.email }}</span><br/>
+                            {{ session.description }}
                         </p>
                         {% if session.all_votes %}
                         <table cellpadding="0" cellspacing="0">
@@ -59,5 +60,3 @@
 
     </body>
 </html>
-
-db.sessions.update({"_id": "54b5c2b3-b080-46a3-8f07-14adc390a594"}, {$set: {"votes": 0}})
