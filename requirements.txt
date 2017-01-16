@@ -17,7 +17,6 @@ py-bcrypt==0.4
 pycparser==2.10
 pycrypto==2.6.1
 pymongo==2.7.2
-six==1.8.0
 termcolor==1.1.0
 urllib3==1.9.1
 wsgiref==0.1.2
