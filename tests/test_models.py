@@ -38,7 +38,7 @@ class TestUserModel(unittest.TestCase):
         self.assertIsNone(self.user.password)
 
     def test_login_hash_is_bycrypt(self):
-        self.assertEqual(self.user.login_hash[:4],"$2a$")
+        self.assertEqual(self.user.login_hash[:4],"$2b$")
 
     def test_decrypted_password(self):
         self.assertTrue(bcrypt.verify(self.user_dict['password'], self.user.login_hash))
