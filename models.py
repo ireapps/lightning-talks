@@ -106,7 +106,7 @@ class User(ModelClass):
             u = User(user_dict)
             u.update_records()
 
-        print "Updated %s users." % len(users)
+        print("Updated %s users." % len(users))
 
 
 class Session(ModelClass):
@@ -139,7 +139,7 @@ class Session(ModelClass):
             s = Session(session_dict)
             s.update_records()
 
-        print "Updated %s sessions." % len(sessions)
+        print("Updated %s sessions." % len(sessions))
 
 class Vote(ModelClass):
     user = None

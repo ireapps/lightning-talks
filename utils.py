@@ -20,4 +20,4 @@ def bake():
             html = view().encode('utf-8')
             with open(file_path, "w") as writefile:
                 writefile.write(html)
-            print "wrote %s" % file_path
+            print("Wrote %s" % file_path)

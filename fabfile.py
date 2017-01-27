@@ -146,8 +146,8 @@ def check_voters():
             unique.append(u['fingerprint'])
 
     for d in duplicates:
-        print d
-        print [(u['name'], u['email'], u['created'], len(u['sessions_voted_for'])) for u in utils.connect('user').find({"fingerprint": d}) if len(u['sessions_voted_for']) > 0]
+        print(d)
+        print([(u['name'], u['email'], u['created'], len(u['sessions_voted_for'])) for u in utils.connect('user').find({"fingerprint": d}) if len(u['sessions_voted_for']) > 0])
 
 @api.task
 def remove_fakes():
@@ -160,4 +160,4 @@ def remove_fakes():
             utils.connect('vote').remove({"user": user['_id'], "session": vote['session']})
             utils.connect('user').remove({"_id": user['_id']})
             count += 1
-            print "Removed user %s, vote %s, #%s" % (user['name'], vote['_id'], count)
+            print("Removed user %s, vote %s, #%s" % (user['name'], vote['_id'], count))
