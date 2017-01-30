@@ -14,6 +14,6 @@ VOTING = True
 
 ENVIRONMENTS = {
     "prd": {
-        "hosts": ['54.221.201.254']
+        "hosts": ['lt']
     }
 }
