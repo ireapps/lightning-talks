@@ -101,31 +101,31 @@ def user_action(methods=['GET']):
 
     return not_found
 
-@app.route('/api/session/action/')
-def session_action(methods=['GET']):
-    from flask import request
-    _id = request.args.get('user', None)
-    user = None
-
-    session_dict = {}
-    session_dict['title'] = request.args.get('title', None)
-    session_dict['description'] = request.args.get('description', None)
-    session_dict['votes'] = 0
-    session_dict['accepted'] = False
-
-    error = json.dumps({"success": False, "text": "Please send a valid user ID and a session title and description."})
-
-    if not _id:
-        return json.dumps(error)
-
-    if _id:
-        user = dict(utils.connect('user').find_one({"_id": _id}))
-        session_dict['user'] = _id
-        s = models.Session(**session_dict).save()
-
-        tally()
-
-        return json.dumps({"success": True, "action": "create", "session": s['_id']})
+# @app.route('/api/session/action/')
+# def session_action(methods=['GET']):
+#     from flask import request
+#     _id = request.args.get('user', None)
+#     user = None
+#
+#     session_dict = {}
+#     session_dict['title'] = request.args.get('title', None)
+#     session_dict['description'] = request.args.get('description', None)
+#     session_dict['votes'] = 0
+#     session_dict['accepted'] = False
+#
+#     error = json.dumps({"success": False, "text": "Please send a valid user ID and a session title and description."})
+#
+#     if not _id:
+#         return json.dumps(error)
+#
+#     if _id:
+#         user = dict(utils.connect('user').find_one({"_id": _id}))
+#         session_dict['user'] = _id
+#         s = models.Session(**session_dict).save()
+#
+#         tally()
+#
+#         return json.dumps({"success": True, "action": "create", "session": s['_id']})
 
 @app.route('/api/vote/action/')
 def vote_action(methods=['GET']):
