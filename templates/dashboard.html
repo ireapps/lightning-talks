@@ -18,6 +18,7 @@
                     {% for session in sessions %}
                         <h5> {{ loop.index }}. {{ session.title }} <span class="green-text">({{ session.votes }})</span></h5>
                         <p>
+                            {{ session._id }}<br/>
                             <span class="pink-text">{{ session.user_obj.name }}</span><br/>
                             <span class="indigo-text">{{ session.user_obj.email }}</span><br/>
                             {{ session.description }}
