@@ -72,34 +72,34 @@ def dashboard(methods=['GET']):
 
     return render_template('dashboard.html', sessions=payload, VOTING=True)
 
-# @app.route('/api/user/action/')
-# def user_action(methods=['GET']):
-#     from flask import request
-#     email = request.args.get('email', None)
-#     password = request.args.get('password', None)
-#
-#     not_found = json.dumps({"success": False, "text": "Username or password is incorrect."})
-#
-#     user = utils.connect('user').find_one({ "email": email })
-#
-#     if not user:
-#         name = request.args.get('name', None)
-#         fingerprint = request.args.get('fingerprint', None)
-#         if not name or not fingerprint:
-#             return not_found
-#
-#         u = models.User(email=email, name=name, password=password, fingerprint=fingerprint)
-#         u.save()
-#         return json.dumps({"success": True, "_id": u._id, "name": u.name, "votes": "|".join(u.sessions_voted_for), "action": "register"})
-#
-#     else:
-#         user_dict = dict(user)
-#         u = models.User(**user_dict)
-#
-#         if u.auth_user(password):
-#             return json.dumps({"success": True, "_id": u._id, "name": u.name, "votes": "|".join(u.sessions_voted_for), "action": "login"})
-#
-#     return not_found
+@app.route('/api/user/action/')
+def user_action(methods=['GET']):
+    from flask import request
+    email = request.args.get('email', None)
+    password = request.args.get('password', None)
+
+    not_found = json.dumps({"success": False, "text": "Username or password is incorrect."})
+
+    user = utils.connect('user').find_one({ "email": email })
+
+    if not user:
+        name = request.args.get('name', None)
+        fingerprint = request.args.get('fingerprint', None)
+        if not name or not fingerprint:
+            return not_found
+
+        u = models.User(email=email, name=name, password=password, fingerprint=fingerprint)
+        u.save()
+        return json.dumps({"success": True, "_id": u._id, "name": u.name, "votes": "|".join(u.sessions_voted_for), "action": "register"})
+
+    else:
+        user_dict = dict(user)
+        u = models.User(**user_dict)
+
+        if u.auth_user(password):
+            return json.dumps({"success": True, "_id": u._id, "name": u.name, "votes": "|".join(u.sessions_voted_for), "action": "login"})
+
+    return not_found
 
 # @app.route('/api/session/action/')
 # def session_action(methods=['GET']):
