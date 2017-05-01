@@ -1,8 +1,8 @@
-#LightningTalks
+# LightningTalks
 
 A system for accepting votes for lightning talks.
 
-##Table of Contents
+## Table of Contents
 
 * [Bootstrapping](#bootstrapping)
     * [Development](#development)
@@ -18,17 +18,17 @@ A system for accepting votes for lightning talks.
     * [Routes](#routes)
 * [Tests](#tests)
 
-##Bootstrapping
+## Bootstrapping
 
 Here's how to get the thing running, either on your own local computer for development or on a server for a production deployment.
 
-###Development
+### Development
 
-####Step Zero
+#### Step Zero
 
 You should have some Python development bits pre-installed. I love this guide from NPR Visuals. [How to Setup Your Mac to Develop News Applications Like We Do](http://blog.apps.npr.org/2013/06/06/how-to-setup-a-developers-environment.html)
 
-####Step One
+#### Step One
 
 Install a local version of MongoDB to hold the data.
 
@@ -38,7 +38,7 @@ ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 ```
 
-####Step Two
+#### Step Two
 
 Pull down the code from Git, create a virtual environment and install requirements.
 
@@ -48,7 +48,7 @@ mkvirtualenv lightningtalks
 pip install -r requirements.txt
 ```
 
-####Step Three
+#### Step Three
 
 Load some fake data.
 
@@ -64,9 +64,9 @@ Run the app.
 python app.py
 ```
 
-###Production
+### Production
 
-####Installs
+#### Installs
 
 ```sh
 sudo apt-get install python-pip python-27 python-27-dev mongodb nginx libffi-dev libssl-dev lib32ncurses5 lib32ncurses5-dev varnish apache2-utils
@@ -75,7 +75,7 @@ sudo service varnish stop
 sudo pip install virtualenv virtualenvwrapper
 ```
 
-####Varnish
+#### Varnish
 
 In production, the site is served by Varnish. We exclude the `/api/` routes so that the responses are dynamic. We wouldn't want to cache which sessions a single user had voted for, for example, because we'd be sending out of date information to the client. Still, caching just the homepage route means that we serve the most popular (and largest) page from Varnish rather than from an application server.
 
@@ -130,7 +130,7 @@ sub vcl_deliver {
 }
 ```
 
-####Nginx
+#### Nginx
 In production, Varnish passes its requests to Nginx for processing. For the homepage route, the index.html file is served from a folder inside the app. On deploy, we bake a copy of the file and push it up to our Git repository and then pull it down to the server.
 
 * `/etc/nginx/nginx.conf` controls our Nginx server. It listens on port 8001 and passes to uWSGI, our Python application server, for any URL that starts with `/api/`. Special treatment is given to the `/api/dashboard/` URL -- it's protected with HTTP BasicAuth -- and with the default `/` route, which sends straight to flat files in our app folder.
@@ -169,42 +169,41 @@ http {
 ```
 ####Daemons
 
-Both `confs/tally.conf` and `confs/uwsgi.conf` are symlinked in `/etc/init/` on the production server.
-* `confs/tally.conf` runs as a daemon on a 15-second delay. This daemon calculates vote counts on sessions and by users and updates the totals in the database asynchronously.
+`confs/uwsgi.conf` is symlinked in `/etc/init/` on the production server.
 
 * `confs/uwsgi.conf` runs as a daemon. This daemon runs the dynamic `/api/` routes that handle user registration and login, session creation, and vote creation and deletion.
 
-##Software
+## Software
 
-###Overview
+### Overview
 
 Lightning talks is a Flask application that uses PyMongo to read from and write to a MongoDB server.
 
-###Assumptions
+### Assumptions
 
 Lightning talks sends all of its data via HTTP GET requests and URL parameters. We do this because we cannot be certain that the app may not need to send messages across domains, and cross-domain POST is still [fraught with difficulty](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Preflighted_requests).
 
-###Models
+### Models
 
 We've broken down the lightning talks data model into three model classes.
 
-####User
+#### User
 
 Represents a single user. Users can create a `Session` and can also vote for a `Session`. See [models.py](https://github.com/ireapps/lightning-talks/blob/master/models.py) for more info.
 
-####Session
+#### Session
 
 Represents a single session. See [models.py](https://github.com/ireapps/lightning-talks/blob/master/models.py) for more info. A `User` can create a session.
 
-####Vote
+#### Vote
 
 Represents a single `User`'s vote on a single `Session`. A `User` can both create a vote and delete a vote. See [models.py](https://github.com/ireapps/lightning-talks/blob/master/models.py) for more info.
 
-###Routes
+### Routes
 
 The core logic of the site is handled via a series of Flask routes that recieve URL parameters and return JSON. There are several AJAX requests in [site.js](https://github.com/ireapps/lightning-talks/blob/master/templates/static/site.js) where you can see this in action.
 
-####Route `/api/user/action/`
+#### Route `/api/user/action/`
 
 This route handles two behaviors.
 
@@ -229,7 +228,7 @@ This route handles two behaviors.
 }
 ```
 
-###Route `/api/session/action`
+### Route `/api/session/action`
 
 This route expects a `user` parameter that contains a valid `_id` for an existing `User`. It also expects a session `title` and `description`, though these are not absolutely required, only rather quite nice to have. Using this information, the app will create a new `Session` object with these fields and return the newly created `Session`'s `_id` and a `success` key. If a valid `User` could not be found, it will return an error.
 ```json
@@ -240,7 +239,7 @@ This route expects a `user` parameter that contains a valid `_id` for an existin
 }
 ```
 
-###Route `/api/vote/action`
+### Route `/api/vote/action`
 
 This route expects a `user` parameter and a `session` parameter where each resolves to an `_id` field of a valid `User` and `Session` respectively. The app will query the database to establish that both the `User` and the `Session` exist. If both exist, it will see if any existing `Vote` objects exist for this `User` and `Session` combination.
 
@@ -248,6 +247,6 @@ This route expects a `user` parameter and a `session` parameter where each resol
 
 * If there is an existing `Vote` for this `User` on this `Session`, the app will delete that vote and update the `Session`'s vote total.
 
-##Tests
+## Tests
 
 To run tests, do `fab tests`.
