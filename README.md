@@ -56,7 +56,7 @@ Load some fake data.
 fab fake_data
 ```
 
-####Step Four
+#### Step Four
 
 Run the app.
 
@@ -167,7 +167,7 @@ http {
     }
 }
 ```
-####Daemons
+#### Daemons
 
 `confs/uwsgi.conf` is symlinked in `/etc/init/` on the production server.
 
