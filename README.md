@@ -207,7 +207,7 @@ The core logic of the site is handled via a series of Flask routes that recieve 
 
 This route handles two behaviors.
 
-* **Register a new user**: If `email`, `password` and `name` are sent as URL parameters, the route will attempt to register this user. If an existing user has this email address, the user will be logged in. If there is no existing user with this email address, the user will be registered and a message will be sent returning the new user's `_id`, a `success` flag and an `action` key with the value `register`.
+* **Register a new user**: If `email`, `password` and `name` are sent as POST parameters, the route will attempt to register this user. If an existing user has this email address, the user will be logged in. If there is no existing user with this email address, the user will be registered and a message will be sent returning the new user's `_id`, a `success` flag and an `action` key with the value `register`.
 ```json
 {
     "_id": "97984267-ab75-46c4-b113-016a5555e92b",
@@ -217,7 +217,7 @@ This route handles two behaviors.
 }
 ```
 
-* **Login an existing user**: If only an `email` and `password` URL parameter are sent, the route will attempt to login the specified user. Success will return a user's `_id`, a `success` flag and an `action` key with the value `login`. It will also return a cookie-friendly pipe-delimited list of session `_id`'s as `votes`. Failure will return an error message with `success` false and a message that a matching user cannot be found.
+* **Login an existing user**: If only an `email` and `password` POST parameter are sent, the route will attempt to login the specified user. Success will return a user's `_id`, a `success` flag and an `action` key with the value `login`. It will also return a cookie-friendly pipe-delimited list of session `_id`'s as `votes`. Failure will return an error message with `success` false and a message that a matching user cannot be found.
 ```json
 {
     "action": "login",

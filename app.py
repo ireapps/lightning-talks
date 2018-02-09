@@ -45,8 +45,8 @@ def index():
 def static_proxy(path):
   return app.send_static_file(path)
 
-@app.route('/api/dashboard/')
-def dashboard(methods=['GET']):
+@app.route('/api/dashboard/', methods=['GET'])
+def dashboard():
     sessions = utils.connect('session').find({})
     payload = []
 
@@ -72,19 +72,19 @@ def dashboard(methods=['GET']):
 
     return render_template('dashboard.html', sessions=payload, VOTING=True)
 
-@app.route('/api/user/action/')
-def user_action(methods=['GET']):
+@app.route('/api/user/action/', methods=['POST'])
+def user_action():
     from flask import request
-    email = request.args.get('email', None)
-    password = request.args.get('password', None)
+    email = request.form['email']
+    password = request.form['password']
 
     not_found = json.dumps({"success": False, "text": "Username or password is incorrect."})
 
     user = utils.connect('user').find_one({ "email": email })
 
     if not user:
-        name = request.args.get('name', None)
-        fingerprint = request.args.get('fp', None)
+        name = request.form['name']
+        fingerprint = request.form['fp']
 
         if not name or not fingerprint:
             return not_found
@@ -128,8 +128,8 @@ def session_action(methods=['GET']):
 
         return json.dumps({"success": True, "action": "create", "session": s['_id']})
 
-@app.route('/api/vote/action/')
-def vote_action(methods=['GET']):
+@app.route('/api/vote/action/', methods=['GET'])
+def vote_action():
     from flask import request
     session = request.args.get('session')
     user = request.args.get('user')
@@ -167,8 +167,8 @@ def vote_action(methods=['GET']):
 
     return error
 
-@app.route('/api/vote/')
-def api_vote(methods=['GET']):
+@app.route('/api/vote/', methods=['GET'])
+def api_vote():
     from flask import request
     _id = request.args.get('_id', None)
     if not _id:
@@ -176,8 +176,8 @@ def api_vote(methods=['GET']):
     vote = dict(utils.connect('vote').find_one({"_id": _id}))
     return json.dumps(vote)
 
-@app.route('/api/user/')
-def api_user(methods=['GET']):
+@app.route('/api/user/', methods=['GET'])
+def api_user():
     from flask import request
     _id = request.args.get('_id', None)
     if not _id:
@@ -187,8 +187,8 @@ def api_user(methods=['GET']):
         del user[x]
     return json.dumps(user)
 
-@app.route('/api/session/')
-def api_session(methods=['GET']):
+@app.route('/api/session/', methods=['GET'])
+def api_session():
     from flask import request
     _id = request.args.get('_id', None)
     if not _id:
