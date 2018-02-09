@@ -149,18 +149,17 @@ $(function(){
         if (register){
             url += '?email=' + $email.val();
             url += '&password=' + $password.val();
-            url += '&fingerprint=' + fingerprint;
+            url += '&fp=' + fingerprint;
             url += '&name=' + $name.val();
         } else {
             url += '?email=' + $emailExisting.val();
             url += '&password=' + passwordExisting.val();
-            url += '&fingerprint=' + fingerprint;
+            url += '&fp=' + fingerprint;
         }
 
         var checked = $('#going-to-nicar').is(":checked");
 
         if (!register || register && checked){
-
             $.ajax(url, {
                 async: true,
                 cache: true,

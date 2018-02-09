@@ -84,7 +84,8 @@ def user_action(methods=['GET']):
 
     if not user:
         name = request.args.get('name', None)
-        fingerprint = request.args.get('fingerprint', None)
+        fingerprint = request.args.get('fp', None)
+
         if not name or not fingerprint:
             return not_found
 
