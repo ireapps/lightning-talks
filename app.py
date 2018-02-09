@@ -84,7 +84,7 @@ def user_action():
 
     if not user:
         name = request.form['name']
-        fingerprint = request.form['fp']
+        fingerprint = request.form['fingerprint']
 
         if not name or not fingerprint:
             return not_found

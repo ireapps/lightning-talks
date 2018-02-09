@@ -146,7 +146,7 @@ $(function(){
     var user_login = function(register) {
         var url = loginHost + 'user/action/';
         var form = {
-            'fp': fingerprint
+            'fingerprint': fingerprint
         }
         if (register){
             form['email'] = $email.val();
