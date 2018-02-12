@@ -10,7 +10,7 @@ ACTIVE = True
 
 # When true: Shows a list of sessions.
 # When false: Shows the pitch-a-session box.
-VOTING = False
+VOTING = True
 
 ENVIRONMENTS = {
     "prd": {
