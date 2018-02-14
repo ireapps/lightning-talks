@@ -145,25 +145,26 @@ $(function(){
 
     var user_login = function(register) {
         var url = loginHost + 'user/action/';
-
+        var form = {
+            'fingerprint': fingerprint
+        }
         if (register){
-            url += '?email=' + $email.val();
-            url += '&password=' + $password.val();
-            url += '&fingerprint=' + fingerprint;
-            url += '&name=' + $name.val();
+            form['email'] = $email.val();
+            form['password'] = $password.val();
+            form['name'] = $name.val();
         } else {
-            url += '?email=' + $emailExisting.val();
-            url += '&password=' + passwordExisting.val();
-            url += '&fingerprint=' + fingerprint;
+            form['email'] = $emailExisting.val();
+            form['password'] = passwordExisting.val();
         }
 
         var checked = $('#going-to-nicar').is(":checked");
 
         if (!register || register && checked){
-
             $.ajax(url, {
+                method: 'POST',
+                data: form,
                 async: true,
-                cache: true,
+                cache: false,
                 crossDomain: false,
                 dataType: 'json',
                 jsonp: false,
