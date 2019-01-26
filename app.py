@@ -14,11 +14,11 @@ import utils
 
 app = Flask(__name__)
 
-# def tally():
-#     models.Session.tally()
-#     models.User.tally()
-#     with open('/tmp/log.log', 'w') as writefile:
-#         writefile.write("%s" % datetime.datetime.now())
+def tally():
+    models.Session.tally()
+    models.User.tally()
+    with open('/tmp/log.log', 'w') as writefile:
+        writefile.write("%s" % datetime.datetime.now())
 
 @app.route('/')
 def index():
