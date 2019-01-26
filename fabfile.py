@@ -20,7 +20,7 @@ env.hosts = []
 env.settings = None
 
 cd_string = "cd /home/talks/apps/%(project_name)s; " % env
-work_string = cd_string + "workon %(project_name)s && " % env
+work_string = cd_string + "workon lt && "
 
 @api.task
 def development():
