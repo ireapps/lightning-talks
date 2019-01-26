@@ -12,11 +12,15 @@ import settings
 import utils
 
 env.user = "talks"
+env.project_name = settings.PROJECT_NAME
 env.forward_agent = True
 env.branch = "master"
 
 env.hosts = []
 env.settings = None
+
+cd_string = "cd /home/talks/apps/%(project_name)s; " % env
+work_string = cd_string + "workon %(project_name)s && " % env
 
 @api.task
 def development():
@@ -46,7 +50,6 @@ def tests():
     """
     api.local('nosetests')
 
-
 @api.task
 def e(environment):
     env.settings = environment
@@ -54,25 +57,22 @@ def e(environment):
 
 @api.task
 def checkout():
-    api.run('git clone git@github.com:ireapps/%s.git /home/talks/apps/%s' % (settings.PROJECT_NAME, settings.PROJECT_NAME))
+    api.run('git clone git@github.com:ireapps/%(project_name)s.git /home/talks/apps/%(project_name)s' % env)
 
 @api.task
-def nginx():
-    api.run('sudo service nginx reload')
-
-@api.task
-def wsgi():
-    api.run('touch /home/talks/apps/%s/app.py' % settings.PROJECT_NAME)
-
-@api.task
-def svcs():
-    reload_nginx()
-    reload_uwsgi()
+def bounce():
+    env.user = 'root'
+    api.run("service lt stop")
+    api.run("service lt start")
 
 @api.task
 def pull():
-    api.run('cd /home/talks/apps/%s; git fetch' % settings.PROJECT_NAME)
-    api.run('cd /home/talks/apps/%s; git pull origin %s' % (settings.PROJECT_NAME, env.branch))
+    api.run('cd /home/talks/apps/%(project_name)s; git fetch' % env)
+    api.run('cd /home/talks/apps/%(project_name)s; git pull origin %(project_name)s' % env)
+
+@api.task
+def pip_install():
+    api.run(work_string + "pip install --upgrade -r requirements.txt")
 
 """
 SETUP TASKS
@@ -131,10 +131,9 @@ def push():
 
 @api.task
 def deploy():
-    # bake()
-    # push()
     pull()
-    wsgi()
+    pip_install()
+    bounce()
 
 @api.task
 def check_voters():
