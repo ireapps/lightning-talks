@@ -1,3 +1,20 @@
+##2019
+
+1/28 (Mon)- Open for pitches
+2/8 (Fri)- Deadline to submit talks
+2/15 (Wed)- Voting begins
+2/22 (Fri)- Voting ends
+2/25 or 2/26 - Speaker lineup finalized, speakers notified
+3/8 - NICAR
+
+##2018
+1/29 (Sun) - Open for pitches
+2/9 (Fri) - Deadline to submit talks
+2/12 (Mon) - Voting begins
+2/23 (Sun) - Voting ends (7 days)
+2/26 or 2/27 (Tues) - Speaker line up finalized by Sandhya & speakers notified
+3/8 - lightning talks
+
 ## 2017
 
 1/30 (Mon) - Open for pitches
