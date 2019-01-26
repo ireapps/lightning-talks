@@ -68,7 +68,7 @@ def bounce():
 @api.task
 def pull():
     api.run('cd /home/talks/apps/%(project_name)s; git fetch' % env)
-    api.run('cd /home/talks/apps/%(project_name)s; git pull origin %(project_name)s' % env)
+    api.run('cd /home/talks/apps/%(project_name)s; git pull origin master' % env)
 
 @api.task
 def pip_install():
