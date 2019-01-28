@@ -45,32 +45,32 @@ def index():
 def static_proxy(path):
   return app.send_static_file(path)
 
-@app.route('/api/dashboard/')
-def dashboard(methods=['GET']):
-    sessions = utils.connect('session').find({})
-    payload = []
+# @app.route('/api/dashboard/')
+# def dashboard(methods=['GET']):
+#     sessions = utils.connect('session').find({})
+#     payload = []
 
-    for s in sessions:
-        s = dict(s)
-        s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
-        payload.append(s)
+#     for s in sessions:
+#         s = dict(s)
+#         s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
+#         payload.append(s)
 
-    payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:50]
+#     payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:50]
 
-    for s in payload:
-        s['all_votes'] = []
-        votes = utils.connect('vote').find({"session": s["_id"]})
-        for v in votes:
-            vote = dict(v)
-            user = dict(utils.connect('user').find_one({"_id": vote['user']}))
-            for x in ['login_hash', 'updated', 'password']:
-                del user[x]
-            vote['user'] = user
-            vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
-            vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
-            s['all_votes'].append(vote)
+#     for s in payload:
+#         s['all_votes'] = []
+#         votes = utils.connect('vote').find({"session": s["_id"]})
+#         for v in votes:
+#             vote = dict(v)
+#             user = dict(utils.connect('user').find_one({"_id": vote['user']}))
+#             for x in ['login_hash', 'updated', 'password']:
+#                 del user[x]
+#             vote['user'] = user
+#             vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
+#             vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
+#             s['all_votes'].append(vote)
 
-    return render_template('dashboard.html', sessions=payload, VOTING=True)
+#     return render_template('dashboard.html', sessions=payload, VOTING=True)
 
 @app.route('/api/user/action/')
 def user_action(methods=['GET']):
