@@ -175,17 +175,6 @@ def session_action(methods=['GET']):
 #     vote = dict(utils.connect('vote').find_one({"_id": _id}))
 #     return json.dumps(vote)
 
-@app.route('/api/user/')
-def api_user(methods=['GET']):
-    from flask import request
-    _id = request.args.get('_id', None)
-    if not _id:
-        return json.dumps(list(utils.connect('user').find({})))
-    user = dict(utils.connect('user').find_one({"_id": _id}))
-    for x in ['login_hash', 'updated', 'created', 'password', 'fingerprint']:
-        del user[x]
-    return json.dumps(user)
-
 # @app.route('/api/session/')
 # def api_session(methods=['GET']):
 #     from flask import request
