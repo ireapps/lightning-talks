@@ -46,7 +46,7 @@ def static_proxy(path):
   return app.send_static_file(path)
 
 @app.route('/api/dashboard/<secret_key>')
-def dashboard(methods=['GET']):
+def dashboard(secret_key, methods=['GET']):
     if secret_key == os.environ.get('API_KEY', None):
         sessions = utils.connect('session').find({})
         payload = []
