@@ -29,10 +29,13 @@ def index():
 
         for s in sessions:
             s = dict(s)
-            user = utils.connect('user').find_one({"_id": s['user']})
-            s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
-            s['username'] = user['name']
-            payload.append(s)
+            try:
+                user = utils.connect('user').find_one({"_id": s['user']})
+                s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
+                s['username'] = user['name']
+                payload.append(s)
+            except:
+                pass
 
         random.shuffle(payload)
 
