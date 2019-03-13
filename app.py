@@ -29,10 +29,13 @@ def index():
 
         for s in sessions:
             s = dict(s)
-            user = utils.connect('user').find_one({"_id": s['user']})
-            s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
-            s['username'] = user['name']
-            payload.append(s)
+            try:
+                user = utils.connect('user').find_one({"_id": s['user']})
+                s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
+                s['username'] = user['name']
+                payload.append(s)
+            except:
+                pass
 
         random.shuffle(payload)
 
@@ -45,32 +48,37 @@ def index():
 def static_proxy(path):
   return app.send_static_file(path)
 
-@app.route('/api/dashboard/')
-def dashboard(methods=['GET']):
-    sessions = utils.connect('session').find({})
-    payload = []
+@app.route('/api/dashboard/<secret_key>')
+def dashboard(secret_key, methods=['GET']):
+    if secret_key == os.environ.get('API_KEY', None):
+        sessions = utils.connect('session').find({})
+        payload = []
 
-    for s in sessions:
-        s = dict(s)
-        s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
-        payload.append(s)
+        for s in sessions:
+            try:
+                s = dict(s)
+                s['user_obj'] = dict(utils.connect('user').find_one({"_id": s['user']}))
+                payload.append(s)
+            except:
+                pass
 
-    payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:50]
+        payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:50]
 
-    for s in payload:
-        s['all_votes'] = []
-        votes = utils.connect('vote').find({"session": s["_id"]})
-        for v in votes:
-            vote = dict(v)
-            user = dict(utils.connect('user').find_one({"_id": vote['user']}))
-            for x in ['login_hash', 'updated', 'password']:
-                del user[x]
-            vote['user'] = user
-            vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
-            vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
-            s['all_votes'].append(vote)
+        for s in payload:
+            s['all_votes'] = []
+            votes = utils.connect('vote').find({"session": s["_id"]})
+            for v in votes:
+                vote = dict(v)
+                user = dict(utils.connect('user').find_one({"_id": vote['user']}))
+                for x in ['login_hash', 'updated', 'password']:
+                    del user[x]
+                vote['user'] = user
+                vote['vote_time'] = datetime.datetime.fromtimestamp(vote['created'])
+                vote['user_time'] = datetime.datetime.fromtimestamp(user['created'])
+                s['all_votes'].append(vote)
 
-    return render_template('dashboard.html', sessions=payload, VOTING=True)
+        return render_template('dashboard.html', sessions=payload, VOTING=True)
+    return json.dumps({})
 
 @app.route('/api/user/action/')
 def user_action(methods=['GET']):
@@ -127,53 +135,53 @@ def session_action(methods=['GET']):
 
         return json.dumps({"success": True, "action": "create", "session": s['_id']})
 
-# @app.route('/api/vote/action/')
-# def vote_action(methods=['GET']):
-#     from flask import request
-#     session = request.args.get('session')
-#     user = request.args.get('user')
+@app.route('/api/vote/action/')
+def vote_action(methods=['GET']):
+    from flask import request
+    session = request.args.get('session')
+    user = request.args.get('user')
 
-#     error = json.dumps({"success": False, "text": "Please send a session ID and a user ID."})
+    error = json.dumps({"success": False, "text": "Please send a session ID and a user ID."})
 
-#     if not session or not user:
-#         return error
+    if not session or not user:
+        return error
 
-#     u = utils.connect('user').find_one({"_id": user})
-#     if not u:
-#         return error
+    u = utils.connect('user').find_one({"_id": user})
+    if not u:
+        return error
 
-#     s = utils.connect('session').find_one({"_id": session})
-#     if not s:
-#         return error
+    s = utils.connect('session').find_one({"_id": session})
+    if not s:
+        return error
 
-#     votes = [vote for vote in utils.connect('vote').find({"user": user, "session": session})]
+    votes = [vote for vote in utils.connect('vote').find({"user": user, "session": session})]
 
-#     # Create a new vote.
-#     if len(votes) == 0:
-#         models.Vote(user=u['_id'], session=s['_id']).save()
-#         sesh = models.Session(s)
-#         sesh.update_records()
-#         tally()
-#         return json.dumps({"success": True, "action": "create vote"})
+    # Create a new vote.
+    if len(votes) == 0:
+        models.Vote(user=u['_id'], session=s['_id']).save()
+        sesh = models.Session(s)
+        sesh.update_records()
+        tally()
+        return json.dumps({"success": True, "action": "create vote"})
 
-#     # Delete existing votes.
-#     if len(votes) > 0:
-#         utils.connect('vote').remove({"user": user, "session": session})
-#         sesh = models.Session(s)
-#         sesh.update_records()
-#         tally()
-#         return json.dumps({"success": True, "action": "delete vote"})
+    # Delete existing votes.
+    if len(votes) > 0:
+        utils.connect('vote').remove({"user": user, "session": session})
+        sesh = models.Session(s)
+        sesh.update_records()
+        tally()
+        return json.dumps({"success": True, "action": "delete vote"})
 
-#     return error
+    return error
 
-# @app.route('/api/vote/')
-# def api_vote(methods=['GET']):
-#     from flask import request
-#     _id = request.args.get('_id', None)
-#     if not _id:
-#         return json.dumps(list(utils.connect('vote').find({})))
-#     vote = dict(utils.connect('vote').find_one({"_id": _id}))
-#     return json.dumps(vote)
+@app.route('/api/vote/')
+def api_vote(methods=['GET']):
+    from flask import request
+    _id = request.args.get('_id', None)
+    if not _id:
+        return json.dumps(list(utils.connect('vote').find({})))
+    vote = dict(utils.connect('vote').find_one({"_id": _id}))
+    return json.dumps(vote)
 
 @app.route('/api/user/')
 def api_user(methods=['GET']):

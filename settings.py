@@ -6,11 +6,11 @@ MONGO_DATABASE = 'lightningtalk'
 
 # When true: Thumbs up/down buttons will appear.
 # When false: No buttons for voting.
-ACTIVE = True
+ACTIVE = False
 
 # When true: Shows a list of sessions.
 # When false: Shows the pitch-a-session box.
-VOTING = False
+VOTING = True
 
 ENVIRONMENTS = {
     "prd": {
