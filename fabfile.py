@@ -117,8 +117,6 @@ def fake_data():
     for vote_dict in load_votes():
         models.Vote(vote_dict).save()
 
-    tally()
-
 @api.task
 def varnish():
     api.run('sudo service varnish restart')
