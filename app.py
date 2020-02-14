@@ -162,7 +162,7 @@ def vote_action(methods=['GET']):
         models.Vote(user=u['_id'], session=s['_id']).save()
         sesh = models.Session(s)
         sesh.update_records()
-        tally()
+        # tally()
         return json.dumps({"success": True, "action": "create vote"})
 
     # Delete existing votes.
@@ -170,7 +170,7 @@ def vote_action(methods=['GET']):
         utils.connect('vote').remove({"user": user, "session": session})
         sesh = models.Session(s)
         sesh.update_records()
-        tally()
+        # tally()
         return json.dumps({"success": True, "action": "delete vote"})
 
     return error
