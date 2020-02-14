@@ -63,7 +63,7 @@ def dashboard(secret_key, methods=['GET']):
             except:
                 pass
 
-        payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:50]
+        payload = sorted(payload, key=lambda x: x['votes'], reverse=True)[:100]
 
         for s in payload:
             s['all_votes'] = []
